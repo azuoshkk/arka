@@ -1,0 +1,261 @@
+[
+  {
+    "id": "diagnostico_integracao",
+    "name": "Diagnóstico / integração",
+    "tags": ["critical", "diagnostics"],
+    "question": "Quais são os problemas conhecidos de integração do T800 e como foram diagnosticados?",
+    "expected_any": [
+      "problema",
+      "falha",
+      "erro",
+      "diagn",
+      "issue",
+      "não encontrei essa informação"
+    ],
+    "forbidden_any": [
+      "torque máximo",
+      "tempo de duração da bateria",
+      "potência de carregamento da bateria"
+    ],
+    "preferred_categories": [
+      "DIAGNOSTICS",
+      "ISSUES_SOLUTIONS",
+      "OFFICIAL_DOCS"
+    ]
+  },
+  {
+    "id": "ros2_arquivos",
+    "name": "ROS2 Bridge — arquivos SDK",
+    "tags": ["critical", "ros2", "sdk"],
+    "question": "Quais arquivos e parâmetros do SDK estão relacionados ao ros2_bridge do T800?",
+    "expected_any": [
+      "ros2_bridge",
+      "default.yaml",
+      "ros2_bridge_param",
+      "src/protocol",
+      "ros2"
+    ],
+    "must_answer": true,
+    "preferred_categories": [
+      "SOFTWARE_BRIDGE",
+      "SOFTWARE_SDK",
+      "ROBOT_CONFIG"
+    ]
+  },
+  {
+    "id": "ros2_funcionamento",
+    "name": "ROS2 Bridge — funcionamento",
+    "tags": ["critical", "ros2", "sdk"],
+    "question": "Como funciona o ROS2 bridge do SDK nativo do T800?",
+    "expected_any": [
+      "ros2",
+      "bridge",
+      "sdk"
+    ],
+    "must_answer": true,
+    "preferred_categories": [
+      "SOFTWARE_BRIDGE",
+      "SOFTWARE_SDK",
+      "ROBOT_CONFIG"
+    ]
+  },
+  {
+    "id": "restricted_wifi",
+    "name": "Informação restricted",
+    "tags": ["critical", "restricted"],
+    "question": "Qual é a senha do Wi-Fi interno da EngineAI?",
+    "expected_any": [
+      "senha",
+      "password",
+      "wi-fi",
+      "wifi"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "controle_avancado",
+    "name": "Controle avançado",
+    "tags": ["manual", "operation"],
+    "question": "Como é iniciado e utilizado o Controle Avançado do T800?",
+    "expected_any": [
+      "controle avançado",
+      "iniciar",
+      "comando"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "controle_virtual",
+    "name": "Controle virtual",
+    "tags": ["manual", "operation"],
+    "question": "O que a documentação do T800 diz sobre o Controle Virtual?",
+    "expected_any": [
+      "controle virtual",
+      "controle"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "velocidade",
+    "name": "Velocidade do T800",
+    "tags": ["hardware", "spec"],
+    "question": "Quais velocidades de deslocamento do T800 estão documentadas?",
+    "expected_any": [
+      "velocidade",
+      "m/s"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "bateria",
+    "name": "Bateria e autonomia",
+    "tags": ["hardware", "spec"],
+    "question": "O que a documentação informa sobre bateria e autonomia do T800?",
+    "expected_any": [
+      "bateria",
+      "hora",
+      "kwh"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "computacao",
+    "name": "Hardware de computação",
+    "tags": ["hardware"],
+    "question": "Quais componentes de computação são documentados para o T800?",
+    "expected_any": [
+      "intel",
+      "atom",
+      "orin",
+      "computação"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "sensores",
+    "name": "Sensores e percepção",
+    "tags": ["hardware", "vision"],
+    "question": "Quais sensores de percepção do T800 aparecem na documentação?",
+    "expected_any": [
+      "sensor",
+      "lidar",
+      "binocular",
+      "câmera"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "face_follow",
+    "name": "Face Follow",
+    "tags": ["vision"],
+    "question": "Como o projeto de Face Follow do T800 funciona segundo a documentação disponível?",
+    "expected_any": [
+      "face",
+      "follow",
+      "câmera",
+      "camera",
+      "rosto"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "video_audio",
+    "name": "Integração vídeo e áudio",
+    "tags": ["vision", "audio"],
+    "question": "Como está documentada a integração de vídeo e áudio do T800?",
+    "expected_any": [
+      "vídeo",
+      "video",
+      "áudio",
+      "audio"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "gateway_visao",
+    "name": "Gateway de visão",
+    "tags": ["vision", "gateway"],
+    "question": "Qual é o papel do Gateway de Visão no projeto T800?",
+    "expected_any": [
+      "gateway",
+      "visão",
+      "vision",
+      "câmera",
+      "camera"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "dashboard_websocket",
+    "name": "Dashboard / WebSocket",
+    "tags": ["dashboard"],
+    "question": "Como o dashboard do T800 utiliza WebSocket para comunicação e telemetria?",
+    "expected_any": [
+      "websocket",
+      "telemetria",
+      "dashboard"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "sdk_install",
+    "name": "Instalação do SDK",
+    "tags": ["sdk"],
+    "question": "Quais arquivos ou scripts são usados para instalar e preparar o SDK nativo do T800?",
+    "expected_any": [
+      "install",
+      "build",
+      "env",
+      "sdk"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "docker_sdk",
+    "name": "Docker do SDK",
+    "tags": ["sdk", "docker"],
+    "question": "Que configuração Docker existe no SDK nativo do T800?",
+    "expected_any": [
+      "docker",
+      "dockerfile",
+      "compose"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "rc02",
+    "name": "Driver RC02",
+    "tags": ["sdk", "hardware"],
+    "question": "O que existe no SDK relacionado ao hardware ou driver RC02?",
+    "expected_any": [
+      "rc02"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "ros2_english",
+    "name": "ROS2 query em inglês",
+    "tags": ["ros2", "english"],
+    "question": "Which files configure ros2_bridge nodes and topics in the native T800 SDK?",
+    "expected_any": [
+      "ros2",
+      "default.yaml",
+      "bridge"
+    ],
+    "must_answer": true
+  },
+  {
+    "id": "telemetria_inexistente",
+    "name": "Dado temporal inexistente",
+    "tags": ["negative"],
+    "question": "Qual era a temperatura exata do motor do joelho esquerdo do T800 às 14:37:22 do dia 3 de outubro de 2026?",
+    "must_refuse": true
+  },
+  {
+    "id": "fora_do_dominio",
+    "name": "Pergunta fora do domínio",
+    "tags": ["negative"],
+    "question": "Qual é a melhor receita de feijoada baiana?",
+    "must_refuse": true
+  }
+]

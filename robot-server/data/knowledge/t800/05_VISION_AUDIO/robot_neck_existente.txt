@@ -1,0 +1,155 @@
+    830 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+    840 python3 /opt/nvidia/pva-allow-2/bin/nvidiaPvaAllowd.py
+   1165 /usr/bin/python3 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+   1312 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+   1605 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 10095 -container-ip 172.17.0.2 -container-port 10095
+   1612 /usr/bin/docker-proxy -proto tcp -host-ip :: -host-port 10095 -container-ip 172.17.0.2 -container-port 10095
+   1733 /etc/docker/daemon
+   1746 python /workspace/FunASR/funasr/utils/funasr_progress.py
+   2622 /usr/bin/python3 /opt/ros/humble/bin/ros2 run system_monitor system_monitor_node /app/applications/install/system_monitor/share/system_monitor/config/pm01
+   2623 /usr/bin/python3 /opt/ros/humble/bin/ros2 run data_recorder data_recorder_node /app/applications/install/data_recorder/share/data_recorder/config/pm01
+   2625 /usr/bin/python3 /opt/ros/humble/bin/ros2 launch dashboard dashboard.launch.py
+   2626 /usr/bin/python3 /opt/ros/humble/bin/ros2 launch foxglove_bridge foxglove_bridge_launch.xml max_qos_depth:=512
+   2645 /usr/bin/python3 /opt/ros/humble/bin/ros2 run robot_manager robot_manager_node /app/applications/install/robot_manager/share/robot_manager/config/pm01
+   3008 python3 /app/applications/install/system_monitor/lib/system_monitor/system_monitor_node /app/applications/install/system_monitor/share/system_monitor/config/pm01
+   3102 python3 /app/applications/install/dashboard/lib/dashboard/dashboard_node --ros-args -r __node:=dashboard_node
+   3163 python3 /app/applications/install/data_recorder/lib/data_recorder/data_recorder_node /app/applications/install/data_recorder/share/data_recorder/config/pm01
+   3299 python3 /app/applications/install/robot_manager/lib/robot_manager/robot_manager_node /app/applications/install/robot_manager/share/robot_manager/config/pm01
+   5631 python3 ros2_websocket_bridge.py
+   5676 /usr/bin/python3 /home/ubuntu/scripts-ipq/beniFiles/speech_server.py
+   5690 /usr/bin/python3 /home/ubuntu/scripts-ipq/beniFiles/neck_controller.py
+   5746 /usr/bin/python3 /opt/ros/humble/bin/ros2 launch odin_ros_driver_rev1 driver.launch.py image_width:=1280 image_height:=1088 image_fps:=30 image_format:=mjpeg start_rviz:=false
+   6355 /usr/bin/python3 /usr/local/bin/jtop --force
+   6379 /usr/bin/python3 /usr/local/bin/jtop --force
+   6387 /usr/bin/python3 /usr/local/bin/jtop --force
+   8217 /usr/bin/python3 /usr/bin/update-manager --no-update --no-focus-on-map
+ 147538 /usr/bin/python3 -c from ros2cli.daemon.daemonize import main; main() --name ros2-daemon --ros-domain-id 69 --rmw-implementation rmw_cyclonedds_cpp
+ 167920 bash -c ps -eo pid,args | grep -E "neck|head|python|docker" | head -55; find /home/ubuntu /tmp -maxdepth 5 -type f \( -iname "*neck*" -o -iname "*head*py" -o -name AGENTS.md \) 2>/dev/null; cat /home/ubuntu/engineai_sw/install/engineai_tools/share/engineai_tools/scripts/teleop/head_torso.py; cat /home/ubuntu/engineai_sw/install/engineai_tools/share/engineai_tools/shell/shake_head.sh; source /opt/ros/humble/setup.bash; source /home/ubuntu/source/engineai_workspace/install/setup.bash; export ROS_DOMAIN_ID=69 RMW_IMPLEMENTATION=rmw_cyclonedds_cpp; timeout 6 ros2 topic echo /motion/motion_state --once --qos-reliability best_effort; timeout 6 ros2 topic echo /hardware/joint_state --once --qos-reliability best_effort
+ 167922 grep -E neck|head|python|docker
+ 167923 head -55
+/home/ubuntu/scripts-ipq/beniFiles/neck_controller.py
+/tmp/neck_controller.log
+#!/usr/bin/env python3
+"""Publish a 3-DoF IO teleoperation head/torso test command.
+
+该脚本用于测试 `teleoperation_io.cpp` 中的 `target_joint_from_vr_sub_`。
+
+发布接口约定：
+- topic: `/io_teleop/target_joint_from_vr`
+- message type: `sensor_msgs/msg/JointState`
+- position 维度: 3
+- 顺序: `[head_pitch_src, head_yaw, torso]`
+
+测试信号：
+- 第 0 维 `head_pitch_src` 发布余弦波，上限 0.45 rad，下限 0 rad
+- 第 1、2 维保持以 0 rad 为中心、振幅 0.5 rad 的正弦波
+- 所有通道频率均为 0.5 Hz
+- 发布频率为 100 Hz
+- 正弦运动执行 3 个完整周期后自动停止节点
+"""
+
+import math
+
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import JointState
+
+
+TARGET_TOPIC = "/io_teleop/target_joint_from_vr"
+PUBLISH_HZ = 100.0
+SINE_FREQ_HZ = 0.5
+SINE_AMPLITUDE_RAD = 0.5
+TOTAL_SINE_CYCLES = 3
+HEAD_PITCH_SRC_MAX_RAD = 0.45
+HEAD_PITCH_SRC_MIN_RAD = 0.0
+HEAD_PITCH_SRC_CENTER_RAD = (HEAD_PITCH_SRC_MAX_RAD + HEAD_PITCH_SRC_MIN_RAD) / 2.0
+HEAD_PITCH_SRC_AMPLITUDE_RAD = (HEAD_PITCH_SRC_MAX_RAD - HEAD_PITCH_SRC_MIN_RAD) / 2.0
+
+JOINT_NAMES = ["head_pitch_src", "head_yaw", "torso"]
+
+
+class HeadTorsoPublisher(Node):
+    """Publish sinusoidal head and torso targets for IO teleoperation testing."""
+
+    def __init__(self) -> None:
+        super().__init__("io_teleop_head_torso_pub")
+
+        self.publisher_ = self.create_publisher(JointState, TARGET_TOPIC, 10)
+        self.timer_ = self.create_timer(1.0 / PUBLISH_HZ, self.timer_callback)
+        self.start_time_sec = self.get_clock().now().nanoseconds / 1e9
+        self.total_motion_duration_sec = TOTAL_SINE_CYCLES / SINE_FREQ_HZ
+        self.motion_finished = False
+
+        self.get_logger().info(
+            f"Publishing {TARGET_TOPIC} at {PUBLISH_HZ:.0f} Hz with {SINE_FREQ_HZ:.1f} Hz, "
+            f"head_pitch_src in [{HEAD_PITCH_SRC_MIN_RAD:.3f}, {HEAD_PITCH_SRC_MAX_RAD:.3f}] rad and "
+            f"other targets at +/-{SINE_AMPLITUDE_RAD:.1f} rad. "
+            f"Will stop automatically after {TOTAL_SINE_CYCLES} sine cycles "
+            f"({self.total_motion_duration_sec:.1f} s)."
+        )
+
+    def publish_target(self, head_pitch_src: float, head_yaw: float, torso: float) -> None:
+        """Publish one `/io_teleop/target_joint_from_vr` JointState message."""
+        msg = JointState()
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.name = list(JOINT_NAMES)
+        msg.position = [head_pitch_src, head_yaw, torso]
+        msg.velocity = []
+        msg.effort = []
+
+        self.publisher_.publish(msg)
+
+    def timer_callback(self) -> None:
+        """Publish a 3-DoF sinusoidal JointState command."""
+        if self.motion_finished:
+            return
+
+        now_sec = self.get_clock().now().nanoseconds / 1e9
+        elapsed_sec = now_sec - self.start_time_sec
+
+        # 运行满 3 个完整周期后，显式发布一帧中心位参考，然后自动退出。
+        # 这里显式发布一次，
+        # 可以避免由于定时器采样误差导致停在微小残余偏移上。
+        if elapsed_sec >= self.total_motion_duration_sec:
+            self.motion_finished = True
+            self.publish_target(HEAD_PITCH_SRC_CENTER_RAD, 0.0, 0.0)
+            self.timer_.cancel()
+            self.get_logger().info(
+                f"Completed {TOTAL_SINE_CYCLES} sine cycles, returned to center pose, stopping node."
+            )
+            return
+
+        phase = 2.0 * math.pi * SINE_FREQ_HZ * elapsed_sec
+        unit_sine = math.sin(phase)
+        # 使用 1-cos 形式，让第 0 维从 0rad 起步，同时保持范围 [0, 0.45]。
+        head_pitch_src = HEAD_PITCH_SRC_CENTER_RAD - HEAD_PITCH_SRC_AMPLITUDE_RAD * math.cos(phase)
+        sine_value = SINE_AMPLITUDE_RAD * unit_sine
+        self.publish_target(head_pitch_src, sine_value, sine_value)
+
+
+def main(args=None) -> None:
+    rclpy.init(args=args)
+    node = HeadTorsoPublisher()
+    try:
+        while rclpy.ok() and not node.motion_finished:
+            rclpy.spin_once(node, timeout_sec=0.1)
+    finally:
+        node.destroy_node()
+        if rclpy.ok():
+            rclpy.shutdown()
+
+
+if __name__ == "__main__":
+    main()
+#!/bin/bash
+
+while true; do
+    ros2 run engineai_control move_joint HEAD 0 0.3
+    wait
+    ros2 run engineai_control move_joint HEAD 0 -0.3
+    wait
+    ros2 run engineai_control move_joint HEAD -0.5 0
+    wait
+    ros2 run engineai_control move_joint HEAD 0.5 0
+    wait
+done

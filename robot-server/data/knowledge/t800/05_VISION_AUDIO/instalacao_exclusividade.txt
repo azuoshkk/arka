@@ -1,0 +1,7 @@
+{
+  "backup": "/home/ubuntu/headFollow/neck_controller.before_headfollow.20260923_001831.py",
+  "legacy": "/home/ubuntu/scripts-ipq/beniFiles/neck_controller.py",
+  "sha256_before": "75d78358b14f1d90f4c121310bda9efb0b4194caf16ba7b8c682ec49b2c4dcee",
+  "sha256_after": "ef72928721ac892a3e0b7492bd0f6afcd0513f15e420b8190ea39565313df394"
+}
+Unidade criada: /home/ubuntu/.config/systemd/user/headfollow.service

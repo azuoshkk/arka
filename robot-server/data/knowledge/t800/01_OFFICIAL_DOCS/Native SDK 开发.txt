@@ -1,0 +1,481 @@
+Native SDK 开发
+1. 介绍
+2. 开发环境与快速开始
+    2.1 容器环境
+    2.2 编译
+    2.3 运行
+    2.4 运动状态切换
+        2.4.1 输入方式
+            1）实体手柄（Logitech F710）
+            2）虚拟手柄（Virtual Gamepad UI）
+            3）控制映射关系（F710 ↔ 虚拟手柄）
+        2.4.2 状态切换说明
+    2.5 Mujoco 仿真
+        2.5.1 编译
+        2.5.2 运行
+        2.5.3 仿真性能提升
+    2.6 真机部署
+        2.6.1 配置安装目标并下发
+        2.6.2 真机运行
+    2.7 数据监测与 ROS2 接入
+        2.7.1 ROS2 环境初始化
+        2.7.2 ROS2 Topic 列表
+        2.7.3 数据可视化（PlotJuggler）
+3. 源码解析
+    3.1 目录结构
+    3.2 启动流程
+    3.3 配置加载链路
+    3.4 Task 与 Runner
+        3.4.1 概念与关系
+        3.4.2 Runner 生命周期与状态流转
+    3.5 RL行走策略部署代码解析
+        3.5.1 全局参数配置与模型初始化
+        3.5.2 系统输入与本体感知
+        3.5.3 指令缓存与全局仲裁下发
+    3.6 控制输入与ROS2 接入
+        1）控制输入
+        2）ROS2 接入
+4. 自定义 Runner
+    4.1 第一步：拷贝 passive 骨架
+    4.2 第二步：task 中增加 runner
+    4.3 第三步：扩展参数类
+    4.4 第四步：扩展 Runner 逻辑
+1. 介绍
+开源仓库地址
+本仓库为 EngineAI 机器人原生控制 SDK，面向人形机器人应用开发与系统集成，提供轻量化、易部署且具备良好扩展能力的控制与任务运行框架。该 SDK 通过标准化接口与模块化架构设计，有效降低机器人系统二次开发与功能集成的复杂度，使开发者能够更加专注于算法研发与应用功能实现。
+核心模块：
+高性能预编译调度框架提供面向机器人实时控制与推理任务的高性能调度机制，通过预编译优化降低运行时开销，提升系统整体执行效率与稳定性。
+配置驱动的任务编排系统采用配置化任务编排方式，实现算法模块、控制流程与数据流的灵活组织，支持快速调整实验流程与系统运行策略。
+可扩展的模型与参数管理体系提供统一的模型加载、版本管理与参数配置接口，便于算法模型、控制参数及实验配置的集中管理与迭代。
+模块化业务插件机制基于插件化架构设计，支持感知、规划、控制等功能模块的灵活扩展与解耦，便于新算法或新功能的快速集成。
+系统数据接口与运行监测
+支持与外部系统进行标准化数据交互，并提供运行时状态观测与可视化调试能力。可结合 ROS2 生态进行模块通信，并支持通过 PlotJuggler 进行关键状态、控制量与反馈数据的实时监测与分析，提升联调效率与问题定位能力。
+Mujoco仿真与真机部署工具链提供完整的 Mujoco 仿真环境 与 真机部署脚本，支持从仿真验证到真实机器人系统的快速迁移与部此外，仓库还包含与真实机器人硬件结构保持一致的 URDF 等机器人模型文件，用于仿真环境构建、运动学/动力学计算以及算法验证，确保仿真结果与真实系统具有良好一致性。
+
+
+2. 开发环境与快速开始
+2.1 容器环境
+安装Docker和Docker Compose
+Docker 提供了一个自动配置与安装的脚本，支持 Debian、RHEL、SUSE 系列及衍生系统的安装。
+请注意，Docker 官方不建议在生产环境使用此脚本安装 Docker CE。
+Bashcurl -fsSL https://get.docker.com -o get-docker.shsudo sh get-docker.sh# 国内用户可使用镜像源(这里使用清华源)export DOWNLOAD_URL="https://mirrors.tuna.tsinghua.edu.cn/docker-ce"curl -fsSL https://get.docker.com -o get-docker.shsudo sh get-docker.sh 
+设置免 sudo 运行（推荐）
+否则每次都要 sudo docker
+Bashsudo usermod -aG docker $USER
+然后重新登录 shell：
+Bashnewgrp docker
+验证安装
+验证 docker
+Bashdocker --version
+示例输出
+Plain TextDocker version 26.1.1
+验证 docker compose
+Bashdocker compose version
+示例输出
+Plain TextDocker Compose version v2.27.0
+生成容器开发环境，执行完成后会生成快捷入口 engineai_robotics_env
+Bashcd native_sdk./docker/generate.sh
+
+成功页面
+该命令会自动创建一个容器，将当前仓库路径映射到容器中，即可以容器中构建-运行程序。
+启动一个新终端，通过快捷命令engineai_robotics_env即可进入开发环境
+
+2.2 编译
+Bash# 进入容器engineai_robotics_env./build.sh
+2.3 运行
+Bash# 进入容器engineai_robotics_env./run.sh
+
+指定机型运行：
+Bash./run.sh pm01_edu
+清理容器环境
+如果需要清理掉容器环境可以运行
+Plain Text#in hostengineai_robotics_env clean
+2.4 运动状态切换
+2.4.1 输入方式
+当前 Native SDK 支持两种控制输入方式，用于触发机器人状态切换：
+1）实体手柄（Logitech F710）
+使用 Logitech Wireless Gamepad F710（Xbox 模式） 
+插入 USB 接收器后系统自动识别 
+所有状态切换通过手柄按键触发
+2）虚拟手柄（Virtual Gamepad UI）
+ 提供图形化虚拟手柄界面
+支持通过键盘按键和滑条模拟手柄输入
+与 F710（XBox 模式）采用一致的控制映射关系，控制逻辑完全兼容
+
+启动方式
+进入虚拟手柄工具目录并执行启动脚本：
+Plain Text# 进入容器engineai_robotics_envpython3 tools/virtual_gamepad/virtual_gamepad.py
+连接与启用
+虚拟手柄在使用前需要完成 LCM 连接并手动启用：
+ 启动 Virtual Gamepad UI 
+ 连接 LCM 通信（确保与机器人控制进程正常通信） 
+ 勾选 Enable 或按 F5 启动虚拟手柄输入
+注意事项
+ 启用虚拟手柄后： 
+ 系统会接管输入源 
+实体 Logitech F710 手柄输入将被屏蔽
+ 如需切回实体手柄： 
+ 关闭虚拟手柄或取消 Enable 状态
+3）控制映射关系（F710 ↔ 虚拟手柄）
+功能
+F710 按键
+虚拟手柄 UI（鼠标操作）
+键盘
+左摇杆
+Left Stick
+L (Arrow)
+↑ ↓ ← →
+右摇杆
+Right Stick
+R (Shift+Arrow)
+Shift + ↑ ↓ ← →
+LT
+LT
+LT 滑条
+鼠标拖动
+RT
+RT
+RT 滑条
+鼠标拖动
+LB
+LB
+LB(q)
+Q
+RB
+RB
+RB(e)
+E
+A
+A
+A(j)
+J
+B
+B
+B(k)
+K
+X
+X
+X(u)
+U
+Y
+Y
+Y(i)
+I
+BACK
+BACK
+BACK(F1)
+F1
+START
+START
+START(F2)
+F2
+2.4.2 状态切换说明
+程序启动后，机器人根据手柄指令在不同运动状态之间进行切换。Native SDK 采用有限状态机（FSM）机制管理运动状态：
+每个状态均定义了明确的进入条件及允许的状态转移路径，只有在满足条件时才允许切换，以保证运动控制的安全性与稳定性
+状态切换由状态机统一调度，避免非法或不合理的状态跳转 
+状态机配置： assets/config/<robot>/task_motion/default.yaml
+状态流转关系如下：
+
+系统启动
+执行 ./run.sh （仿真用）或 ./run_robot.sh（真机用） 后，系统默认进入 idle 状态
+idle 是机器人上电后的初始安全状态，控制器未激活主动运动控制
+状态切换概览
+当前状态
+允许切换到状态
+触发按键
+说明
+idle
+passive
+LB + RB
+从未激活状态过渡到阻尼态
+passive
+
+idle
+LB + START
+回到未激活状态
+
+pd_stand
+LB + A
+进入稳定站立控制任务
+pd_stand
+
+walk
+LB + B
+建立稳定站立后，进入行走任务
+
+dance
+LB + CROSS_X_DOWN
+建立稳定站立后，进入跳舞任务
+walk
+
+pd_stand
+LB + A
+从行走任务回到稳定站立控制任务
+
+dance
+LB + CROSS_X_DOWN
+从行走任务切换到跳舞任务
+dance
+pd_stand
+LB + A
+从舞蹈任务回到稳定站立控制任务
+
+walk
+LB + B
+从舞蹈任务切换到行走任务
+全局安全机制（Emergency Fallback）
+在任意运行状态下，均可通过 LB + RB 组合指令强制切换至 passive 安全态
+该机制等价于软急停（soft emergency stop）：
+立即终止当前运动控制逻辑
+将系统切换至受控的安全态（无主动运动输出）
+该机制在调试及实际运行过程中均为关键保障，用于降低运动失控风险
+新 Runner 接入建议
+新增运动控制模块（runner）建议 在 pd_stand 后 才能进入
+原因：
+pd_stand 提供稳定站立基础
+确保姿态稳定、接触状态正常
+避免在被动或未稳定站立时直接进入动态运动带来的安全风险
+2.5 Mujoco 仿真
+2.5.1 编译
+Bash# 进入容器engineai_robotics_env./scripts/build_mujoco.sh
+2.5.2 运行
+确保 assets/config/<robot>/mode.yaml 的 active_mode: sim
+Bash# 进入容器engineai_robotics_env./scripts/run_mujoco.sh
+指定机型运行：
+Bash./scripts/run_mujoco.sh pm01_edu
+运行后即可利用遥控器切换状态：
+[2026-03-06 14-28-19.mkv]
+2.5.3 仿真性能提升
+若有NVIDIA独显且已经安装相应的显卡驱动，可以在docker中使用显卡直通提高仿真时的渲染帧率
+运行以下命令安装NVIDIA的docker工具链
+Bashcurl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.listsudo apt-get updatesudo apt-get install -y nvidia-container-toolkitsudo nvidia-ctk runtime configure --runtime=dockersudo systemctl restart docker
+将docker/generate.sh中的NVIDIA_GPU_AVAILABLE改成y
+重新执行docker/generate.sh即可使用显卡直通
+
+2.6 真机部署
+2.6.1 配置安装目标并下发
+编辑 install.sh
+Bashremote_user="user"remote_host="192.168.0.163"remote_dir="~/projects/engineai_robotics"
+执行安装
+Bashcd native_sdk# ./install.sh 机型 mode./install.sh pm01_edu robot
+2.6.2 真机运行
+安全提示：
+确保所有人员与机器人保持安全距离
+若机器人动作异常，随时快速停止（按急停键或切回passive模式）
+建议先用吊架吊起机器人，在进入PD Stand模式之后放到地上，再切入行走模式
+运行前准备
+利用急停遥控器使能机器人的电机系统
+需要连接机器人热点或用网线连接机器人
+Bash# ssh 连接 Nezhassh user@192.168.0.163# 暂停自启动的运控程序sudo systemctl stop robotics.service# 启动 native_sdkcd ~/projects/engineai_roboticssudo ./run_robot.sh pm01_edu
+后台运行：
+Bashnohup sudo ./run_robot.sh pm01_edu > nohup.out 2>&1 &tail -f nohup.out
+运行后即可根据状态切换说明，利用遥控器按键切换动作
+2.7 数据监测与 ROS2 接入
+当前Native SDK支持将机器人运行数据通过 ROS2 接口发布，并结合 PlotJuggler 实现实时可视化。
+2.7.1 ROS2 环境初始化
+Native SDK 在构建过程中会自动生成 ROS2 消息接口（msg），用于对外数据通信。
+在使用 ROS2 工具（如 PlotJuggler）进行数据订阅前，需要先完成环境加载：
+Bash# 进入容器engineai_robotics_env# 编译（生成 ROS2 msg 与环境）./build.sh# 加载 ROS2 环境source build/ros2_env/install/setup.bash
+2.7.2 ROS2 Topic 列表
+当前 Native SDK 对外提供以下 ROS2 Topic，用于状态获取与控制交互：
+
+Click the image to view the sheet.
+2.7.3 数据可视化（PlotJuggler）
+当前 Native SDK 发布的 ROS2 Topic 可通过 PlotJuggler 进行实时可视化：
+典型流程：
+启动 Native SDK（./run.sh 或 ./run_robot.sh）
+启动 PlotJuggler
+Bash# 进入容器engineai_robotics_env# 启动 PlotJuggler./scripts/run_plotjuggler.sh# 启动 PlotJuggler, 添加多机调试环境./scripts/run_plotjuggler.sh remote
+选择 ROS2 数据源
+选择 Native SDK提供的layout
+layout文件在: scripts/plotjuggler/common_data_display.xml
+
+
+3. 源码解析
+3.1 目录结构
+Plain Textnative_sdk/├── CMakeLists.txt                    # 顶层构建入口（自动识别 core 预编译包）├── build.sh / run.sh / clear.sh      # 构建、运行、清理脚本├── install.sh                        # 真机安装脚本│├── src/                              # 主要可修改源码│   ├── executor/main.cc              # 程序入口│   ├── hardware/                     # gamepad驱动示例│   ├── protocol/                     # ROS2 msg示例│   ├── ros2_node/                    # ROS2消息收发示例│   ├── runner/                       # 自定义/示例 runner│   │   ├── passive/                  # 电机持续输出低阻抗示例│   │   ├── pd_stand/                 # 利用PD控制器维持站立示例│   │   ├── input_command_arbiter/    # 输入源处理示例│   │   ├── ros2_bridge/              # ROS2数据交换│   │   ├── rl_dance_example/         # 基于rl方案的舞蹈示例│   │   └── rl_walking_example/       # 基于rl方案的行走示例│   └── data/_param/                  # runner参数解析类│├── assets/│   ├── config/<robot>/               # 配置系统入口（mode + task + runner 参数）│   └── resource/                     # urdf/xml/mesh/策略模型等资源│├── core/                             # 预编译核心库（不要直接改）│   ├── include/                      # 可见头文件（接口）│   ├── lib/                          # 预编译 so│   └── registry/auto_register_runners.cc│├── cmake/                            # 自动注册等 CMake 辅助脚本├── simulation/mujoco/                # Mujoco 仿真工程└── scripts/                          # 辅助脚本（run_robot/run_mujoco 等）
+3.2 启动流程
+
+3.3 配置加载链路
+assets/config/<robot>/mode.yaml 是配置系统入口，例如：
+YAMLactive_mode: simmode:  sim:    - tag: motion_task      scope: task_motion/default    - tag: pd_stand      scope: pd_stand/default  robot:    - tag: motion_task      scope: task_motion/default    - tag: pd_stand      scope: pd_stand/robot
+加载逻辑可理解为：
+先根据 active_mode 选择 sim/robot
+建立 tag -> scope 映射（如 pd_stand -> pd_stand/default）
+BasicParam(tag) 根据 tag 找到 scope
+参数类中使用 LOAD_PARAM(xxx) 从对应 YAML 读取字段
+
+3.4 Task 与 Runner
+3.4.1 概念与关系
+Task
+是调度单元，定义线程、周期、优先级，以及要执行哪些 Runner（runner[]）。
+配置上有两类 Task：
+task_resident/*.yaml：常驻任务，启动后并行长期运行。
+task_motion/*.yaml：动作任务，同一时刻只激活一个 motion task，通过按键或自动切换迁移。
+Runner
+是算法执行单元，每个 Runner 负责一段具体逻辑（如估计、控制、驱动）。
+关系可以理解为：Task(调度壳) -> Runner(业务逻辑)；Task 按周期驱动 Runner 生命周期接口。
+3.4.2 Runner 生命周期与状态流转
+BasicRunner（core/include/basic/basic_runner.h）定义统一生命周期：
+Initialize()：构造后初始化（资源、默认状态）
+Enter()：进入当前任务时调用（参数加载、初值准备）
+Run()：周期执行主逻辑
+TryExit()：退出尝试阶段（可持续多周期执行复位/收敛逻辑）
+Exit()：确认退出后执行一次性收尾（变量复位/初始化准备）
+End()：生命周期结束时收尾
+MotionRunner（core/include/basic/motion_runner.h）在上述生命周期上补充了控制相关接口：
+SetupContext() / TeardownContext()：进入/退出时设置和恢复全局上下文
+GetMutableOutput().SetCommand(...)：写入控制输出缓存
+GetOutput()：读取当前输出缓存
+典型调用顺序（Initialize()仅在runner构造的时候调用）：
+resident task 的 Runner：Enter -> Run -> TryExit -> Exit -> End
+motion task 的 Runner：SetupContext -> Enter -> Run -> TryExit -> Exit -> TeardownContext -> End
+TryExit() 与 Exit() 的区别：
+TryExit()：偏持续性复位，适合“需要时间完成”的退场过程（例如手臂规划回原点）；可能被循环调用，并通过 kTrying/kCompleted 告知是否完成。
+Exit()：偏一次性处理，通常做变量复位、状态清理和切换前收尾。
+常见状态与迁移语义：
+RunnerState：kRunning / kTryExit / kFault
+TransitionState：kCompleted / kTrying / kFailed / kRestoreRunning
+可按下面理解状态机：
+运行阶段：kRunning（持续调用 Run()）
+触发退出：kTryExit（进入 TryExit()）
+退出结果：
+kCompleted：执行 Exit() 并完成切换
+kTrying：继续留在TryExit()阶段
+kRestoreRunning：回到 kRunning
+kFailed：进入故障/失败处理（通常上层接管）
+3.5 RL行走策略部署代码解析
+本节以 RlWalkingExampleRunner 为例，深度解析基于RL的行走策略在实机框架中的部署逻辑。该 Runner 继承自 MotionRunner，严格遵循“数据获取-逻辑计算-缓存输出”的执行范式。整个部署逻辑可拆解为以下三大核心模块：全局参数配置、系统输入源获取、系统输出与缓存仲裁。
+3.5.1 全局参数配置与模型初始化
+在进入周期控制之前，系统需要完成底层机制开关的设置、配置参数的动态加载以及神经网络模型的实例化。
+全局控制上下文设置 (SetupContext)
+采用串联关节训练的RL策略，需要手动将parallel_by_classic_parser改为False
+C++void RlWalkingExampleRunner::SetupContext() {    data_store_->parallel_by_classic_parser.store(false);}
+脚踝关节控制
+
+串联驱动脚踝（虚拟）
+
+并联驱动脚踝（真机）
+非脚踝关节控制模式，采用MIT控制模式。脚踝关节控制模式，当前存在两种控制模式：
+1）串联MIT模式指令转并联MIT模式指令，需要指定parallel_by_classic_parser=True（如PD站立模式），用户只需关注串联关节的位置指令、速度指令和力矩前馈指令，会自动转化为电机的位置指令、速度指令和力矩前馈指令，Kp和Kd保持串联关节的值不会进行转换；
+2）串联力矩模式指令转并联力矩模式指令，需指定parallel_by_classic_parser=False（如RL行走模式），用户只需关注串联关节的位置指令、速度指令和力矩前馈指令，会自动将串联关节的总力矩指令转化为电机的力矩指令，同时下发电机的Kp和Kd会置为0
+注意：
+1）parallel_by_classic_parser默认为True，采用串联关节训练的RL策略，需要手动将parallel_by_classic_parser改为False；
+2）当前脚踝关节仅支持上述两种串联关节指令到并联关节指令转换的控制模式，不支持直接给脚踝电机层的指令（用户自己实现串并解算，可与我们联系）。
+参数文件读取与动态加载
+在 Runner 构造时，通过 ParamManager 获取默认配置。当状态机触发任务切换进入 Enter() 阶段时，系统会校验 param_tag_。这一设计允许机器人在不停机的情况下，动态重载不同 tag 的配置文件（如平地行走、上下楼梯等不同步态参数），实现高灵活度的调度。
+C++if (!param_tag_.empty() && param_tag_ != last_param_tag_) {  param_ = data::ParamManager::create<data::RlWalkingExampleParam>(param_tag_);  last_param_tag_ = param_tag_;}
+推理引擎与模型加载
+系统采用 math::MNNModel 作为轻量化神经网络推理引擎。通过组合全局环境路径与参数文件中指定的相对路径，精准定位并加载 .mnn 模型文件。
+C++mlp_net_ = std::make_unique<math::MNNModel>(  common::PathJoin(common::GlobalPathManager::GetInstance().GetConfigPath(),   param_->policy_file));
+3.5.2 系统输入与本体感知
+在 Run() 周期律动中，Runner 需从全局数据池 (data_store_) 中高频提取机器人的物理状态（本体感知）与外界交互指令，为网络构建观测空间。
+关节状态信息 (Joint State)
+精确获取各关节的实际位置 q_real_ 与实际速度 qd_real_。底层架构支持通过 JointInfoType 枚举类获取更多维度的状态（如前馈扭矩、刚度、阻尼等），满足不同策略的需求。
+C++// 提取当前关节的真实位置与速度data_store_->joint_info.GetState(data::JointInfoType::kPosition, q_real_);data_store_->joint_info.GetState(data::JointInfoType::kVelocity, qd_real_);
+惯性测量单元信息 (IMU State)
+获取机身四元数与角速度。为了消除安装误差并将数据统一至机器人基座坐标系，代码中执行了标准的坐标系旋转变换，并解算出用于表征机身姿态的重力投影向量。
+C++// 解析安装偏置与局部四元数Eigen::Matrix3d R_install = math::RotationMatrixd(math::RollPitchYawd(imu_install_bias_)).matrix();Eigen::Matrix3d R_local = math::RotationMatrixd(data_store_->imu_info.Get()->quaternion).matrix();Eigen::Matrix3d R_real = R_local * R_install.transpose();// 计算基座系下的角速度与重力投影Eigen::Vector3d w_real = R_real.transpose() * R_local * data_store_->imu_info.Get()->angular_velocity;Eigen::Vector3d euler_xyz = math::RollPitchYawd(math::RotationMatrixd(R_real)).vector();Eigen::Vector3d projected_gravity_real = -R_real.transpose() * Eigen::Vector3d::UnitZ();
+用户遥控指令 (Remote Command)
+解析手柄输入数据，结合不同维度的缩放系数转化为期望的线速度与角速度。为了防止指令突变对模型造成冲击，系统引入了一阶低通滤波器 (lpf_command_) 进行信号平滑。
+C++void RlWalkingExampleRunner::UpdateRemoteCommand() {  const auto& gamepad = data_store_->gamepad_info.Get();  // 根据摇杆推量及缩放参数计算 XYZ 轴向速度期望  command_.x() = (gamepad->LeftStick_X >= 0) ? gamepad->LeftStick_X * param_->command_scale_pos.x()                                             : gamepad->LeftStick_X * param_->command_scale_neg.x();  /* ... y, z 轴处理同理 ... */  // 应用低通滤波平滑指令输入  if (param_->enable_remote_command_lpf) {    command_ = lpf_command_->Update(command_);  }}
+3.5.3 指令缓存与全局仲裁下发
+算法推演出的动作不能直接穿透至硬件，必须遵循框架的缓存与统一调度机制，以保证机器人控制指令的安全性和时序严格性。
+写入局部输出缓存
+Runner 在完成前向推理后，通过 GetMutableOutput().SetCommand(...) 接口，将期望位置 (q_des_)、期望速度 (qd_des_)、前馈扭矩 (tau_ff_des_) 以及底层 PD 增益写入自身的专属缓存区。
+C++void RlWalkingExampleRunner::SendMotorCommand() {  // 纯位控模式下，期望速度与前馈扭矩显式置零  qd_des_ = Eigen::VectorXd::Zero(model_param_->num_total_joints);  tau_ff_des_ = Eigen::VectorXd::Zero(model_param_->num_total_joints);  // 仅将指令写入该 Runner 的局部缓存  GetMutableOutput().SetCommand(q_des_, qd_des_, joint_kp_, joint_kd_, tau_ff_des_);}
+Task 级整合与同步下发
+此架构设计的核心在于数据总线解耦。任务管理器 (Task Manager) 会在每个控制周期末尾扮演“仲裁者”角色。它统一收集所有激活态 Runner 的局部缓存，处理可能的指令插值（平滑过渡）、奇异点检查以及扭矩限制。确认安全无误后，再将打包好的完整数据帧严格按照总线通信周期同步下发至各个底层电机。
+3.6 控制输入与ROS2 接入
+Native SDK 提供统一的输入与对外数据接口机制，用于接收控制指令并与外部系统进行数据交互。整体可分为两类：
+1）控制输入
+Native SDK 的控制输入由 runner/input_command_arbiter 统一处理。  
+不同输入设备需要先封装为对应的 Adapter，再注册到 `InputCommandArbiterRunner` 中参与输入源管理。
+当前输入源注册位置如下：
+C++InputCommandArbiterRunner::InputCommandArbiterRunner(    std::string_view name,    const std::shared_ptr<data::DataStore>& data_store)    : BasicRunner(name, data_store) {  // Register input sources from low to high priority.  RegisterInputSource("gamepad", std::make_shared<GamepadInputAdapter>("gamepad", data_store));  RegisterInputSource("virtual_gamepad", std::make_shared<VirtualGamepadInputAdapter>("virtual_gamepad", data_store));}
+当前已内置两类输入源：
+gamepad：实体手柄输入 
+virtual_gamepad：虚拟手柄输入 
+如需扩展新的输入方式（如键盘、网络控制、自定义遥控器等），通常需要完成以下步骤：
+ 新增对应的 Input Adapter 
+ 负责将外部输入转换为框架内部统一的控制输入格式 
+ 在 InputCommandArbiterRunner 中注册该 Adapter 
+ 通过 RegisterInputSource(...) 接入输入源仲裁流程 
+ 按需设置优先级与切换策略 
+ 输入源按照注册顺序参与优先级管理（代码注释中当前约定为从低到高优先级） 
+这样即可在不修改上层控制逻辑的情况下，将新的输入设备接入现有系统。
+2）ROS2 接入
+ROS2 对 Native SDK 而言是一个独立的外挂通信模块，通过 ros2_bridge 将 ROS2 数据与 Native SDK 进行桥接。
+如需扩展 ROS2 功能，通常有以下几类修改方式：
+新增 ROS2 Node
+ 在 src/ros2_node 中新增 node 实现 
+新增 Topic
+ 在已有 node 中增加对应的 publish / subscribe topic 
+新增 Msg
+ 在 src/protocol 中增加对应的 msg 定义
+完成代码新增后，还需要在 ROS2 Bridge 配置中显式激活。
+配置文件位置示例：
+Bashassets/<robot>/ros2_bridge/default.yaml
+示例配置如下：
+YAMLactivated_node:  - hardware_interface_nodemanager_node:  subscribe_topics:    node_control: /motion/node_controlhardware_interface_node:  enable: true  period: 0.002  mapping_periods:    joint_state: 0.002    gamepad_keys: 0.02    motor_debug: 0.01    power_info: 0.05  publish_topics:    imu_info: /hardware/imu_info    gamepad_keys: /hardware/gamepad_keys    motor_debug: /hardware/motor_debug    power_info: /hardware/power_info    motor_state: /hardware/motor_state    motor_command: /hardware/motor_command    joint_state: /hardware/joint_state    joint_command_feedback: /hardware/joint_command_feedback  subscribe_topics:    led_control: /hardware/led_control
+扩展规则如下：
+如果增加 node
+ 需要在 activated_node 中增加对应 node 名称 
+ 同时补充该 node 的配置项 
+如果增加 topic
+ 需要在对应 node 配置中的 publish_topics 或 subscribe_topics 下增加 topic 名称与映射关系 
+如果增加 msg
+ 需要先在 src/protocol 中补充消息定义，再在 node 中完成消息收发逻辑与配置映射
+
+4. 自定义 Runner
+4.1 第一步：拷贝 passive 骨架
+假设需要创建的 runner 叫 demo_runner
+拷贝 Runner 目录：src/runner/passive -> src/runner/demo
+拷贝参数类目录：src/data/_param/passive_param -> src/data/_param/demo_param
+拷贝参数配置：assets/config/<robot>/passive/default.yaml -> assets/config/<robot>/demo/default.yaml
+关键替换部分速查表：
+替换项
+passive 模板
+demo 示例
+说明
+参数类名与默认 tag
+
+PassiveParam("passive")
+DemoParam("demo")
+
+需要与 mode.yaml/param_tag 对齐
+Runner 中参数类型
+std::shared_ptr<data::PassiveParam>
+std::shared_ptr<data::DemoParam>
+包括构造和 Enter() 里的 create<...>()
+注册宏字符串
+REGISTER_RUNNER(PassiveRunner, "passive_runner", kMotion)
+REGISTER_RUNNER(DemoRunner, "demo_runner", kMotion)
+必须与 task_motion 里的 runner[].name 完全一致
+
+参数配置路径
+assets/config/<robot>/passive/default.yaml
+assets/config/<robot>/demo/default.yaml
+后续在 mode.yaml 中通过 scope 引用
+4.2 第二步：task 中增加 runner
+在 assets/config/<robot>/mode.yaml（sim 和 robot）都加上新 tag -> scope
+YAML- tag: demo  scope: demo/default.yaml        # 与新增的参数配置路径一致
+在 task_motion/*.yaml 或 task_resident/*.yaml 增加任务条目，挂载：
+假设增加的 demo_runner 是 motion task
+YAML- motion: demo                    # task名  period: 0.002                   # runner的运行频率  runner:                         # 该task需要的runner列表    - name: demo_runner           # 新增的runner，名字与REGISTER_RUNNER一致      enabled: true      param_tag: sitting          # 名字与mode.yaml中的tag一致  manual_transition:              # demo只能切换这个列表中的motion    - passive  key: [LB, X]                    # 绑定切入该motion需要的遥控器按键
+4.3 第三步：扩展参数类
+按需新增 LOAD_PARAM(...) 字段，并在 Update() 中补齐读取逻辑。
+需要约束时可补 Check()（范围、维度、非空等）。
+例子：如果你的 Runner 需要加载模型文件（如策略网络）
+在参数 YAML 中新增字段（例如 policy_path）：
+YAMLpolicy_file: "demo/policies/policy.mnn"
+在参数类中新增读取字段：
+C++class DemoParam : public BasicParam { public:  DemoParam(std::string_view tag = "demo") : BasicParam(tag) {}  std::string LOAD_PARAM(policy_file);  void Update() override { LOAD_PARAM(policy_file); }};
+在 Runner Enter() 中加载模型：
+C++bool DemoRunner::Enter() {  // 加载参数  if (!param_tag_.empty()) {    param_ = data::ParamManager::create<data::DemoParam>(param_tag_);  }    // 加载模型  model_ = std::make_unique<math::MNNModel>(      common::PathJoin(common::GlobalPathManager::GetInstance().GetConfigPath(), param_->policy_file));  return true;}
+在 Runner 头文件中增加成员：std::unique_ptr<math::MNNModel> model_;
+这样就形成了完整链路：YAML 配置 -> Param LOAD_PARAM -> Runner Enter() 实际生效
+4.4 第四步：扩展 Runner 逻辑
+motion runner 额外维护 SetupContext() / TeardownContext()，管理全局参数
+在 Run() 中持续写输出（GetMutableOutput().SetCommand(...)）
+把耗时的复位逻辑放在 TryExit，一次性清理/复位放在 Exit

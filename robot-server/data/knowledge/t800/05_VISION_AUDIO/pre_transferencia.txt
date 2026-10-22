@@ -1,0 +1,281 @@
+def launch_neck_controller():
+    """Inicia automaticamente o neck_controller.py na porta 5055 como subprocesso gerenciado com ambiente ROS 2."""
+    global neck_controller_process
+    possible_paths = [
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "neck_controller.py"),
+        os.path.expanduser("~/scripts-ipq/beniFiles/neck_controller.py"),
+        "/home/ubuntu/scripts-ipq/beniFiles/neck_controller.py",
+        os.path.abspath("neck_controller.py")
+    ]
+    
+    script_path = None
+    for path in possible_paths:
+        if os.path.exists(path):
+            script_path = os.path.abspath(path)
+            break
+            
+    if script_path:
+        try:
+            log_file = open('/tmp/neck_controller.log', 'w')
+            script_dir = os.path.dirname(script_path) or "."
+            
+            # Sourcing resiliente do ROS 2 e do workspace engineai do robô com rede CycloneDDS
+            env_cmd = (
+                f"export ROS_DOMAIN_ID=69; "
+                f"export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp; "
+                f"export ROS_LOCALHOST_ONLY=0; "
+                f"[ -f /opt/ros/humble/setup.bash ] && source /opt/ros/humble/setup.bash 2>/dev/null; "
+                f"[ -f /opt/ros/foxy/setup.bash ] && source /opt/ros/foxy/setup.bash 2>/dev/null; "
+                f"for ws in ~/engineai_workspace-2 /Users/beniprado/Downloads/engineai_workspace-2 /home/ubuntu/engineai_workspace-2; do "
+                f"  if [ -f \"$ws/install/setup.bash\" ]; then "
+                f"    source \"$ws/install/setup.bash\" 2>/dev/null; "
+                f"    [ -f \"$ws/src/interface_example/scripts/env.sh\" ] && source \"$ws/src/interface_example/scripts/env.sh\" 2>/dev/null; "
+                f"    break; "
+                f"  fi; "
+                f"done; "
+                f"exec {sys.executable} \"{script_path}\""
+            )
+
+            neck_controller_process = subprocess.Popen(
+                ["bash", "-c", env_cmd],
+                cwd=script_dir,
+                stdout=log_file,
+                stderr=subprocess.STDOUT,
+                preexec_fn=os.setsid if hasattr(os, 'setsid') else None
+            )
+            print(f"[NECK] ⚡ Iniciando neck_controller.py na porta 5055 ({script_path})...")
+            
+            # Aguarda até 3 segundos para validar se a porta 5055 subiu
+            import urllib.request
+            server_online = False
+            for _ in range(15):
+                time.sleep(0.2)
+                if neck_controller_process.poll() is not None:
+                    break
+                try:
+                    req = urllib.request.Request("http://127.0.0.1:5055/health")
+                    with urllib.request.urlopen(req, timeout=0.5) as resp:
+                        if resp.status == 200:
+                            server_online = True
+                            break
+                except Exception:
+                    pass
+
+            if server_online:
+                print(f"[NECK] ✅ neck_controller.py está ONLINE e respondendo na porta 5055!")
+            else:
+                ret = neck_controller_process.poll()
+                print(f"[NECK] ⚠️ neck_controller.py inicializado (código de saída ou em progresso: {ret}).")
+                if os.path.exists('/tmp/neck_controller.log'):
+                    with open('/tmp/neck_controller.log', 'r') as f:
+                        log_content = f.read().strip()
+                        if log_content:
+                            print(f"[NECK LOG] Detalhes:\n{log_content}")
+
+            return neck_controller_process
+        except Exception as e:
+            print(f"[NECK] ❌ Falha crítica ao iniciar neck_controller.py: {e}")
+    else:
+        print("[NECK] ⚠️ Aviso: neck_controller.py não encontrado nas localizações padrão.")
+    return None
+
+def get_local_ip():
+            self.audio_thread.stop()
+        self.cleanup_driver()
+        super().destroy_node()
+
+    # --------------------------------------------------------------------------
+    # DESCOBERTA E GERENCIAMENTO DE ASSINATURAS (DYNAMIC SUBSCRIPTIONS)
+    # --------------------------------------------------------------------------
+    def discover_and_subscribe(self):
+        """Monitora e gerencia dinamicamente as assinaturas do barramento ROS 2."""
+        try:
+            names_and_types = self.get_topic_names_and_types()
+            self.total_topics_found = len(names_and_types)
+            active_names = [t[0] for t in names_and_types]
+            
+            # 1. Watchdog do driver de câmera (odin_ros_driver_rev1)
+            self.check_and_start_driver(active_names)
+
+            # 2. Watchdog do módulo de voz (speech_server.py)
+            global speech_server_process
+            if speech_server_process is None or speech_server_process.poll() is not None:
+                launch_speech_server()
+
+            # 3. Watchdog do módulo do pescoço (neck_controller.py)
+            global neck_controller_process
+            if neck_controller_process is None or neck_controller_process.poll() is not None:
+                launch_neck_controller()
+            
+            active_graph_topics = set()
+            
+            # Filtro inteligente para selecionar apenas o melhor tópico para cada câmera
+            camera_topics = {} # { camera_key: [ (topic_name, msg_type) ] }
+            other_topics = []
+            
+            for topic_name, types in names_and_types:
+                msg_type = types[0]
+                active_graph_topics.add(topic_name)
+header:
+  stamp:
+    sec: 1790093715
+    nanosec: 124476585
+  frame_id: ''
+position:
+- -0.03225236892700195
+- -0.11577620506286622
+- -0.05087528824806214
+- 0.2047940370440483
+- 0.5099533224105834
+- 0.048822137713432315
+- -0.08938959375023842
+- 0.12031054496765137
+- 0.04416569471359253
+- 0.24961390614509582
+- 0.36383912205696106
+- -0.04636810123920441
+- 0.0
+- 0.0
+- 0.15
+- 0.0
+- -0.25
+- 0.0
+- 0.0
+- -0.15
+- 0.0
+- -0.25
+- 0.0
+- 0.0
+- 0.0
+velocity:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+feed_forward_torque:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+torque:
+- 5.905999374389649
+- -19.274153709411625
+- -0.8028608560562138
+- 7.584362214803695
+- 23.938034626180134
+- 4.295886838987199
+- 3.333701249957085
+- 19.251513481140137
+- 0.3577328007668258
+- 7.225424981117248
+- 18.410074419356977
+- -4.1172104448973865
+- -0.079345703125
+- -0.029143067076802254
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- -0.3173828125
+- -0.25414306623861194
+stiffness:
+- 180.0
+- 100.0
+- 100.0
+- 180.0
+- 40.0
+- 40.0
+- 180.0
+- 100.0
+- 100.0
+- 180.0
+- 40.0
+- 40.0
+- 100.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 100.0
+- 100.0
+damping:
+- 5.0
+- 3.0
+- 3.0
+- 5.0
+- 0.3
+- 0.3
+- 5.0
+- 3.0
+- 3.0
+- 5.0
+- 0.3
+- 0.3
+- 5.0
+- 3.0
+- 3.0
+- 3.0
+- 3.0
+- 3.0
+- 3.0
+- 3.0
+- 3.0
+- 3.0
+- 3.0
+- 1.0
+- 1.0
+parallel_parser_type: 1
+---

@@ -1,0 +1,719 @@
+Desenvolvimento com SDK nativo
+1. Introdução
+2. Ambiente de desenvolvimento e início rápido
+2.1 Ambiente do recipiente
+2.2 Compilação
+2.3 Operação
+2.4 Mudança de estado do movimento
+        2.4.1 Modo de entrada
+            1) Controlador físico (Logitech F710)
+            2) Interface do Gamepad Virtual (Virtual Gamepad UI)
+            3) Controle da relação de mapeamento (F710 ↔ controle virtual)
+        2.4.2 Explicação da mudança de estado
+2.5 Simulação do Mujoco
+        2.5.1 Compilação
+        2.5.2 Operação
+        2.5.3 Melhoria do desempenho da simulação
+2.6 Implementação em ambiente real
+        2.6.1 Definir os objetivos de instalação e enviá-los
+        2.6.2 Operação em máquina real
+2.7 Monitoramento de Dados e Integração ao ROS2
+        2.7.1 Inicialização do ambiente ROS2
+        2.7.2 Lista de Tópicos ROS2
+        2.7.3 Visualização de Dados (PlotJuggler)
+3. Análise do código-fonte
+3.1 Estrutura do índice
+3.2 Processo de Início
+3.3 Configuração do caminho de carregamento
+3.4 Tarefa e Executor
+        3.4.1 Conceitos e Relações
+        3.4.2 Ciclo de vida do runner e fluxo de estados
+3.5 Análise do código de implementação da estratégia de caminhada RL
+        3.5.1 Configuração dos parâmetros globais e inicialização do modelo
+        3.5.2 Entrada do sistema e percepção do corpo
+        3.5.3 Cache de instruções e emissão por arbitragem global
+3.6 Entradas de controle e integração com ROS2
+        1) Controle da entrada
+        2) Conexão ao ROS2
+4. Personalizar o Runner
+4.1 Primeiro passo: Copiar a estrutura passiva
+4.2 Segundo passo: Adicione um runner à tarefa.
+4.3 Terceiro passo: Expansão da classe de parâmetros
+4.4 Etapa 4: Expansão da lógica do Runner
+1. Introdução
+Endereço do repositório de código aberto
+Este repositório é o SDK nativo de controle para robôs EngineAI, destinado ao desenvolvimento de aplicações e à integração de sistemas em robôs humanoides, oferecendo uma estrutura de controle e execução de tarefas leve, fácil de implementar e com excelente capacidade de expansão. Graças a interfaces padronizadas e a um design arquitetônico modular, o SDK reduz significativamente a complexidade do desenvolvimento adicional e da integração funcional dos sistemas robóticos, permitindo que os desenvolvedores se concentrem plenamente no desenvolvimento de algoritmos e na implementação das funcionalidades aplicativas.
+Módulo Central:
+framedo de agendamento pré-compilado de alto desempenho
+Proporciona um mecanismo de agendamento de alto desempenho para tarefas de controle e raciocínio em tempo real em robôs, reduzindo os custos de execução por meio de otimizações de pré-compilação e melhorando a eficiência geral da execução do sistema bem como sua estabilidade.
+Sistema de orquestração de tarefas para a configuração de drivers
+Utilizando uma abordagem de orquestração de tarefas por configuração, permite uma organização flexível dos módulos algorítmicos, dos fluxos de controle e dos fluxos de dados, suportando ajustes rápidos nos processos experimentais e nas estratégias de operação do sistema.
+Modelo escalável e sistema de gestão de parâmetros
+Fornece uma interface uniforme para o carregamento de modelos, a gestão de versões e a configuração de parâmetros, facilitando a gestão centralizada e a iteração dos modelos algorítmicos, dos parâmetros de controle e das configurações experimentais.
+Mecanismo de plugins empresariais modulares
+Com base numa arquitetura baseada em plugins, permite a expansão flexível e o desacoplamento dos módulos funcionais de detecção, planeamento e controle, facilitando a integração rápida de novos algoritmos ou funcionalidades.
+Interface de dados do sistema e monitoramento operacional
+Suporta a troca de dados padronizados com sistemas externos e oferece funcionalidades de monitoramento do estado em tempo real e depuração visual. Pode integrar-se à ecologia ROS2 para comunicação entre módulos e permite o monitoramento e análise em tempo real dos estados críticos, das variáveis de controle e dos dados de feedback através do PlotJuggler, melhorando assim a eficiência do teste integrado e a capacidade de localização de problemas.
+Cadeia de ferramentas Mujoco para simulação e implantação em dispositivos reais
+Fornece um ambiente de simulação completo do Mujoco, juntamente com scripts para implantação em robôs reais, permitindo uma migração e integração rápidas desde a validação em simulação até sistemas robóticos físicos. Além disso, o repositório inclui arquivos de modelos robóticos em formato URDF, alinhados com a estrutura física dos robôs reais, utilizados na construção do ambiente de simulação, nos cálculos cinemáticos e dinâmicos e na validação de algoritmos, garantindo uma boa consistência entre os resultados da simulação e os do sistema real.
+
+
+2. Ambiente de desenvolvimento e início rápido
+2.1 Ambiente do recipiente
+Instale o Docker e o Docker Compose
+O Docker disponibiliza um script de configuração e instalação automatizados, compatível com sistemas como Debian, RHEL, a série SUSE e seus derivados.
+Tenha em mente que a equipe oficial do Docker não recomenda o uso deste script para instalar o Docker CE em ambientes de produção.
+Bash
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+Os usuários nacionais podem utilizar fontes de imagem (neste caso, a fonte da Universidade Tsinghua).
+export DOWNLOAD_URL="https://mirrors.tuna.tsinghua.edu.cn/docker-ce"
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+Defina a execução sem autorização de sudo (recomendado)
+Caso contrário, será necessário usar `sudo docker` sempre que for necessário.
+Bash
+sudo usermod -aG docker $USER
+Em seguida, faça login novamente no shell:
+Bash
+newgrp docker
+Verificar a instalação
+Verificar o processo de autenticação
+Bash
+docker --version
+Saída de exemplo
+Plain Text
+Docker version 26.1.1
+Verificar a composição do Docker
+Bash
+docker compose version
+Saída de exemplo
+Plain Text
+Docker Compose version v2.27.0
+Crie um ambiente de desenvolvimento para o gerador; após a execução, será gerado um acesso rápido: engineai_robotics_env.
+Bash
+cd native_sdk
+./docker/generate.sh
+
+Página de sucesso
+Este comando cria automaticamente um contêiner e mapeia o caminho do repositório atual para dentro dele, permitindo assim a construção e execução de programas no interior do contêiner.
+Inicie um novo terminal e, utilizando o comando rápido engineai_robotics_env, entre no ambiente de desenvolvimento.
+
+2.2 Compilação
+Bash
+# Entrar no contêiner
+engineai_robotics_env
+./build.sh
+2.3 Operação
+Bash
+# Entrar no contêiner
+engineai_robotics_env
+./run.sh
+
+Operação com o modelo especificado:
+Bash
+./run.sh pm01_edu
+Limpar o ambiente do contêiner
+Se for necessário limpar o ambiente do container, pode ser executado.
+Plain Text
+#in host
+engineai_robotics_env clean
+2.4 Mudança de estado do movimento
+2.4.1 Modo de entrada
+Atualmente, o SDK nativo suporta dois métodos de entrada de controle para acionar a alteração do estado do robô:
+1) Controlador físico (Logitech F710)
+Utilize o Logitech Wireless Gamepad F710 (modo Xbox).
+Após a inserção do receptor USB, o sistema o identifica automaticamente.
+Todas as alterações de estado são acionadas por botões do controle.
+2) Interface do Gamepad Virtual (Virtual Gamepad UI)
+Criar uma interface gráfica de controle virtual
+Suporta a entrada de comandos do controle por meio dos teclas do teclado e da barra deslizante.
+Adota a mesma correspondência de mapeamento de controle do F710 (modo Xbox), com lógica de controle totalmente compatível.
+
+Modo de inicialização
+Acesse o diretório de ferramentas do controle virtual e execute o script de inicialização:
+Plain Text
+# Entrar no contêiner
+engineai_robotics_env
+python3 tools/virtual_gamepad/virtual_gamepad.py
+Conectar e ativar
+Antes de usar o controle virtual, é necessário estabelecer a conexão LCM e ativar-o manualmente:
+Ativar a interface do Virtual Gamepad
+Conecte-se à comunicação LCM (assegure uma comunicação correta com o processo de controle do robô).
+Marque "Ativar" ou pressione F5 para iniciar a entrada com o controle virtual.
+Observações
+Após ativar o controle virtual:
+O sistema assumirá a gestão da fonte de entrada.
+A entrada do controle Logitech F710 será bloqueada.
+Se for necessário voltar ao controle físico:
+Desativar o controle virtual ou cancelar o estado "Ativar"
+3) Controle da relação de mapeamento (F710 ↔ controle virtual)
+Função
+Tecla F710
+UI do controle virtual (operação com mouse)
+Teclado
+Joystick de giroscópio
+Left Stick
+L (Arrow)
+↑ ↓ ← →
+Joystick de rotação para a direita
+Right Stick
+R (Shift+Arrow)
+Shift + ↑ ↓ ← →
+LT
+LT
+Barra de deslizamento LT
+Arraste o mouse
+RT
+RT
+Barra de deslizamento RT
+Arraste o mouse
+LB
+LB
+LB(q)
+Q
+RB
+RB
+RB(e)
+E
+A
+A
+A(j)
+J
+B
+B
+B(k)
+K
+X
+X
+X(u)
+U
+Y
+Y
+Y(i)
+I
+BACK
+BACK
+BACK(F1)
+F1
+START
+START
+START(F2)
+F2
+2.4.2 Explicação da mudança de estado
+Após o início do programa, o robô alterna entre diferentes estados de movimento com base nas instruções do controle. O Native SDK utiliza um mecanismo de máquina de estados finitos (FSM) para gerenciar esses estados de movimento.
+Cada estado define condições claras de entrada e percursos permitidos para a transição entre estados; a mudança só é autorizada quando essas condições são atendidas, garantindo assim a segurança e a estabilidade do controle de movimento.
+A transição de estados é gerida de forma centralizada pela máquina de estados, evitando mudanças ilegais ou irracionais.
+Para a lógica personalizada de comutação do máquina de estados, consulte a seção 3.2.
+A relação de transição do estado é a seguinte:
+
+Início do sistema
+Após executar ./run.sh (para simulação) ou ./run_robot.sh (para dispositivos reais), o sistema entra automaticamente no estado de espera (idle).
+O estado "idle" representa a condição inicial segura do robô após a ligação da energia, quando o controlador ainda não ativou o controle ativo de movimento.
+Visão geral da transição de estados
+Estado atual
+Permitir a mudança de estado
+Boto de acionamento
+Explicação
+idle
+passive
+LB + RB
+Transição do estado não ativado para o estado amortecido
+passive
+
+idle
+LB + START
+Volte ao estado não ativado
+
+pd_stand
+LB + A
+Iniciar a tarefa de controle de posicionamento estável em pé
+pd_stand
+
+walk
+LB + B
+Após estabelecer uma posição de pé estável, passe para a tarefa de caminhar.
+
+dance
+LB + CROSS_X_DOWN
+Após estabelecer uma posição estável de pé, passe para a tarefa de dança.
+walk
+
+pd_stand
+LB + A
+De volta da tarefa de caminhada à tarefa de controle da posição estável em pé
+
+dance
+LB + CROSS_X_DOWN
+De uma tarefa de caminhada para uma tarefa de dança
+dance
+pd_stand
+LB + A
+De volta da tarefa de dança à tarefa de controle da posição em pé estável
+
+walk
+LB + B
+De uma tarefa de dança para uma tarefa de caminhada
+Mecanismo de segurança global (Resposta de emergência)
+Em qualquer estado de execução, é possível alternar forçadamente para o estado seguro passivo utilizando a combinação das instruções LB + RB.
+Este mecanismo equivale a uma parada de emergência suave (soft emergency stop):
+Interrompa imediatamente a lógica de controle de movimento atual.
+Mudar o sistema para um estado seguro controlado (sem saída de movimento ativo).
+Este mecanismo constitui uma garantia essencial tanto durante o depuração quanto no funcionamento real, destinado a reduzir o risco de perda de controle do movimento.
+Recomendações para a integração do novo Runner
+Recomenda-se a adição do módulo de controle de movimento (runner) apenas após o comando pd_stand.
+Motivo:
+O padrão de posicionamento em pé fornece uma base estável para permanecer em posição vertical.
+Assegure-se de que a postura seja estável e o estado de contato esteja normal.
+Evite os riscos de segurança associados ao início de movimentos dinâmicos quando se está em posição passiva ou com a postura não estável.
+2.5 Simulação do Mujoco
+2.5.1 Compilação
+Bash
+# Entrar no contêiner
+engineai_robotics_env
+./scripts/build_mujoco.sh
+2.5.2 Operação
+Assegure-se de que o arquivo active_mode:sim esteja presente em assets/config/<robot>/mode.yaml.
+Bash
+# Entrar no contêiner
+engineai_robotics_env
+./scripts/run_mujoco.sh
+Operação com o modelo especificado:
+Bash
+./scripts/run_mujoco.sh pm01_edu
+Após a execução, é possível usar o controle remoto para alternar os estados:
+[2026-03-06 14-28-19.mkv]
+2.5.3 Melhoria do desempenho da simulação
+Se tiver uma placa gráfica dedicada da NVIDIA e já tiver instalado o respectivo driver, é possível utilizar a função de passagem direta da placa gráfica no Docker para aumentar a taxa de quadros renderizados durante a simulação.
+Execute o seguinte comando para instalar a cadeia de ferramentas Docker da NVIDIA.
+Bash
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+&& curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+sudo apt-get update
+sudo apt-get install -y nvidia-container-toolkit
+
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+Modifique NVIDIA_GPU_available em docker/generate.sh para y
+Reexecute `docker/generate.sh` para utilizar a ligação direta da placa gráfica.
+
+2.6 Implementação em ambiente real
+2.6.1 Definir os objetivos de instalação e enviá-los
+Edite o arquivo install.sh
+Bash
+remote_user="user"
+remote_host="192.168.0.163"
+remote_dir="~/projects/engineai_robotics"
+Executar a instalação
+Bash
+cd native_sdk
+
+./install.sh – Modelo e modo
+./install.sh pm01_edu robot
+2.6.2 Operação em máquina real
+Aviso de segurança:
+Assegure que todas as pessoas mantenham uma distância segura do robô.
+Se o robô apresentar movimentos anormais, pare imediatamente (pressione o botão de parada urgente ou volte ao modo passivo).
+Recomenda-se inicialmente suspender o robô com um suporte de suspensão; após ativar o modo PD Stand, coloque-o no chão e, em seguida, passe para o modo de caminhada.
+Preparativos antes da execução
+Ativar o sistema de motores do robô utilizando o controle remoto de parada emergencial.
+É necessário conectar o robô ao ponto de acesso ou ao robô com um cabo de rede.
+Bash
+# Conexão SSH com Nezha
+ssh user@192.168.0.163
+
+# Suspender o programa de controle operacional que inicia automaticamente
+sudo systemctl stop robotics.service
+
+# Iniciar o native_SDK
+cd ~/projects/engineai_robotics
+sudo ./run_robot.sh pm01_edu
+Execução em segundo plano:
+Bash
+nohup sudo ./run_robot.sh pm01_edu > nohup.out 2>&1 &
+tail -f nohup.out
+Após a execução, siga as instruções de comutação do estado e utilize os botões do controle remoto para alternar as funções.
+2.7 Monitoramento de Dados e Integração ao ROS2
+O SDK nativo atual permite publicar os dados de execução do robô através da interface ROS2 e, em conjunto com o PlotJuggler, possibilita a visualização em tempo real.
+2.7.1 Inicialização do ambiente ROS2
+O SDK nativo gera automaticamente a interface de mensagens ROS2 (msg) durante o processo de construção, destinada à comunicação de dados com o exterior.
+Antes de utilizar ferramentas do ROS2 (como o PlotJuggler) para a subscrição de dados, é necessário completar a carga do ambiente.
+Bash
+# Entrar no contêiner
+engineai_robotics_env
+
+# Compilação (geração de mensagens ROS2 e ambiente)
+./build.sh
+
+# Carregar o ambiente ROS2
+source build/ros2_env/install/setup.bash
+2.7.2 Lista de Tópicos ROS2
+Atualmente, o SDK Native disponibiliza externamente os seguintes tópicos ROS2 para a obtenção de estados e interações de controle:
+
+Clique na imagem para visualizar a planilha eletrônica completa.
+2.7.3 Visualização de Dados (PlotJuggler)
+Os tópicos ROS2 disponibilizados pelo SDK Native podem ser visualizados em tempo real através do PlotJuggler:
+Fluxo típico:
+Inicie o SDK nativo (./run.sh ou ./run_robot.sh)
+Iniciar o PlotJuggler
+Bash
+# Entrar no contêiner
+engineai_robotics_env
+
+# Iniciar o PlotJuggler
+./scripts/run_plotjuggler.sh
+
+
+# Inicie o PlotJuggler e adicione um ambiente de depuração multi-máquina
+./scripts/run_plotjuggler.sh remote
+Escolha a fonte de dados ROS2
+Escolha o layout fornecido pelo Native SDK
+O arquivo de layout encontra-se em: scripts/plotjuggler/common_data_display.xml
+
+
+3. Análise do código-fonte
+3.1 Estrutura do índice
+Plain Text
+native_sdk/
+── CMakeLists.txt # Entrada de compilação principal (identificação automática do pacote pré-compilado do núcleo)                    ── CMakeLists.txt # Entrada de compilação principal (identificação automática do pacote pré-compilado do núcleo)
+── build.sh / run.sh / clear.sh # scripts de compilação, execução e limpeza
+── install.sh # Script de instalação no dispositivo real                        ── install.sh # Script de instalação no dispositivo real
+│
+── src/ # Código-fonte principal modificável                              ── src/ # Código-fonte principal modificável
+│ ── executor/main.cc # Ponto de entrada do programa              │ ── executor/main.cc # Ponto de entrada do programa
+│ ─ ─ Exemplo de driver para hardware/gamepad                     │ ─ ─ Exemplo de driver para hardware/gamepad
+│ ─ Protocolo / # Exemplo de mensagem ROS2                     │ ─ Protocolo / # Exemplo de mensagem ROS2
+│ ─ ros2_node/ # Exemplo de envio e recepção de mensagens ROS2                    │ ─ ros2_node/ # Exemplo de envio e recepção de mensagens ROS2
+│ ─ Corredor secundário / # Personalizado / Exemplo de corredor                       │ ─ Corredor secundário / # Personalizado / Exemplo de corredor
+│ │ │ passivo / # Exemplo de motor com saída contínua de baixa impedância                  │ │ │ passivo / # Exemplo de motor com saída contínua de baixa impedância
+│ │ │ pd_stand/ # Exemplo de uso do controlador PD para manter a posição em pé                 │ │ │ pd_stand/ # Exemplo de uso do controlador PD para manter a posição em pé
+│ │ │ input_command_arbiter/ # Exemplo de processamento da fonte de entrada
+│ │ │ ros2_bridge/ # Intercâmbio de dados ROS2              │ │ │ ros2_bridge/ # Intercâmbio de dados ROS2
+│ │ │ rl_dance_example/ # Exemplo de dança baseado no esquema RL         │ │ │ rl_dance_example/ # Exemplo de dança baseado no esquema RL
+│ │ └── rl_walking_example/ # Exemplo de caminhada baseado no esquema RL
+│ └── data/_param/ # Classe de análise dos parâmetros do runner                  │ └── data/_param/ # Classe de análise dos parâmetros do runner
+│
+├── assets/
+│ ─├ config/<robot>/ # Entrada do sistema de configuração (parâmetros mode + task + runner)               │ ─├ config/<robot>/ # Entrada do sistema de configuração (parâmetros mode + task + runner)
+│ └── recursos/ # urdfXml/mesh/ modelos de estratégia e outros recursos                     │ └── recursos/ # urdfXml/mesh/ modelos de estratégia e outros recursos
+│
+── core/ # Biblioteca central pré-compilada (não modifique diretamente)                             ── core/ # Biblioteca central pré-compilada (não modifique diretamente)
+│ └ Inclui/ # Arquivos de cabeçalho visíveis ( interfaces)                      │ └ Inclui/ # Arquivos de cabeçalho visíveis ( interfaces)
+│ ── /lib/ # arquivo SO precompilado                          │ ── /lib/ # arquivo SO precompilado
+│   └── registry/auto_register_runners.cc
+│
+── Comcast / # scripts auxiliares do CMake, como o de registro automático                            ── Comcast / # scripts auxiliares do CMake, como o de registro automático
+── simulation/mujoco/ # Engenharia de Simulação Mujoco                ── simulation/mujoco/ # Engenharia de Simulação Mujoco
+──── scripts/ # Scripts auxiliares (run_robot/run_mujoco, etc.)                          ──── scripts/ # Scripts auxiliares (run_robot/run_mujoco, etc.)
+3.2 Processo de Início
+
+3.3 Configuração do caminho de carregamento
+O arquivo assets/config/<robot>/mode.yaml é a porta de entrada para a configuração do sistema, por exemplo:
+YAML
+active_mode: sim
+mode:
+sim:
+- tag: motion_task
+scope: task_motion/default
+- tag: pd_stand
+scope: pd_stand/default
+robot:
+- tag: motion_task
+scope: task_motion/default
+- tag: pd_stand
+scope: pd_stand/robot
+A lógica de carregamento pode ser compreendida da seguinte forma:
+Primeiro, selecione o tipo de simulador/robô com base em active_mode.
+Crie um mapeamento entre tag e escopo (por exemplo, pd_stand -> pd_stand/default).
+BasicParam (tag): Localiza o escopo com base no tag.
+Na categoria de parâmetros, utilize LOAD_param(xxx) para ler os campos do arquivo YAML correspondente.
+
+3.4 Tarefa e Executor
+3.4.1 Conceitos e Relações
+Task
+É uma unidade de agendamento que define threads, períodos, prioridades e quais executores (runner[]) devem ser executados.
+Na configuração, existem dois tipos de Tarefas:
+task_resident/*.yaml: Tarefa residente que, após ser iniciada, opera de forma paralela e contínua ao longo do tempo.
+task_motion/*.yaml: Tarefa de movimento; apenas uma tarefa de movimento é ativada simultaneamente, com alternância por pressão de teclas ou automática.
+Runner
+É a unidade de execução do algoritmo; cada Runner é responsável por uma parte específica da lógica (como estimativa, controle ou acionamento).
+A relação pode ser compreendida como: Task (casco de agendamento) → Runner (logica de negócio); o Task aciona periodicamente a interface do ciclo de vida do Runner.
+3.4.2 Ciclo de vida do runner e fluxo de estados
+O BasicRunner (core/include BASIC_BASIC_runner.h) define um ciclo de vida uniforme:
+Inicialização (): Inicializa após a construção (recursos, estado padrão)
+Entrar (): É chamado ao iniciar a tarefa atual (carregamento de parâmetros, preparo dos valores iniciais).
+Executar (): Executa a lógica principal de forma periódica.
+TryExit (): Saia da fase de tentativa (pode ser executado ao longo de vários ciclos para realizar a lógica de reinício ou convergência).
+Sair (): Confirma a saída e executa uma operação final única (redefinição das variáveis ou preparo para inicialização).
+Fim (): Encerra o ciclo de vida.
+O MotionRunner (core/include BASIC/motion_runner.h) complementa o ciclo de vida mencionado com interfaces relacionadas ao controle:
+SetupContext() / TeardownContext(): Definição e restabelecimento do contexto global ao iniciar ou encerrar a aplicação.
+GetMutableOutput (). SetCommand (...): Escrever no buffer de saída de controle
+GetOutput (): Leia o buffer de saída atual
+Ordem típica de chamada (Initialize() é executado apenas ao construir o runner):
+Executor da tarefa residente: Enter -> Run -> TryExit -> Exit -> End
+Execução da tarefa de movimento: SetupContext → Enter → Run → TryExit → Exit → TeardownContext → End
+Diferença entre TryExit() e Exit():
+TryExit(): Uma função de reinicialização sem persistência, adequada para processos de saída que requerem tempo para serem concluídos (por exemplo, o movimento do braço de volta ao ponto inicial); pode ser chamada repetidamente e indica se a operação foi concluída através dos parâmetros kTrying/kCompleted.
+Exit (): Um procedimento de execução única, geralmente utilizado para reiniciar variáveis, limpar o estado e concluir a operação antes da mudança de estado.
+estados comuns e semântica de migração:
+RunnerState：kRunning / kTryExit / kFault
+TransitionState：kCompleted / kTrying / kFailed / kRestoreRunning
+O estado-máquina pode ser compreendido da seguinte forma:
+Fase de execução: kRunning (chama contínua à função Run())
+Desligar por solicitação: kTryExit (entrar em TryExit())
+Resultado da saída:
+kCompletado: Executar a função Exit() e finalizar a troca de estado.
+k Trying: Continuar na fase TryExit().
+kRestoreRunning: Voltar a kRunning
+c Falhou: Inicia o processo de tratamento de falha (geralmente assumido pela camada superior)
+3.5 Análise do código de implementação da estratégia de caminhada RL
+Esta seção utiliza o RlWalkingExampleRunner como exemplo para analisar em profundidade a lógica de implementação de estratégias de caminhada baseadas em aprendizado por reforço no framework de computação em máquina real. Este Runner herda do MotionRunner e segue rigorosamente o paradigma de execução "obtenção de dados – cálculo lógico – saída armazenada em cache". Toda a lógica de implementação pode ser descomposta em três módulos centrais: configuração de parâmetros globais, obtenção das fontes de entrada do sistema e arbitragem entre saídas do sistema e dados em cache.
+3.5.1 Configuração dos parâmetros globais e inicialização do modelo
+Antes de iniciar o controle cíclico, o sistema deve completar a configuração dos comutadores dos mecanismos de base, o carregamento dinâmico dos parâmetros de configuração e a instanciação do modelo de rede neural.
+Configuração do contexto de controle global (SetupContext)
+Ao utilizar a estratégia RL com treinamento de articulações em série, é necessário alterar manualmente o valor de `parallel_by_classicParser` para `False`.
+C++
+void RlWalkingExampleRunner::SetupContext() {
+data_store_->parallel_by_classic_parser.store(false);
+}
+Controle da articulação do tornozelo
+
+Ponto de ligação sequencial do tornozelo (virtual)
+
+
+Controle paralelo do tornozelo (dispositivo real)
+
+Modo de controle sem articulação do tornozelo: utiliza o modo de controle MIT. Modo de controle da articulação do tornozelo: atualmente existem dois modos de controle.
+1) Para converter instruções no modo MIT em série em instruções no modo MIT em paralelo, é necessário especificar `parallel_by_classicParser=True` (por exemplo, no modo PD em posição vertical). O usuário apenas precisa prestar atenção às instruções de posição do articulado em série, às instruções de velocidade e às instruções de retroalimentação de torque; essas serão automaticamente convertidas em instruções correspondentes para o motor. Os valores de Kp e Kd do articulado em série permanecem inalterados durante a conversão.
+2) Para converter uma instrução no modo de torque em série para uma instrução no modo de torque em paralelo, é necessário especificar `parallel_by_classicParser=False` (por exemplo, no modo de movimento RL). O usuário apenas precisa prestar atenção às instruções relativas à posição do articulado em série, à velocidade e ao feedback de torque; o sistema converterá automaticamente a instrução total de torque desse articulado em instruções de torque para os motores. Ao mesmo tempo, os valores de Kp e Kd do gerador serão definidos como 0.
+Atenção:
+1) O parâmetro `parallel_by_classicparser` tem o valor padrão `True`, utilizando uma estratégia de aprendizado por reforço (RL) baseada no treinamento em sequência de articulações; é necessário alterá-lo manualmente para `False`.
+2) Atualmente, a articulação do tornozelo suporta apenas o modo de controle descrito acima, que permite a conversão entre instruções para articulações em série e instruções para articulações em paralelo; não é possível enviar diretamente instruções ao nível dos motores do tornozelo (os usuários podem implementar autonomamente o processo de conversão entre configurações em série e em paralelo; pode-se entrar em contato conosco para isso).
+Leitura de arquivos de parâmetros e carregamento dinâmico
+Durante a construção do Runner, as configurações padrão são obtidas através do ParamManager. Quando a máquina de estados aciona uma mudança de tarefa e entra na fase Enter(), o sistema verifica o valor de param_tag_. Esse design permite que o robô carregue dinamicamente arquivos de configuração com diferentes etiquetas (como parâmetros de marcha em terreno plano ou subida e descida de escadas) sem interrupção, garantindo uma programação altamente flexível.
+C++
+if (!param_tag_.empty() && param_tag_ != last_param_tag_) {
+param_ = data::ParamManager::create<data::RlWalkingExampleParam>(param_tag_);
+last_param_tag_ = param_tag_;
+}
+Motor de inferência e carregamento do modelo
+O sistema utiliza o Math:MNNModel como motor de inferência para redes neurais leve. Ao combinar o caminho do ambiente global com os caminhos relativos especificados no arquivo de parâmetros, é possível localizar e carregar com precisão o arquivo do modelo .mnn.
+C++
+mlp_net_ = std::make_unique<math::MNNModel>(
+common::PathJoin(common::GlobalPathManager::GetInstance().GetConfigPath(),
+param_->policy_file)
+);
+3.5.2 Entrada do sistema e percepção do corpo
+No ciclo de ritmo Run(), o Runner deve extrair com alta frequência do pool global de dados (data_store_) o estado físico do robô (percepção ontológica) e as instruções de interação externa, a fim de construir um espaço de observação para a rede.
+Informações sobre o estado da articulação
+Obtenha com precisão a posição real de cada articulação (q_real_) e sua velocidade real (qd_real_). A arquitetura de base permite acessar informações adicionais sobre o estado — como torque de alimentação, rigidez e amortecimento — através da classe enumerativa JointInfoType, atendendo assim às necessidades de diferentes estratégias.
+C++
+// Extrair a posição real e a velocidade da articulação atual
+data_store_->joint_info.GetState(data::JointInfoType::kPosition, q_real_);
+data_store_->joint_info.GetState(data::JointInfoType::kVelocity, qd_real_);
+Informações da Unidade de Medição Inercial (IMU State)
+Obtenha o quaternion do corpo e a velocidade angular. Para eliminar erros de instalação e alinhar os dados ao sistema de coordenadas da base do robô, o código realiza uma transformação rotacional padrão de coordenadas e calcula o vetor de projeção gravitacional utilizado para caracterizar a atitude do corpo.
+C++
+Análise do desvio de instalação e dos quaterniones locais
+Eigen::Matrix3d R_install = math::RotationMatrixd(math::RollPitchYawd(imu_install_bias_)).matrix();
+Eigen::Matrix3d R_local = math::RotationMatrixd(data_store_->imu_info.Get()->quaternion).matrix();
+Eigen::Matrix3d R_real = R_local * R_install.transpose();
+
+// Calcular a velocidade angular e a projeção da gravidade no sistema de referência da base
+Eigen::Vector3d w_real = R_real.transpose() * R_local * data_store_->imu_info.Get()->angular_velocity;
+Eigen::Vector3d euler_xyz = math::RollPitchYawd(math::RotationMatrixd(R_real)).vector();
+Eigen::Vector3d projected_gravity_real = -R_real.transpose() * Eigen::Vector3d::UnitZ();
+Comando Remoto do Utilizador (Remote Command)
+Analisa os dados de entrada do controle e, combinando coeficientes de escala em diferentes dimensões, converte-os na velocidade linear e na velocidade angular desejadas. Para evitar impactos no modelo causados por mudanças bruscas nas instruções, o sistema utiliza um filtro passa-baixo de primeira ordem (lpf_command_) para suavizar o sinal.
+C++
+void RlWalkingExampleRunner::UpdateRemoteCommand() {
+const auto& gamepad = data_store_->gamepad_info.Get();
+// Calcular a velocidade esperada nos eixos XYZ com base no deslocamento do joystick e nos parâmetros de escala
+command_.x() = (gamepad->LeftStick_X >= 0) ? gamepad->LeftStick_X * param_->command_scale_pos.x()
+                                             : gamepad->LeftStick_X * param_->command_scale_neg.x();
+/* ... e o tratamento dos eixos y e z é idêntico ... */
+
+// Aplicar a instrução de suavização com filtro passa-baixa
+if (param_->enable_remote_command_lpf) {
+command_ = lpf_command_->Update(command_);
+  }
+}
+3.5.3 Cache de instruções e emissão por arbitragem global
+As ações inferidas pelo algoritmo não podem ser diretamente implementadas no hardware; elas devem seguir os mecanismos de cache e de agendamento unificado do framework, a fim de garantir a segurança e a rigorosa sequência temporal das instruções de controle do robô.
+Escrever no buffer de saída local
+Após concluir a inferência direta, o Runner grava as posições desejadas (q_des_), as velocidades desejadas (qd_des_), o torque de alimentação direta (tau_ff_des_) e o ganho do sistema PD de base na sua própria área de cache dedicada, através das interfaces GetMutableOutput() e SetCommand().
+C++
+void RlWalkingExampleRunner::SendMotorCommand() {
+No modo de controle exclusivamente por posição, a velocidade esperada e o torque de antecipação são definidos explicitamente como zero.
+qd_des_ = Eigen::VectorXd::Zero(model_param_->num_total_joints);
+tau_ff_des_ = Eigen::VectorXd::Zero(model_param_->num_total_joints);
+
+Escreva apenas as instruções no cache local deste Runner.
+GetMutableOutput().SetCommand(q_des_, qd_des_, joint_kp_, joint_kd_, tau_ff_des_);
+}
+Integração e distribuição sincronizada ao nível de tarefa
+O cerne deste design arquitetural reside na desacoplagem do barramento de dados. O Gestor de Tarefas (Task Manager) atua como "arbitro" no final de cada ciclo de controle: ele coleta de forma centralizada as cache locais de todos os Runner em estado ativado, processa eventuais inserções de instruções (para transições suaves), verifica pontos singulares e aplica limites de torque. Após confirmar que tudo está correto, envia os frames de dados completos e encapsulados aos motores de base de forma rigorosamente sincronizada com o ciclo de comunicação do barramento.
+3.6 Entradas de controle e integração com ROS2
+O SDK nativo oferece um mecanismo unificado de interfaces para dados de entrada e saída, destinado à receção de comandos de controle e à interação de dados com sistemas externos. Pode ser dividido em duas categorias principais:
+1) Controle da entrada
+As entradas de controle do SDK nativo são processadas de forma centralizada pelo objeto runner/input_command_arbiter.
+Cada dispositivo de entrada deve ser primeiro encapsulado no respectivo adaptador e, em seguida, registrado no `InputCommandArbiterRunner` para participar da gestão das fontes de entrada.
+A localização atual de registro da fonte de entrada é a seguinte:
+C++
+InputCommandArbiterRunner::InputCommandArbiterRunner(
+std::string_view name,
+const std::shared_ptr<data::DataStore>& data_store)
+: BasicRunner(name, data_store) {
+// Register input sources from low to high priority.
+RegisterInputSource("gamepad", std::make_shared<GamepadInputAdapter>("gamepad", data_store));
+RegisterInputSource("virtual_gamepad", std::make_shared<VirtualGamepadInputAdapter>("virtual_gamepad", data_store));
+}
+Atualmente, estão integradas duas categorias de fontes de entrada:
+Gamepad: controle físico com entrada
+virtual_gamepad: entrada por controle virtual
+Para adicionar novos métodos de entrada (como teclado, controle pela rede ou controle remoto personalizado), geralmente é necessário seguir os passos seguintes:
+Crie o adaptador de entrada correspondente.
+Responsável por converter as entradas externas em um formato unificado de entrada de controle dentro do framework.
+Registre este Adaptador no InputCommandArbiterRunner.
+Acesse o processo de arbitragem da fonte de entrada utilizando RegisterInputSource(...).
+Defina prioridades e estratégias de alternância conforme necessário.
+As fontes de entrada participam da gestão de prioridades conforme a ordem de registro (na nota do código, está atualmente definida a ordem de prioridade de mais baixa para mais alta).
+Dessa forma, é possível conectar novos dispositivos de entrada ao sistema existente sem modificar a lógica de controle superior.
+2) Conexão ao ROS2
+O ROS2 é um módulo de comunicação externo independente para o SDK nativo, que conecta os dados do ROS2 ao SDK nativo através do ros2_bridge.
+Para expandir as funcionalidades do ROS2, geralmente existem os seguintes tipos de modificações:
+Adição de um novo nó ROS2
+Adicione uma nova implementação de nó em src_ros2_node.
+Tópico Adicional
+Adicione o tópico de publicação/assinatura correspondente aos nós existentes.
+Nova mensagem
+Adicione a definição correspondente de `msg` em `src/protocol`.
+Após a adição do novo código, é necessário ativá-lo explicitamente na configuração do ROS2 Bridge.
+Exemplo de localização do arquivo de configuração:
+Bash
+assets/<robot>/ros2_bridge/default.yaml
+A configuração de exemplo é a seguinte:
+YAML
+activated_node:
+- hardware_interface_node
+
+manager_node:
+subscribe_topics:
+node_control: /motion/node_control
+
+hardware_interface_node:
+enable: true
+period: 0.002
+mapping_periods:
+joint_state: 0.002
+gamepad_keys: 0.02
+motor_debug: 0.01
+power_info: 0.05
+publish_topics:
+imu_info: /hardware/imu_info
+gamepad_keys: /hardware/gamepad_keys
+motor_debug: /hardware/motor_debug
+power_info: /hardware/power_info
+motor_state: /hardware/motor_state
+motor_command: /hardware/motor_command
+joint_state: /hardware/joint_state
+joint_command_feedback: /hardware/joint_command_feedback
+subscribe_topics:
+led_control: /hardware/led_control
+As regras de expansão são as seguintes:
+Se for adicionado um nó
+É necessário adicionar o nome do nó correspondente em activated_node.
+Ao mesmo tempo, complete as configurações deste nó.
+Se você adicionar um tópico
+É necessário adicionar o nome do tópico e sua correspondência de mapeamento aos campos publish_topics ou subscribe_topics na configuração do nó correspondente.
+Se você quiser adicionar uma mensagem
+É necessário primeiro complementar a definição da mensagem em src/protocol e, em seguida, implementar a lógica de recepção e envio de mensagens bem como o mapeamento de configurações no node.
+
+4. Personalizar o Runner
+4.1 Primeiro passo: Copiar a estrutura passiva
+Suponha que o runner a criar se chama demo_runner.
+Diretório do Copy Runner: src/runner/passive -> src/runner/demo
+Diretório da classe de parâmetros de cópia: src/data/_param/passive_param -> src/data/_param-demo_param
+Configuração dos parâmetros de cópia: assets/config/<robot>/passive/default.yaml → assets/config/<robot>/demo/default.yaml
+Tabela de consulta rápida para substituições essenciais:
+Elemento de substituição
+Modelo passivo
+Exemplo de demonstração
+Explicação
+Nome do parâmetro e etiqueta padrão
+
+PassiveParam("passive")
+DemoParam("demo")
+
+Deve ser alinhado com mode.yaml/param_tag
+Tipos de parâmetros do Runner
+std::shared_ptr<data::PassiveParam>
+std::shared_ptr<data::DemoParam>
+Incluindo a estrutura e o método create<...>(()) dentro de Enter().
+Registre a cadeia de caracteres macro
+REGISTER_RUNNER(PassiveRunner, "passive_runner", kMotion)
+REGISTER_RUNNER(DemoRunner, "demo_runner", kMotion)
+Deve ser completamente idêntico ao valor `runner[].[name]` presente em `task_motion`.
+
+Caminho de configuração dos parâmetros
+assets/config/<robot>/passive/default.yaml
+assets/config/<robot>/demo/default.yaml
+Posteriormente, é feita uma referência por meio do campo `scope` no arquivo `mode.yaml`.
+4.2 Segundo passo: Adicione um runner à tarefa.
+Adicione a nova etiqueta -> scope em ambos os ficheiros assets/config/<robot>/mode.yaml (sim e robot).
+YAML
+- tag: demo
+escopo: demo/default.yaml # coincide com o novo caminho de configuração de parâmetros
+Adicione entradas de tarefa e monte-as no arquivo task_motion/*.yaml ou task_resident/*.yaml:
+Suponha que o novo `demo_runner` seja uma tarefa de movimento.
+YAML
+- movimento: demonstração nº nome_tarefa                    - movimento: demonstração nº nome_tarefa
+Período: 0,002 – frequência de execução do #runner                   Período: 0,002 – frequência de execução do #runner
+Runner: # Lista de runners necessários para esta tarefa                         Runner: # Lista de runners necessários para esta tarefa
+- nome: demo_runner # Novo runner adicionado, cujo nome é idêntico ao de Register.RunNER           - nome: demo_runner # Novo runner adicionado, cujo nome é idêntico ao de Register.RunNER
+enabled: true
+param_tag: o nome de "sitting" coincide com o tag presente em mode.yaml          param_tag: o nome de "sitting" coincide com o tag presente em mode.yaml
+manual_transition: # A demonstração só permite alternar os movimentos desta lista              manual_transition: # A demonstração só permite alternar os movimentos desta lista
+- passive
+Chave: [LB, X] # Ligação aos botões do controle remoto necessários para executar este movimento                    Chave: [LB, X] # Ligação aos botões do controle remoto necessários para executar este movimento
+4.3 Terceiro passo: Expansão da classe de parâmetros
+Adicione o campo LOAD_param(…) conforme necessário e complete a lógica de leitura no método Update().
+Quando for necessário, pode-se adicionar a verificação Check( ) (para critérios como escopo, dimensão ou não vazios, entre outros).
+Exemplo: Se o seu Runner precisar carregar arquivos de modelo (como redes de estratégia)
+Adicione campos ao arquivo de parâmetros YAML (por exemplo, policy_path):
+YAML
+policy_file: "demo/policies/policy.mnn"
+Adicione um campo de leitura na categoria de parâmetros:
+C++
+class DemoParam : public BasicParam {
+public:
+DemoParam(std::string_view tag = "demo") : BasicParam(tag) {}
+
+std::string LOAD_PARAM(policy_file);
+
+void Update() override { LOAD_PARAM(policy_file); }
+};
+Carregue o modelo no Runner Enter ():
+C++
+bool DemoRunner::Enter() {
+// Carregar parâmetros
+if (!param_tag_.empty()) {
+param_ = data::ParamManager::create<data::DemoParam>(param_tag_);
+  }
+  
+// Carregar o modelo
+model_ = std::make_unique<math::MNNModel>(
+common::PathJoin(common::GlobalPathManager::GetInstance().GetConfigPath(), param_->policy_file));
+return true;
+}
+Adicione um membro ao arquivo cabeçalho Runner: std::unique_ptr<math:MNNModel>model_;
+Dessa forma, é formada uma cadeia completa: configuração em YAML → Param LOAD_param → execução do runner ( Runner Enter()).
+4.4 Etapa 4: Expansão da lógica do Runner
+O Motion Runner realiza manutenções adicionais nos objetos SetupContext() e TeardownContext(), gerenciando parâmetros globais.
+Continue escrevendo na saída em Run (), GetMutableOutput() e SetCommand (...)
+Coloque a lógica de reinicialização demorada em TryExit e realize a limpeza/reinicialização completa em Exit.

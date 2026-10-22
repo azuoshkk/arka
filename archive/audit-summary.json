@@ -1,0 +1,13 @@
+{
+  "files": 32201,
+  "classifications": {
+    "ativo": 25852,
+    "teste": 2254,
+    "backup": 120,
+    "temporário": 3962,
+    "legado": 13,
+    "descartável": 0
+  },
+  "duplicate_groups": 1,
+  "disposable_policy": "Somente caches comprovados removidos após backup; nenhum documento do RAG removido."
+}

@@ -1,0 +1,482 @@
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass
+import unicodedata
+
+from app.agents.expert import (
+    answer as expert_answer,
+)
+
+from app.core.router import (
+    route_message,
+)
+
+
+EXPERT_ERROR_MESSAGE = (
+    "Não consegui consultar a documentação "
+    "técnica neste momento."
+)
+
+
+@dataclass
+class VoiceContext:
+    last_route: str = "chat"
+    expert_context: str | None = None
+
+
+_default_context = VoiceContext()
+
+
+def normalize(
+    text: str,
+):
+
+    value = unicodedata.normalize(
+        "NFKD",
+        text or "",
+    )
+
+    value = "".join(
+        char
+        for char in value
+        if not unicodedata.combining(
+            char
+        )
+    )
+
+    return (
+        value
+        .lower()
+        .strip()
+    )
+
+
+
+
+def canonicalize_project_aliases(
+    text: str,
+):
+    """
+    Preserva integralmente os nomes usados pelo usuário.
+
+    Arcanjo é o nome público.
+    T800 é apenas um alias técnico interno usado pelo RAG.
+
+    Esta função NÃO deve renomear entidades.
+    """
+    return text or ""
+
+
+def strip_leading_greeting(
+    text: str,
+):
+    """
+    Remove apenas uma saudação no início
+    PARA O ROUTER.
+
+    A pergunta original continua sendo enviada
+    ao Expert/Chat.
+    """
+
+    value = text.strip()
+
+    patterns = (
+        r"^(?:olá|ola)[,!\s]+",
+        r"^oi[,!\s]+",
+        r"^bom\s+dia[,!\s]+",
+        r"^boa\s+tarde[,!\s]+",
+        r"^boa\s+noite[,!\s]+",
+        r"^e aí[,!\s]+",
+        r"^e ai[,!\s]+",
+    )
+
+    for pattern in patterns:
+
+        cleaned = re.sub(
+            pattern,
+            "",
+            value,
+            count=1,
+            flags=re.IGNORECASE,
+        )
+
+        if cleaned != value:
+
+            return cleaned.strip()
+
+    return value
+
+
+def expand_expert_question(
+    text: str,
+):
+
+    q = normalize(
+        text
+    )
+
+    has_password = any(
+        term in q
+
+        for term in (
+            "senha",
+            "password",
+            "credencial",
+            "credenciais",
+        )
+    )
+
+    has_network = any(
+        term in q
+
+        for term in (
+            "wifi",
+            "wi-fi",
+            "internet",
+            "rede",
+            "wireless",
+            "ssid",
+        )
+    )
+
+    has_t800 = bool(
+        re.search(
+            r"\b(?:t[\s-]*800|800)\b",
+            q,
+        )
+    )
+
+    if (
+        has_password
+        and has_network
+        and has_t800
+    ):
+
+        return (
+            "Consulta técnica sobre credenciais "
+            "de rede relacionadas ao robô T800 "
+            "e à documentação da EngineAI. "
+            "Procure especificamente informações "
+            "sobre Wi-Fi, rede interna, SSID, "
+            "senha, password e credenciais.\n\n"
+            "Pergunta original do usuário:\n"
+            + text
+        )
+
+    return text
+
+
+def reset_voice_context(context: VoiceContext | None = None):
+
+    context = context if context is not None else _default_context
+
+    context.last_route = "chat"
+    context.expert_context = None
+
+
+def looks_like_followup(
+    text: str,
+):
+
+    q = normalize(
+        text
+    )
+
+    patterns = (
+        r"^e\b",
+        r"^mas\b",
+        r"^entao\b",
+        r"^onde\b",
+        r"^como\b",
+        r"^qual\b",
+        r"^quais\b",
+        r"^isso\b",
+        r"^esse\b",
+        r"^essa\b",
+        r"^esses\b",
+        r"^essas\b",
+        r"^ele\b",
+        r"^ela\b",
+        r"^dai\b",
+    )
+
+    return any(
+        re.search(
+            pattern,
+            q,
+        )
+
+        for pattern
+        in patterns
+    )
+
+
+def prepare_voice_route(
+    text: str,
+    project: str = "t800",
+    context: VoiceContext | None = None,
+):
+
+    """
+    Faz SOMENTE o roteamento.
+
+    Não chama o LLM e não executa o RAG.
+
+    Isso permite que o runtime use
+    answer_stream().
+    """
+
+    context = context if context is not None else _default_context
+
+    router_text = strip_leading_greeting(
+        text
+    )
+
+    router_text = canonicalize_project_aliases(
+        router_text
+    )
+
+    decision = route_message(
+        router_text
+    )
+
+    effective_question = (
+        expand_expert_question(
+            canonicalize_project_aliases(
+                text
+            )
+        )
+    )
+
+    # ========================================================
+    # FOLLOW-UP TÉCNICO
+    # ========================================================
+
+    if (
+        decision["route"]
+        == "chat"
+        and context.last_route
+        == "expert"
+        and context.expert_context
+        and looks_like_followup(
+            text
+        )
+    ):
+
+        decision = {
+            "route":
+                "expert",
+
+            "reason":
+                "expert_followup",
+
+            "confidence":
+                0.95,
+        }
+
+        effective_question = (
+            "Contexto da pergunta técnica anterior:\n"
+            f"{context.expert_context}\n\n"
+            "Pergunta atual:\n"
+            f"{text}"
+        )
+
+    # ========================================================
+    # CHAT
+    # ========================================================
+
+    if (
+        decision["route"]
+        != "expert"
+    ):
+
+        context.last_route = "chat"
+        context.expert_context = None
+
+        return {
+            "route":
+                "chat",
+
+            "reason":
+                decision.get(
+                    "reason"
+                ),
+
+            "confidence":
+                decision.get(
+                    "confidence"
+                ),
+
+            "question":
+                text,
+        }
+
+    # ========================================================
+    # EXPERT
+    # ========================================================
+
+    if (
+        decision.get(
+            "reason"
+        )
+        == "t800_alias_context"
+        and "t800"
+        not in normalize(
+            effective_question
+        )
+    ):
+
+        effective_question = (
+            "No contexto do projeto T800:\n"
+            + effective_question
+        )
+
+    context.last_route = "expert"
+
+    if context.expert_context is None:
+
+        context.expert_context = (
+            text
+        )
+
+    else:
+
+        context.expert_context = (
+            context.expert_context
+            + "\n"
+            + text
+        )[-700:]
+
+    return {
+        "route":
+            "expert",
+
+        "reason":
+            decision.get(
+                "reason"
+            ),
+
+        "confidence":
+            decision.get(
+                "confidence"
+            ),
+
+        "question":
+            effective_question,
+    }
+
+
+def prepare_voice_response(
+    text: str,
+    project: str = "t800",
+    context: VoiceContext | None = None,
+):
+
+    """
+    Compatibilidade com os testes/legado.
+
+    O runtime novo usa prepare_voice_route()
+    + answer_stream().
+    """
+
+    plan = prepare_voice_route(
+        text,
+        project=project,
+        context=context,
+    )
+
+    if (
+        plan["route"]
+        != "expert"
+    ):
+
+        return {
+            "route":
+                "chat",
+
+            "reason":
+                plan.get(
+                    "reason"
+                ),
+
+            "confidence":
+                plan.get(
+                    "confidence"
+                ),
+
+            "answer":
+                None,
+
+            "sources":
+                [],
+
+            "error":
+                None,
+        }
+
+    try:
+
+        result = expert_answer(
+            question=
+                plan["question"],
+
+            project=
+                project,
+        )
+
+        return {
+            "route":
+                "expert",
+
+            "reason":
+                plan.get(
+                    "reason"
+                ),
+
+            "confidence":
+                plan.get(
+                    "confidence"
+                ),
+
+            "answer":
+                result.get(
+                    "answer",
+                    ""
+                ),
+
+            "sources":
+                result.get(
+                    "sources",
+                    []
+                ),
+
+            "error":
+                None,
+        }
+
+    except Exception as exc:
+
+        return {
+            "route":
+                "expert",
+
+            "reason":
+                plan.get(
+                    "reason"
+                ),
+
+            "confidence":
+                plan.get(
+                    "confidence"
+                ),
+
+            "answer":
+                EXPERT_ERROR_MESSAGE,
+
+            "sources":
+                [],
+
+            "error":
+                repr(exc),
+        }

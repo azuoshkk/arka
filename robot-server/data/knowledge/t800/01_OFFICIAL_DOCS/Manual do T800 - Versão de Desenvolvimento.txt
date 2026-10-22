@@ -1,0 +1,833 @@
+Manual do T800 - Versão de Desenvolvimento
+[T800-开发版 手册.pdf]
+1. Declaração de isenção de responsabilidade
+Declaração de isenção de responsabilidade e segurança do produto
+⚠ Aviso de perigo: O equipamento robô Zhongqing é um equipamento mecânico com habilidade esportiva. A operação inadequada pode causar danos ao equipamento, ferimentos pessoais ou danos materiais. Se o produto apresentar alguma falha funcional (incluindo, mas não se limitando a, falha na operação, alarme anormal, falha na função de segurança, etc.)  , pare de usá-lo imediatamente. Não continue a usá-lo até que a falha seja eliminada.
+Para garantir a sua segurança e evitar potenciais lesões corporais, danos materiais e riscos legais, por favor, leia atentamente e compreenda completamente todo o conteúdo deste aviso antes de ativar este produto. Qualquer uso que você faça será considerado como tendo plenamente compreendido e aceitado incondicionalmente todas as cláusulas deste aviso.
+Para os termos desta declaração que tenham um interesse material para você (incluindo, mas não se limitando aos termos que isentam ou limitam nossa responsabilidade, os termos que limitam seus direitos, etc.), faremos uma forma em negrito, sublinhada ou outra forma proeminente de chamar sua atenção. Por favor, leia estes termos com atenção. Se você tiver alguma dúvida sobre esses termos, poderá entrar em contato conosco a qualquer momento e nós explicaremos. Se você concorda em usar nossos produtos, considera-se que notou e leu os termos acima de forma proeminente.
+1.1 Notas antes de usar
+1.1.1 Obrigação de ler e compreender: Você confirma e promete que leu e compreendeu totalmente esta declaração Política de Privacidade (https: / / wwprojetaicomcn / política html) e todas as descrições relevantes de produtos em detalhes antes de usar este produto / serviço, especialmente o conteúdo sobre seus direitos e responsabilidades Use restrições e precauções de segurança. Se você não cumprir as obrigações acima, isso pode levar a consequências graves, incluindo, mas não se limitando a, perda de propriedade, perda de dados, acidentes de segurança ou danos pessoais.Você será totalmente responsável por seu próprio comportamento de uso (incluindo, mas não limitado a modo de operação, uso do ambiente, interação de terceiros, etc.) e todas as consequências decorrentes. Se você não cumprir as disposições desta declaração pode levar a danos materiais, acidentes de segurança e danos pessoais. Você será responsável por seu próprio comportamento de uso e todas as consequências decorrentes.
+Aquisição de informações de garantia: Os termos de garantia deste produto são detalhados no site oficial ( wwprojetaicomcn / policies-  e-termos ), por favor leia você mesmo. Os serviços de garantia relevantes serão fornecidos em estrita conformidade com os procedimentos e requisitos anunciados no site oficial.
+1.2 Público-alvo e requisitos de ambiente
+1.2.1 Público-alvo: Os produtos da Zhongqing não são brinquedos e não são adequados para operação por menores de idade. Se for realmente necessário que menores de idade os usem
+Este produto deve ser acompanhado e guiado por um adulto com plena capacidade de conduta civil (ou seja, um tutor legal) durante todo o processo. O tutor deve avaliar integralmente os riscos de segurança do produto e assumir a responsabilidade de tutela pelo uso da enfermaria. Se um menor operar este produto sem autorização devido ao não cumprimento de seus deveres de tutela, o tutor deve assumir a responsabilidade correspondente de acordo com a lei. Os adultos que atingiram a idade de um ano, mas não têm plena capacidade de conduta civil, estarão sujeitos a estas disposições.
+Existem riscos físicos (impacto, queda do corpo, etc.) durante a operação deste produto. Mulheres grávidas, pessoas com resposta tardia (incluindo idosos) podem enfrentar riscos de segurança mais elevados ao usar este produto. Não é recomendado para os grupos acima operar este produto de forma independente. Se você realmente precisar usá-lo, faça-o com a ajuda de outras pessoas e siga rigorosamente as instruções do produto.
+1.2.2 Esta declaração aplica-se a todos os produtos de robôs humanoides da Zhongqing Robot.
+1.2.3 Requisitos ambientais: É estritamente proibido usar emambientes não convencionais, como alta temperatura, extrema frieza, imersão, incêndio ou corrosão química.
+1.3 Normas de uso do produto
+1.3.1 Operação Padronizada: Por favor, siga estritamente as instruções do produto para operar.
+1.3.2 Requisitos de gestão de distância de segurança e funções de alto risco
+O operador deve informar o pessoal no local dos riscos de segurança relevantes de forma eficaz antes de executar os seguintes cenários; se o operador não cumprir os seguintes requisitos de distância de segurança ou as obrigações de gestão no local e de notificação de riscos, a empresa não será responsabilizada por quaisquer danos pessoais ou materiais.
+1.3.2.1 Requisitos de distância de segurança de função normal
+produtos no estado normal de funcionamento (funções de demonstração não especiais, tais como  : estado de pé, de pé, de marcha ou de marcha), devem assegurar que: em torno do produto num  raio de 5 metros, e se espera que o produto se mova dentro da gama coberta pela via sem pessoal, animais de estimação e objetos de valor; local aberto, sem barreiras.
+1.3.2.2 Avisos e requisitos para funções de demonstração especiais (por exemplo: dança de artes marciais)
+① Esta função é apenas para fins de demonstração e é estritamente proibida para uso em combate;
+②  Ao usá-lo, você deve garantir que: ao redor do produto  , não há pessoas, animais de estimação e objetos de valor dentro de 5 metros  ; o local é plano e aberto.
+1.3.2.3 Requisitos de gestão reforçada na presença de grupos especiais
+Se houver menores, mulheres grávidas, idosos ou pessoas com mobilidade limitada no ambiente operacional, o operador é considerado como a pessoa diretamente responsável pela segurança do local, e é responsável por garantir que o pessoal acima esteja na área segura (fora da distância segura especificada nesta declaração com o produto). Além disso, no processo de operação do produto: é necessário prestar atenção à dinâmica do pessoal acima ao longo do processo para impedi-los de entrar no raio centrado no produto  5 metros de áreas perigosas.
+1.3.2.4 Requisitos de demonstração de interação ou colaboração humano-máquina (incluindo, mas não se limitando a, ensino de orientação de aperto de mão e toque de punho, interação, apresentação sincronizada, etc.)
+As exigências de distância de segurança estabelecidas no artigo 3.2.1 e no artigo 3.2.3 deste Aviso não se aplicam neste caso.
+O operador deve cumprir as seguintes obrigações específicas neste modo:
+① Informar completamente os riscos aos participantes da interação e confirmar seu consentimento informado;
+② Operar com cautela a baixa velocidade;
+③ Deve estar preparado para interromper ou parar imediatamente a operação a qualquer momento de acordo com a dinâmica do comportamento das pessoas que interagem ou colaboram para garantir a segurança pessoal.
+④O operador é responsável por qualquer dano físico ou material causado pela não cumprimento desses deveres.
+1.3.2.5 Distância de comunicação: este produto é baseado na conexão Lora. Quando a distância do controlador exceder metros, a conexão pode ser interrompida, causando a queda do corpo.
+1.4 Instruções de segurança de uso da bateria
+1.4.1 Este produto usa baterias removíveis de íon de lítio. O uso inadequado pode fazer com que a bateria vaze, superaqueça, pegue fogo ou exploda. Cumpra rigorosamente todos os requisitos de segurança neste capítulo e no manual do produto. Leia atentamente antes de usar o produto.
+1.4.2 Este produto é adequado para bateria de meta-lítio personalizada Zhongqing. A especificação T800 é: [71,4V / 20Ah]. A bateria usada neste produto é personalizada exclusivamente para nossa empresa e possui requisitos específicos de desempenho elétrico e segurança. Não use baterias fornecidas por canais não oficiais. O uso de baterias não oficiais pode causar consequências graves, como danos ao equipamento de alimentação do robô e incêndio ou explosão. A perda de corte resultante e a responsabilidade legal devem ser suportadas pelo usuário. Os principais parâmetros técnicos da bateria deste produto (incluindo, mas não se limitando a, capacidade, tensão, densidade de energia, vida útil do ciclo, etc.) são detalhados nas disposições relevantes do "Manual do Produto".
+1.4.3 Requisitos de carregamento
+1.4.3.1 A bateria deste produto é estritamente proibida de ser carregada diretamente quando o produto estiver embutido na fuselagem. A bateria deve ser completamente removida do corpo do produto antes de conectar o carregador para carregamento. A violação desta operação pode causar danos à bateria, falha do produto ou ferimentos pessoais, e as consequências devem ser suportadas pelo usuário.
+1.4.3.2 Certifique-se de que as mãos estejam secas antes de retirar ou colocar a bateria. Não opere em ambientes úmidos.
+1.4.3.3 Use o carregador que acompanha o produto ou acessórios de carregamento certificados pela nossa empresa.
+1.4.3.4 Coloque o dispositivo (ou bateria) em um local seco e ventilado e longe de materiais inflamáveis durante a carga.
+1.4.3.5 Não carregue em temperaturas ambientais inferiores a 0°C ou superiores a 45°C.
+1.4.3.6 Após a conclusão da carga, desligue a fonte de alimentação em tempo hábil e não sobrecarregue por muito tempo.
+1.4.4 Proibições
+1.4.4.1 É estritamente proibido esmagar, perfurar, desmontar, aquecer ou curto-circuitar a bateria.
+1.4.4.2 É estritamente proibido misturar a bateria com objetos metálicos (como chaves, moedas, joias) para evitar curto-circuito.
+1.4.4.3 é estritamente proibido colocar a bateria em um ambiente de alta temperatura (como perto da fonte de incêndio sob luz solar direta em um carro fechado no verão).
+1.4.4.4 Não deixe a bateria cair ou a golpeie. Se a bateria sofrer um impacto forte, pare de usá-la.
+1.4.4.5 descobriu que a protuberância da bateria vaza odor de calor anormal ou ferrugem, pare de usar imediatamente e descarte seguro.
+1.4.5 Armazenamento a longo prazo
+1.4.5.1 As baterias devem ser colocadas em locais inacessíveis às crianças.
+1.4.5.2 As baterias devem ser armazenadas em estado de carga incompleto. Use a bateria até cerca de 20% -50% antes de armazená-la.
+1.4.5.3 Se o produto não for usado por mais de 3 meses, recomendamos que a bateria seja removida e armazenada separadamente.
+1.4.5.4 requisitos do ambiente de armazenamento: frio, seco e ventilado, ambiente, temperatura não exceda 25 ° C, evite luz solar direta, chuva de alta temperatura, gás corrosivo, vibração severa, choque mecânico e pressão pesada, etc.; longe de fontes de fogo e calor; altitude é inferior a 1500 metros, pressão atmosférica é 86kPa ~ 106kPa.
+1.4.5.5 Recomenda-se verificar a carga da bateria a cada mês. Se a carga for inferior a %, carregue-a até %-% antes de continuar a armazená-la. É necessário carregá-la completamente antes de usá-la.
+1.4.6 Tratamento de situações anormais
+1.4.6.1 fumaça e fogo da bateria: evacue imediatamente e use um extintor de incêndio em pó seco ou extintor de óxido de carbono para apagar o fogo. Não use água para apagar o fogo. Se a bateria estiver no dispositivo, não tente removê-la.
+1.4.6.2 vazamento da bateria: Evite o contato direto com o eletrólito na pele. Em caso de contato inadvertido, enxágue imediatamente com bastante água por pelo menos 1 minuto e procure atendimento médico. Se o eletrólito entrar no olho, procure atendimento médico imediatamente.
+1.4.6.3 curto-circuito da bateria (quente): Mova imediatamente a bateria para uma área de segurança aberta, longe de materiais inflamáveis, e trate-a como uma bateria residual após o resfriamento.
+1.4.7 Transporte
+As baterias devem ser transportadas em um estado de carga incompleta, geralmente com SOC de 20% a 50%. Durante o transporte, eles devem ser manuseados com cuidado para evitar colisões, batidas, vibrações severas, choques, exposição solar, chuva, para garantir que não ocorra curto-circuito. É estritamente proibido colocá-los juntos com itens corrosivos como ácido e álcali. Durante a carga e descarga, eles devem ser manuseados com cuidado para evitar arremessos, quedas e fortes pressões.
+1.4.8 Descarte
+1.4.8.1 Certifique-se de remover a bateria do produto antes de descartá-la. Não descarte a bateria como lixo doméstico.
+1.4.8.2 Observe as leis locais de gestão de resíduos eletrônicos e leve as baterias descartadas para os pontos de coleta designados.
+1.4.8.3 É estritamente proibido jogar a bateria no fogo, na água ou quebrá-la.
+1.5 Disposição de emergência
+1.5.1 Guia de Operação de Situações Anormais
+1.5.1.1 situação anormal: Quando o robô funciona de forma anormal (como ruído anormal e falha de ação de agitação, etc.), mude para o modo de amortecimento imediatamente, o robô perderá o suporte e cairá lentamente.
+1.5.1.2 emergência perigosa: Se o robô estiver em uma emergência perigosa que possa causar ferimentos pessoais ou grandes danos materiais (como perda de controle, colisão, etc.), execute imediatamente a operação de parada de emergência para tratamento de emergência, o robô cortará imediatamente a fonte de alimentação, perderá o suporte em um instante e cairá imediatamente.
+1.5.2 Este produto pode executar a operação de parada de emergência da seguinte forma:
+1.5.2.1 Botão de parada de emergência física da fuselagem: um botão de parada de emergência vermelho é instalado em uma posição proeminente no corpo do robô;
+1.5.2.2 Modo de operação de teclas de combinação no terminal de console portátil: pressione simultaneamente as teclas de aumento e diminuição de volume;
+1.5.2.3 Modo de operação de teclas de combinação no terminal portátil: pressione as teclas Back e Start ao mesmo tempo;
+1.5.3 ambas as partes confirmam e entendem que o projeto da função de parada de emergência é priorizar a segurança pessoal e evitar a expansão de acidentes graves, em vez de proteger o próprio equipamento. Durante a operação de parada de emergência, o robô será forçado a parar imediatamente, o sistema de energia será interrompido instantaneamente e o robô cairá instantaneamente devido à perda de suporte.
+O comportamento de parada de emergência pode causar danos ao corpo do robô (incluindo, mas não limitado a, deformação estrutural, perda de precisão da junta, danos à casca, etc.)  . O usuário está ciente e voluntariamente assume o risco de danos ao equipamento acima que podem ser causados pela operação de parada de emergência.
+1.5.4 A operação de parada de emergência atua como um desligamento forçado e só é usado em situações de emergência. É estritamente proibido usar a operação de parada de emergência como um método normal de desligamento. O uso frequente do botão / botão de parada de emergência pode causar danos ao equipamento ou encurtar a vida útil do equipamento.
+Os operadores e a equipe no local devem estar familiarizados com a localização e o uso do botão / botão de parada de emergência. Uma vez que qualquer situação perigosa ocorre (como ruído anormal e fumaça de movimento descontrolado, etc.)  , a função de parada de emergência deve ser ativada o mais rápido possível, Aguarde até que o produto esteja em um estado completamente estático antes de descarte. É estritamente proibido tentar corrigir / bloquear diretamente o corpo do produto por corpo ou manualmente quando o produto não estiver em um estado completamente estático.
+1.6 Uso legal
+1.6.1 É estritamente proibido o uso deste produto para qualquer finalidade ilegal, incluindo, mas não se limitando a, ameaçar a segurança nacional, apoiar o terrorismo, desenvolver armas militares, etc.
+1.6.2 O Usuário confirma e garante que sua compra dos produtos sob este contrato é apenas para fins civis e comerciais. O Usuário se compromete a cumprir rigorosamente as leis e regulamentos de controle de exportação em vigor e alterados de tempos em tempos na China, Estados Unidos, União Europeia, Nações Unidas e outros países ou regiões relevantes, incluindo, mas não limitado a China, Estados Unidos e outros países ou regiões relevantes. O Usuário está ciente de que os produtos, software técnico e serviços sob este contrato podem estar sujeitos a restrições específicas nas jurisdições acima, e promete solenemente não fornecer produtos, tecnologias ou serviços da Zhongqing de qualquer forma a quaisquer países, regiões ou entidades sancionados ou restritos;Não será usado para qualquer finalidade que viole as leis e regulamentos de controle de exportação e sanções aplicáveis, incluindo, mas não limitado a, armas militares relacionadas ou usos não civis. Se o usuário violar as disposições desta cláusula, ele assumirá todas as responsabilidades legais decorrentes disso.
+1.7 Limitações de manutenção e modificação
+1.7.1 Qualquer forma de desmontagem não autorizada, modificação, desmontagem ou manutenção não autorizada e depuração é estritamente proibida.
+1.7.2 Qualquer desenvolvimento ou modificação de software e hardware implementado pelo usuário é um ato pessoal, e a perda de dados resultante
+A empresa não assume qualquer responsabilidade por perdas ou danos materiais, e tais ações invalidarão automaticamente o serviço de garantia de qualidade original do produto.
+1.8 Expectativa de perda normal
+1.8.1 Durante o uso normal deste produto, a atenuação gradual do desempenho de desgaste natural de peças e baterias e o envelhecimento das baterias causado por fadiga do material reações químicas e efeitos físicos pertencem à categoria de perdas físicas normais inevitáveis. Tais perdas podem ser acompanhadas por potenciais alterações de desempenho ou riscos de uso. As perdas diretas ou indiretas causadas pelas perdas normais acima  são suportadas pelo usuário.
+A fim de garantir a sua segurança, é recomendável que você: Prevenção ativa: verifique a aparência do produto e componentes-chave (como baterias, motores de junta) pelo menos uma vez por mês, e preste atenção às suas mudanças de status. Eliminação atempada: Uma vez que o produto é encontrado para ter ruído anormal, superaquecimento, fuga ou declínio de desempenho anormal, ele deve ser interrompido imediatamente e entre em contato com o tratamento oficial pós-venda.
+1.9 Aviso de perigo
+Perigo Perigo de peso : T800 peso cerca  84,5kg, PM01 peso cerca  42kg , manuseio colocação suspensão deve ser avaliado
+Capacidade de carga, use ferramentas e pessoal de força suficiente.
+1.9.2 Perigo de movimento: O produto tem uma certa velocidade de movimento e a ação tem uma certa força destrutiva. É estritamente proibido aproximar-se durante a utilização, e nenhuma parte do corpo deve entrar na gama de movimento do produto.
+1.9.3 Consequências Aviso: A violação da operação de segurança acima pode resultar em ferimentos pessoais graves ou danos materiais. Por favor, certifique-se de seguir rigorosamente as instruções do produto.
+1.10 Revisão da isenção de responsabilidade e declaração
+1.10.1 Isenção de responsabilidade: A empresa não assume qualquer responsabilidade pelas perdas e consequências causadas pelo não cumprimento desta declaração e especificações do produto pelo utilizador.
+Alteração Alteração da Declaração: Na medida permitida por lei, a empresa tem o direito de interpretar esta declaração e deverá emiti-la no último edital
+A versão mostrada prevalecerá. A empresa tem o direito de revisar, complementar e melhorar seu conteúdo por meio de meios rastreáveis, como notificação por escrito ao anúncio oficial. O conteúdo revisado será anunciado por um ou mais meios rastreáveis, como notificação por escrito ao prompt do sistema do produto da caixa de correio designada ou anúncio oficial do site. O uso do produto é considerado como aceitando a versão mais recente, e a empresa cumpriu a obrigação de solicitar e explicar a isenção de responsabilidade.
+1.11 Contactos
+1.11.1 Se você tiver alguma dúvida ou sugestão durante o uso de produtos ou serviços, ou encontrar problemas de segurança e falhas funcionais, pode entrar em contato conosco das seguintes maneiras:
+1.11.1.1 Caixa de correio oficial:EACsupport@engineaicomcn
+1.11.1.2 Telefone de atendimento ao cliente: 0755-26999080
+1.11.1.3 Entrada do atendimento ao cliente no site oficial ou função de feedback no produto.
+2. Resumo do robô
+2.1 Apresentação do robô
+A série Zhongqing T800 é um robô humanóide de alto desempenho para aplicações industriais e comerciais, projetado para operações práticas, implantação de ambientes complexos e desenvolvimento secundário. Ele fornece uma base sólida de hardware e software para usuários da indústria e instituições de pesquisa científica.
+2.2 Características do robô
+Modelo
+Versão de desenvolvimento T800
+Dimensões do produto 
+173cm(A)
+peso carregado
+cerca de 84,5 kg
+Comprimento da perna + coxa
+91cm
+Comprimento do antebraço + braço
+60cm
+Graus de liberdade totais
+25
+Graus de liberdade do pescoço
+2
+Grau de liberdade de braço único
+5
+Grau de liberdade da cintura
+1
+Grau de liberdade de perna única
+6
+Articulação completa com fios internos
+é
+Velocidade de caminhada (avanço)
+0~1.5m/s
+Velocidade de caminhada (retrógrada)
+0~0.8 m/s
+Velocidade de deslocamento (lateral)
+0~0.5m/s
+Velocidade de caminhada (girar para a esquerda e para a direita)
+0~20°/s 
+最大坡度
+20° (inclinacao lateral + inclinacao longitudinal)
+Torque máximo do joelho
+450 N*m
+encoders de articulação
+codificador duplo absoluto
+Tipo de articulação
+planeta
+Grau de proteção
+IPX4
+Temperatura de trabalho
+ -10℃ ~ 40℃
+Umidade de trabalho
+5% ~ 90% (sem condensação)
+MTBF
+>1000hr
+MTTR
+<30 minutos
+sensor de percepção
+Auto-desenvolvido binocular + lidar (cabeça + pescoço)
+Computação básica
+Intel Atom x7425E
+Modulo de alta capacidade de computação
+AGX ORIN 64G
+Memória RAM
+64G
+Espaço em disco
+SSD de 256G
+Desenvolvimento secundário
+suporte
+Tipo de bateria inteligente
+Bateria de lítio de três elementos (1,4 KWh)
+tempo de duração da bateria
+2h (padrão)
+Potência de carregamento
+Bateria de lítio ternária: 71,4V * 10A 
+Tempo de carregamento
+Bateria de lítio ternária 2,5h 
+Configuração de iluminação
+2 faróis + 2 lanternas de peito + lanternas de joelho
+Controle remoto portátil
+suporte
+
+
+Descrição do componente
+
+2.3 Interface elétrica
+
+
+número de série
+Tipo de interface
+abreviação da interface
+Descrição da interface
+1
+USB A
+USB A 3.0
+ (Conexão interna AGX ORIN)
+Conectar o módulo de alta capacidade de cálculo ORIN
+ Saída de fonte de alimentação de 5V/1A
+2
+USB A
+USB A 3.0 
+(Ligação interna NeZha N97)
+Conectar módulo de computação básica X86 
+Saída de fonte de 5V/1A
+3
+ethernet
+RJ45
+Interface de Gigabit Ethernet
+2.4 Computador a bordo
+parâmetro
+Unidade de cálculo de controle de movimento
+Unidade de Cálculo de Aplicação
+Modelo
+Nezha
+AGX ORIN 64G
+CPU
+Intel® N97（Alder Lake-N）
+12 núcleos Arm Cortex-A78AE
+número de núcleos
+4
+12
+número de threads
+4
+12
+Velocidade de Turbo Máxima
+3,6GHz
+2,2 GHz
+memória de vídeo
+\
+64GB LPDDR5
+(Com partilha de memória)
+memória
+1LPDDR5 8GB
+64GB LPDDR5 (integrado)
+armazenamento
+eMMC 64GB
+SSD de 256G
+GPU
+Intel® UHD Graphics Gen12
+2048 núcleos Ampere
+Frequência dinâmica máxima da placa de vídeo 
+\
+1,3 GHz
+Aceleradores Gauss e Neural
+Intel® UHD Graphics
+Suporte à inferência de IA 
+tem (275 TOPS)
+conjunto de instruções
+x86-64
+ARMv8.2
+OpenGL
+suporte
+Suporte (4.6) 
+OpenCL
+suporte
+suporte (3.0)
+DirectX
+suporte
+não suportado
+Endereço IP
+192.168.0.163
+192.168.0.162
+Executar o sistema operacional
+Linux
+Ubuntu
+2.5 sistema de sensores
+2.5.1 Lista de configuração
+Classificação de sensores
+Tipo de sensor
+Localização
+Quantidade: TBD
+Funcionalidades principais suportadas
+Base
+Percepção visual RGB
+cabeça
+1 (binocular)
+Reconhecimento facial, reconhecimento de gestos, chamada de vídeo, coleta de memórias
+
+Percepção de profundidade visual RGBD
+cabeça
+1
+3D mapeamento, evitação de obstáculos, navegação, reconhecimento de objetos, seguimento
+
+lidar
+cabeça
+1
+SLAM, localização em tempo real, planejamento de caminho global
+
+IMU
+Centro do tronco
+1
+Percepção de postura, controle de equilíbrio, planejamento de marcha
+
+sensor de torque
+
+Principais articulações
+Controle de flexibilidade, detecção de colisão,
+Interação Segura
+matriz de microfones
+cabeça
+Anel de trigo 4
+Interação de voz, despertar, detecção de eventos sonoros
+
+alto-falante de alta fidelidade
+tronco
+2
+Feedback de voz, reprodução de música, chamada
+
+2.5.2 
+
+Modulo IMU
+Parâmetros de ângulo de atitude
+parâmetro
+Subitem
+Valor típico
+Observação
+ângulo de rolagem
+precisão
+0.05°
+1σ RMS, medida a 25 °C, em repouso / sem aceleração prolongada
+
+Faixa de medição
+±180°
+
+ângulo de elevação
+precisão
+0.05°
+1σ RMS, medida a 25 °C, em repouso / sem aceleração prolongada
+
+Faixa de medição
+±90°
+
+Sem ângulo de direção de referência
+precisão
+0.2°
+1σ RMS, medida a 25 °C, o ângulo de direção é de 0 ° por padrão quando a energia é ligada
+
+Faixa de medição
+±180°
+
+Ângulo de direção de referência magnética
+precisão
+1°
+1σ RMS, em um campo magnético estável e com o sensor magnético calibrado no local
+
+Faixa de medição
+±180°
+
+Resolução angular
+
+0.001°
+Valor mínimo de variação detectável pelo sensor dentro do seu alcance
+Parâmetros do giroscópio
+parâmetro
+Valor típico
+Observação
+Faixa de medição
+±450°/s
+
+Não linearidade 
+±0,05%FS
+
+densidade de ruído
+0,015°/s/√Hz
+
+Instabilidade de desvio zero
+5°/h
+Variância Allan, 1σ
+largura de banda (-3dB)
+50Hz
+
+Deslocamento de zero
+±0,5°/s
+1σ RMS
+drift de temperatura de zero
+±1°/s
+1σ RMS, -40~85℃
+Parâmetros do acelerômetro
+parâmetro
+Valor típico
+Faixa de medição
+±16g
+Não linearidade 
+±0,1%FS
+densidade de ruído
+100ug/√Hz
+Instabilidade de desvio zero
+0,035mg
+largura de banda (-3dB)
+50Hz
+Deslocamento do ponto zero
+±20mg
+drift de temperatura de zero
+±10mg
+Parâmetros do sensor magnético
+parâmetro
+Valor típico
+Observação
+Faixa de medição
+±8Gauss
+
+Não-linearidade 
+±0,1%FS
+FS = ±8G
+ruído
+0,4mGauss
+RMS
+2.6 sistema articular
+O sistema de motor conjunto T800 adota os servomotores de alto desempenho da série Q desenvolvidos pela Zhongqing (incluindo Q300H, Q200H, Q50H, Q25H e outros modelos), cobrindo uma gama completa de requisitos, desde juntas principais de alto torque até juntas finais leves. O motor integra um sistema de codificador duplo, com codificadores de posição de alta precisão e sensores de torque / corrente, que podem fornecer posição precisa, velocidade e feedback de força para atender às necessidades de controle de movimento de alta dinâmica.
+Os parâmetros de especificação relacionados ao motor articulado são os seguintes:
+Modelo do motor
+Q25H
+Q50H
+Q200H
+Q300H
+Q300H-L
+encoders de articulação
+codificação dupla
+codificação dupla
+codificação dupla
+codificação dupla
+codificação dupla
+Tipo de articulação
+todo o planeta
+todo o planeta
+todo o planeta
+todo o planeta
+todo o planeta
+Torque máximo (Nm)
+50
+160
+222
+370
+450
+Densidade de torque de pico (Nm/kg)
+100
+168
+134
+176
+160
+Velocidade máxima (rpm)
+8400
+8000
+3200
+6000
+5800
+Redução de velocidade
+25
+25
+14.45
+24
+24
+massa (kg)
+0.5
+0.95
+1.65
+2.1
+2.6
+Diâmetro (mm)
+62
+76
+97
+110
+110
+Altura (mm)
+60
+62
+65
+65
+80
+Tensão nominal (V)
+48
+63
+63
+63
+63
+Precisão de controle de força
+5%
+5%
+5%
+5%
+5%
+2.7 sistema de bateria
+Parâmetros principais
+número de série
+Tipo de bateria
+bateria de lítio de três elementos
+Observação
+1
+Capacidade nominal
+20Ah
+
+2
+tensão nominal
+61,2V
+
+3
+Energia da bateria 
+1.224kWh
+
+4
+Faixa de tensão de trabalho
+50V ~ 71,2V
+
+5
+Corrente máxima de descarga contínua
+90A
+
+6
+Corrente de descarga de pico de curta duração
+800A
+
+7
+Corrente de carregamento máxima contínua
+10A
+
+8
+Limite máximo de tensão de carregamento
+71,2V
+
+9
+tempo de duração da bateria
+3H
+
+10
+Tempo de carregamento
+2,5H
+
+11
+troca rápida de bateria
+suporte
+
+12
+Modo de carregamento
+Carregamento da bateria separadamente (não suportado pelo corpo)
+
+13
+massa total do sistema
+≈7,2KG
+
+14
+Material da carcaça PACK
+Alumínio
+
+15
+Temperatura do ambiente de trabalho
+Carregamento da bateria: 0℃ ~ +45℃Descarga da bateria: -20℃ ~ +60℃
+
+16
+Temperatura de armazenamento
+1 ano: -10℃ ~ 25℃ ≤70% RH3 meses: -10℃ ~ 45℃ ≤70% RH
+
+17
+Umidade do ambiente de trabalho
+≤95%
+
+18
+Requisitos de altitude de trabalho
+≤4000M
+
+Requisitos de armazenamento
+① Armazenar a bateria em estado de carga incompleta
+② Temperatura de armazenamento : tempo de armazenamento <3 meses, -10  ~ 45 ; tempo de armazenamento ≥ 3 meses, -10  ~ 25 ;
+③ Umidade de armazenamento : umidade é de 2% RH ~ 90% RH, armazenamento recomendado dentro da faixa de não mais de 85% RH;
+ΔAmbiente de armazenamento : O produto deve ser armazenado em um ambiente limpo, seco, ventilado e fresco para evitar luz solar direta, alta temperatura, chuva, gases corrosivos, vibração severa, choque mecânico e pressão pesada; longe de fontes de fogo e calor; altitude inferior a 1500 metros, pressão atmosférica, 86kPa ~ 106kPa.
+◎ Armazenamento SOC e manutenção : 20% ~ 50% SOC condições de armazenamento, e monitorar o status SOC a cada 2 meses, se menos de 20%, precisa fazer o ajuste SOC para 40% ~ 50%, precisa ser totalmente carregado antes de usar .
+Requisitos de transporte
+As baterias são transportadas em um estado de carga incompleta e geralmente precisam estar em 20% a 50% de SOC. Durante o transporte, eles devem ser manuseados com cuidado para evitar colisões, vibrações severas, choques, exposição solar e chuva para garantir que não ocorram curtos-circuitos. É estritamente proibido colocá-los juntos com itens corrosivos, como ácido e álcali. Durante a carga e descarga, eles devem ser manuseados com cuidado para evitar arremessos, quedas e pressão pesada.
+3. Descrição do aplicativo de terminal de controle de robôs Zhongqing
+3.1 Versão
+Este manual corresponde à versão do aplicativo: V1.0.2
+Esta versão suporta controle local, mas não fornece serviços em nuvem e funções de controle remoto por enquanto.
+Se houver atualizações funcionais nas versões subsequentes, consulte o anúncio oficial.
+3.2 Instalação e conexãoX
+3.2.1 Conecte o robô
+Atualmente, o APP de ponto final do controle do robô Zhongqing suporta comunicação LoRa; a distância de comunicação é de até 30 metros; quando há um problema com a conexão, você pode ver 5.3 Condições comuns de falha de conexão.
+Etapas de operação
+interface de operação
+Conectar-se ao robô pela primeira vez
+
+Passo 1: Clique no controle
+
+
+
+Passo 2: Clique em LORA para parear
+
+
+Passo 3: Pressione rapidamente o botão de parada de emergência na parte de trás do pescoço do robô
+
+Após a conclusão do módulo de conexão, pressione o botão de parada de emergência no pescoço traseiro do robô e ouça o bipe de "gotejamento" para indicar que o emparelhamento foi bem-sucedido.
+
+Passo 4: Conexão bem-sucedida
+
+Modo de aproximação rápida
+Quando o robô emparelhado entra no intervalo de conexão detectável do dispositivo portátil novamente, o sistema acionará automaticamente a janela pop-up "Aproximando-se da correspondência rápida" para ajudar os usuários a concluir a conexão rápida com um clique, eliminando as etapas tediosas de pesquisa repetida e seleção manual.
+
+Alterar o nome do robô
+
+Passo 1: Entre na página Meu dispositivo, selecione o dispositivo que você precisa editar e clique no botão Editar.
+
+
+Passo 2: Insira o nome para renomear
+
+3.2.2 Casos comuns de falha de conexão
+Se a página de controle avançado mostrar "Não está pronto" e o status do módulo LORA mostrar "O status do robô ainda não foi lido", ou seja, o robô não está ligado no momento.
+
+
+Solução: No caso de o dispositivo portátil não bloquear a tela, clique na combinação de teclas de parada de emergência (existem duas combinações de teclas para parada de emergência: Pressione as teclas de volume mais ou menos ao mesmo tempo; pressione as teclas Voltar e Iniciar ao mesmo tempo), o farol do robô fica branco e emite um som de "drop drop", ou seja, o emparelhamento é bem-sucedido.
+Exibição do status do módulo LORA com sucesso de emparelhamento:
+
+3.3 Principais funções do APP
+O ponto final do controle do robô é um software de controle especialmente projetado para a série de robôs. Ele estabelece uma conexão com o robô através da comunicação LoRa para realizar as seguintes funções:
+módulo funcional
+Descrição
+Menu principal da página inicial
+Entrada de função: Centro de dispositivos, controle avançado, centro de configuração e orientação.
+Centro de Controle
+Controle virtual, controle avançado
+Configurações
+Idioma, Sobre nós, Termos de uso, Ajuda e feedback
+3.3.1 Função da página inicial
+A home page inclui quatro seções funcionais principais: Device Center, Advanced Control, Setup Center e Boot.
+Bloco de funções
+página de funcionalidade
+Home
+A home page inclui quatro seções funcionais principais: Device Center, Advanced Control, Setup Center e Boot.
+
+Centro de Dispositivos
+
+Controle avançado
+Passo 1: Clique em Iniciar Controle
+
+Passo 2: Clique na ação para enviar o comando
+
+Configurações
+
+Centro de orientação
+
+3.3.2 Centro de Controle
+O botão físico portátil só pode estabelecer comunicação com o robô e emitir comandos ao entrar na página de controle avançado ou controle virtual.
+Bloco de funções
+página de funcionalidade
+O centro de controle inclui dois blocos de funções: controle virtual e controle avançado
+
+Controle virtual
+
+Controle avançado
+1. Clique em Controle Avançado e depois clique em Iniciar;
+
+2. Clique no comando de ação enviado ao robô;
+
+3.3.3 Pop-up prompt and guidance
+3.3.3.1 Pop-up de alerta
+O prompt de janela pop-up é usado principalmente para emitir avisos ativamente aos usuários em cenários de risco latentes, como status anormal do robô, falha do usuário em manter uma distância segura ou desconexão fraca e fácil de sinais de comunicação, e fornecer orientação e soluções de operação correspondentes de forma síncrona para ajudar os usuários a evitar riscos em tempo hábil e garantir um controle seguro.
+Pop-up de alerta
+página de pop-up
+Confirmação de segurança de execução de ação
+
+Alerta de anomalia do robô
+
+O robô apresenta falha e precisa ser reiniciado para continuar executando a ação
+
+3.3.3.2 Função de orientação
+O centro de orientação se concentrará nos principais links básicos do controle do robô, cobrindo os processos de inicialização e desligamento do APP e do robô, bem como o posicionamento correto e calibração da postura inicial das juntas do robô, com o objetivo de ajudar os usuários a compreender rapidamente os métodos básicos de controle do APP de uma forma mais intuitiva e compreensível, e efetivamente reduzir o dano acidental ao robô causado por falha de operação por meio de diretrizes de operação padronizadas.
+Conteúdo de orientação
+página de introdução
+引导功能模块：引导中心
+
+
+Boot Process Guide
+
+Descrição de reposicionamento de pose
+
+3.3.4 Configurações
+O módulo de configuração inclui quatro partes: alternância de idioma, sobre nós, termos de uso e ajuda e feedback.
+Bloco de funções
+página de função
+língua
+Atualmente, o chinês simplificado e o inglês são suportados. Clique no idioma para alternar para o inglês
+
+Sobre nós
+
+Termos de Uso
+
+Política de Privacidade
+
+3.3.5 Tratamento de situação perigosa
+3.3.5.1 Modo de amortecimento
+Quando estiver em uma situação de emergência perigosa, você pode clicar em amortecimento;
+3.3.5.2 Tratamento de parada de emergência
+Nota: O botão de parada de emergência só pode ter efeito quando o dispositivo portátil não estiver bloqueado!
+Você também pode clicar no botão de combinação para fazer uma parada de emergência. É um botão para forçar o robô a parar separadamente. Depois de clicar, o robô cairá diretamente, o que pode causar danos ao hardware. Existem duas chaves de combinação para parada de emergência:
+Preferencial: pressione as teclas de volume mais e menos ao mesmo tempo ;
+
+Alternativa: Pressione as teclas Back e Start ao mesmo tempo ;
+
+4. Guia de Operação
+4.1 Início rápido
+Dica: Ao usá-lo pela primeira vez, certifique-se de que a bateria do robô esteja totalmente carregada (mais de duas baterias) e teste em uma área segura onde o solo seja plano e não haja obstáculos dentro de 5 metros.
+Siga os seguintes passos para começar a controlar seu robô em 5 minutos: 
+1. Abra o aplicativo do terminal de controle do robô Zhongqing;
+2. Ligue o robô: coloque o robô em um local aberto e plano, instale a bateria e certifique-se de que a energia seja suficiente. Pressione o botão liga / desliga da bateria por um curto período de tempo primeiro e pressione muito depois que a luz da bateria estiver acesa até que a luz vermelha na cabeça acenda. A luz branca na cabeça acende com sucesso.
+3. Conecte o dispositivo: Clique em "Device Center" / "Control" na página inicial do aplicativo, clique em "Adicionar" no canto superior direito da página, entre no modo de conexão Lora e selecione Robot Binding.
+4.开始操控：确保机器人头灯白色亮起后，从“控制”进入“虚拟操控”或“高级控制”面板，点击动作按钮即可控制机器人。
+5.结束操控：保证机器人坐在/躺在地面，先短按后长按电源关机键，电池灯熄灭即关机成功。
+4.2 操作流程
+4.2.1 开机出箱
+将机器人从箱子中拿出，将机器人放在开阔平坦处，装好电池并确保电量充足。先短按电池开机键，待电池灯亮后长按，直到头部红灯亮起。
+4.2.2 连接APP
+打开众擎机器人操控终端App，进行LORA配对，具体配对流程详见章节3.2连接。连接成功后进入高级控制页面。
+4.2.3 选择开机模式
+基于机器人所处的姿态选择开机方式
+开机模式
+机器人姿态
+T800基础版
+坐姿起身开机
+机器人坐在地上
+进入阻尼-坐着到站立
+平躺起身开机
+机器人平躺在地上
+进入阻尼-默认姿态锁定-阻尼-仰卧起身站立
+平趴起身开机
+机器人平趴在地上
+进入阻尼-默认姿态锁定-阻尼-俯卧起身站立
+吊起开机
+机器人被牵引绳吊起
+进入阻尼-默认姿态锁定-机器人双脚落地-切入任意步态
+4.2.4 关机模式
+当机器人的姿势处于坐姿/平趴/平躺，长按机器人背部电池按钮，机器人头灯熄灭即为关机成功。
+4.3 动作库清单
+动作/状态名称
+机械按键指令（确保屏幕显示对应动作执行）
+空闲
+LB+Start
+阻尼
+LB+RB
+默认姿态锁定
+LB+A
+拟人步态行走
+LB+B
+下肢平衡步态
+LB+Down
+站立到坐着
+Start+Left
+俯卧恢复站立
+Start+X
+仰卧起身站立
+Start + Up
+站立到仰卧
+Start + Down
+坐着到站立
+Start + Right
+关节透传服务
+Back+A
+4.4 机器人状态说明
+4.5 状态切换限制
+以下为机器人状态切换的限制，如果操作失误会出现危险，请仔细阅读：
+机器人处于坐姿姿态时不可以切PD默认姿态；
+仰卧、俯卧、坐姿起身必须机器人是在该姿势条件下点击，不然机器人会抽搐。（例如机器人坐姿姿态不能切仰卧/俯卧起身）
+在空闲、阻尼、PD默认姿态机器人才能被悬挂，其他都不可以。
+机器人躺着的状态可以切PD默认姿态，切换到PD后不可以切换到任意一种步态模式（例如拟人步态等）。
+机器人站立状态下不可以切PD默认姿态，除非挂在牵引绳上。
+5. 状态与异常说明
+5.1 机器人状态列表
+状态名称
+状态说明
+PD默认姿态（Default pose）
+机器人标准姿态，各关节电机位置归零。当机器人处于坐姿姿势时请勿切换到PD默认姿态，否则机器人将出现故障。站立状态下也不可以切PD默认姿态，除非挂在牵引绳上。
+Ocioso (Idle)
+O robô está em modo de espera e o motor não está habilitado.
+Amortecimento (Modo de amortecimento)
+O modo de amortecimento é um modo seguro e há resistência à mudança da posição das juntas do robô. O robô não pode ficar no modo de amortecimento.
+Andar de marcha mecânica (Mechanical_walk)
+Modo de caminhada baseado no algoritmo de controle de planejamento tradicional. A ação é frustrante, adequada para tarefas com requisitos de alta estabilidade, como inspeção e suporte de carga.
+Andar com passo natural (Natural_walk)
+O modo antropomórfico de caminhada realizado pelo controle de coordenação de todo o corpo. A postura é suave e natural, cheia de vida, adequada para interação homem-máquina, exibição e outras cenas.
+Andar com equilíbrio de membros inferiores (Walk_balance_lower_body)
+Os membros inferiores apresentam uma postura estável em pé, que pode ser utilizada para o controle da operação do membro superior, como a teleoperação.
+Serviço de transmissão transparente de articulação (Service_joint_bridge)
+Abra a interface de controle de articulação de baixo nível para uso de desenvolvimento secundário.
+5.2 
+
+Lista de alertas de APP / alertas de alto risco
+Tipo de alerta
+（Chinês）
+Tipo de alerta
+(em inglês)
+Guia de instruções
+（Chinês）
+Guia de instruções
+(em inglês)
+Alerta de articulação sem energia
+Aviso de Motor de Junta Offline
+O articulação não está energizado, tente reiniciar o robô.
+A junta não está ligada. Tente reiniciar o robô.
+Alerta de temperatura de articulação muito alta
+Aviso de temperatura excessiva da junta
+A temperatura da articulação do robô é muito alta. Por favor, pause a operação e continue a usá-la depois que a articulação esfriar.
+A temperatura da junta do robô é muito alta. Por favor, pause a operação e espere a junta esfriar antes de retomar o uso.
+Alerta de bateria baixa do robô
+Aviso de Bateria Baixa do Robô
+A bateria do robô está muito baixa. Por favor, substitua-a imediatamente por uma bateria com carga suficiente.
+Nível da bateria do robô está crítico. Por favor, substitua por uma bateria totalmente carregada imediatamente.
+Erro de falha de hardware da articulação
+Erro de falha de hardware conjunta
+Falha de hardware de articulação detectada. Verifique se o corpo do robô está danificado.
+Falha de hardware conjunta detectada. Verifique o corpo do robô quanto a danos.
+Erro de desligamento do motor
+Erro de motor offline
+O motor do robô está offline. Desligue e verifique se o motor da articulação está danificado.
+O motor do robô está offline. Desligue a energia e verifique se o motor da junta está danificado.
+Erro de temperatura excessiva do corpo da articulação
+Erro de temperatura excessiva do corpo da junta
+A temperatura do corpo da junta excedeu o limite de segurança, pare a operação e desligue o robô imediatamente para evitar perigo.
+A temperatura corporal da articulação excedeu o limite de segurança. Pare a operação imediatamente e desligue o robô para evitar perigo.
+关节初始位置错误
+Joint Initial Position Error
+关节未达到初始位置，请将关节重新摆正至初始状态后，再控制机器人。
+The joint has not reached the initial position. Reposition the joint to the initial state, then control the robot again.
+状态机故障错误
+Runner Fault Error
+状态机处于故障状态，请重启机器人。
+Runner is in fault status. Please restart the robot.
+6. 帮助与反馈
+如在使用中遇到任何问题，可通过以下方式联系我们：
+客服邮箱：EACsupport@engineai.com.cn
+我们将在7个工作日内回复您的反馈。
+
+
+文档结束
+如需最新版本或技术支持，请访问众擎官方网站或联系客服。
+版权所有 © 深圳市众擎机器人科技股份有限公司 2026
+
+
+文档署名：刘天、陈浩源

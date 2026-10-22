@@ -1,0 +1,23 @@
+1. Maintenance & Servicing
+ * 1.1 Routine Maintenance & IMU Calibration
+   * Answer: Under standard operating conditions, IMU recalibration is generally not required (even after minor impacts). However, routine maintenance requires periodic joint zero-position calibration to ensure movement accuracy and joint stability.
+* 1.2 Charging Base / Dock
+   * Answer: We currently do not offer a charging dock or base station for in-chassis charging while the robot is powered off. The battery must be removed from the robot and charged using the dedicated external charger.
+2. Hardware Diagnostics & Troubleshooting
+ * 2.1 Leg & Motor Telemetry
+   * Answer: We provide proprietary diagnostic tools and inspection routines to read motor telemetry, check operational status, and determine whether joint play is within tolerance or if a motor actuator requires replacement.
+* 2.2 Component & Limb Replacement
+   * Answer: At present, limb replacement, retrofitting, or modular limb swapping is not supported for this model.
+3. System Formatting, Files & Software Architecture
+ * 3.1 System Formatting, ISO & Specific Files
+   * Answer: Standard system recovery images and specific requested files will be packaged and shared with your team via a Google Drive link.
+* 3.2 NVIDIA CPU/Core Allocation
+   * Answer: The NVIDIA computing board provides 12 CPU cores in total. The onboard base system natively occupies 2 cores, leaving 10 cores fully available for user-defined algorithms and secondary development.
+* 3.3 Sensor Topics & Data Acquisition
+   * Answer: There is currently no unified, out-of-the-box standard topic pipeline for all onboard sensors. Users will need to perform secondary development and driver integration individually for each sensor (cameras, LiDAR, IMU).
+
+* 3.4 Native Wi-Fi Configuration
+   * Answer: The default onboard Wi-Fi SSID corresponds directly to the robot's Serial Number (SN / 机身编号). The default access password is: e12345678.
+4. Support & Workflow
+ * 4.1 After-Sales Support & Workflow
+   * Answer: Formal documentation regarding standard communication channels, SLA response times, warranty terms, and escalation pathways is maintained directly by our After-Sales Department. We are coordinating with the support team and will deliver the complete document package to you shortly.

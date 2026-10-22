@@ -1,0 +1,3 @@
+flask
+numpy
+# OpenCV precisa incluir cv2.face (opencv-contrib). No T800, prefira o OpenCV já instalado pelo sistema/ROS.

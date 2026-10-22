@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f8fc">
+<title>Arka · Assistente</title>
+<link rel="stylesheet" href="/assets/style.css"><script src="/assets/face-bridge.js" defer></script><script src="/assets/app.js" defer></script><script src="/assets/teaching.js" defer></script><script src="/assets/spectrum.js" defer></script><script src="/assets/eyes.js" defer></script>
+</head>
+<body>
+<div class="app"><main>
+<header><a class="brand" href="/"><img src="/assets/ipq.png" alt="IPQ"><span class="brand-divider"></span><strong>arka<span class="brand-dot">.</span></strong></a><div class="header-actions"><span id="route" class="route">CHAT</span><button id="teach-open" hidden>Ensinar Arka</button><button id="new-chat" title="Começar uma nova conversa">Nova conversa <span>＋</span></button><button id="new-chat-mobile" hidden aria-label="Nova conversa">＋</button></div><button id="logout" hidden>Sair</button><span id="session-title" hidden>Conversa atual</span></header>
+<section class="stage" id="stage" data-state="idle" aria-label="Rosto animado da Arka">
+  <div class="avatar">
+  <div class="eyes"><i></i><i></i></div>
+  <canvas id="voice-spectrum" width="320" height="320"></canvas>
+</div>
+  <div class="state-tag"><span></span><span id="state-label" role="status">Pronto para conversar</span></div>
+</section>
+<div class="conversation-scroll" id="conversation-scroll">
+  <section class="welcome" id="welcome"><h1>Olá. Sou a Arka.</h1><p>Pode escrever ou falar comigo.</p></section>
+  <section id="messages" class="messages" aria-label="Histórico da conversa" aria-live="polite" aria-relevant="additions"></section>
+</div>
+
+<div class="learning-notice" id="learning-notice">
+  <strong>Aprendizado contínuo ativo</strong>
+  <span>
+    A Arka pode usar mensagens e arquivos enviados para ampliar
+    a base interna de conhecimento da equipe. Informações aprendidas
+    podem ser usadas em conversas futuras.
+  </span>
+  <button type="button" id="learning-notice-close" aria-label="Fechar aviso">×</button>
+</div>
+<div class="composer-area">
+  <div id="notice" class="notice" role="alert" hidden></div>
+  <form id="composer"><label class="sr-only" for="input">Mensagem para a Arka</label><input id="pdf-attach" type="file" accept="application/pdf,.pdf" hidden><textarea id="input" rows="1" maxlength="3000" placeholder="O que você quer saber?" required></textarea><button type="button" id="attach" class="attach" aria-label="Anexar PDF" title="Adicionar PDF ao conhecimento da Arka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8.5 12.5 15 6a4 4 0 0 1 5.7 5.6l-8.2 8.2a6 6 0 0 1-8.5-8.5l8.4-8.4"/><path d="m6.8 14.2 8.4-8.4a2 2 0 0 1 2.8 2.8l-8.4 8.4a2 2 0 0 1-2.8-2.8Z"/></svg></button><button type="button" id="mic" class="mic" aria-label="Gravar mensagem" title="Gravar mensagem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 10v2a6 6 0 0 0 12 0v-2M12 18v3M9 21h6"/></svg></button><button type="submit" id="send" aria-label="Enviar mensagem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button></form>
+  <div class="composer-meta"><span id="input-hint">Enter para enviar</span><span class="sound">Voz automática</span></div>
+</div>
+<audio id="player" controls hidden></audio>
+</main></div>
+<dialog id="login-dialog" class="login-dialog">
+<form id="login-form"><div class="dialog-brand">IPQ <span>/</span> Arka</div><h2>Olá de novo.</h2><p>Entre para conversar com a Arka.</p>
+<label>Usuário<input id="login-user" name="username" autocomplete="username" maxlength="40" required></label>
+<label>Senha<input id="login-password" name="password" type="password" autocomplete="current-password" maxlength="200" required></label>
+<p id="login-error" class="form-error" role="alert"></p><button class="primary" id="login-submit" type="submit">Entrar <span>→</span></button></form>
+</dialog>
+<dialog id="teach-dialog" class="teach-dialog">
+<div class="dialog-head"><div><div class="eyebrow">CONHECIMENTO COMPARTILHADO</div><h2>Ensinar Arka</h2></div><button id="teach-close" aria-label="Fechar">×</button></div>
+<p class="intro">Adicione respostas ou ensine a partir de um PDF. Valide a evidência antes de compartilhar com a equipe.</p>
+<div class="teach-tabs" role="tablist"><button id="tab-pdf" role="tab" aria-selected="true">Aprender por PDF</button><button id="tab-faq" role="tab" aria-selected="false">Perguntas e respostas</button></div>
+<p id="teach-status" class="teach-status" role="status"></p>
+<section id="pdf-panel">
+<form id="pdf-upload-form" class="upload-box"><span class="step-number">01</span><div><h3>Escolha o documento</h3><p>PDF com texto selecionável · até 12 MB e 40 páginas</p><input id="pdf-file" type="file" accept="application/pdf,.pdf" required></div><button class="secondary" type="submit">Importar PDF</button></form>
+<form id="pdf-validation-form" class="validation-form"><span class="step-number">02</span><div class="step-content"><h3>Confira o que ela aprendeu</h3><label>Documento<select id="pdf-document" required><option value="">Selecione um PDF</option></select></label><div id="pdf-meta" class="hint"></div><label>Pergunta de teste<input id="pdf-question" maxlength="1000" placeholder="Ex.: Qual é o horário de atendimento?" required></label><label>Trecho que deve aparecer na resposta<input id="pdf-expected" maxlength="300" placeholder="Ex.: das 8h às 18h" required minlength="2"></label><button class="primary" type="submit">Validar aprendizado</button></div></form>
+<div id="validation-result" class="validation-result" hidden></div>
+<div class="publish-row"><div><strong>03 · Disponibilizar para consultas</strong><p>Somente após todos os testes passarem. Você pode desativar depois.</p></div><button id="pdf-publish" class="secondary" disabled>Publicar PDF</button></div>
+<p class="hint">A validação confere a evidência no PDF, o trecho esperado na resposta e a fonte citada. Revise o resultado: um teste não garante todas as respostas. PDFs digitalizados precisam de OCR.</p>
+</section>
+<section id="faq-panel" hidden><form id="lesson-form"><input type="hidden" id="lesson-id"><label>Pergunta<input id="lesson-question" maxlength="1000" required minlength="3"></label><label>Resposta correta<textarea id="lesson-answer" maxlength="4000" rows="4" required></textarea></label><label class="check-label"><input id="lesson-active" type="checkbox"> Publicar para perguntas equivalentes em texto</label><p class="hint">Os ensinamentos publicados são recuperados por significado. Na conversa, administradores também podem dizer “Arka, aprenda que…” para guardar uma informação compartilhada.</p><div class="form-actions"><button class="primary" type="submit">Salvar ensinamento</button><button id="lesson-reset" type="button" class="secondary">Novo</button></div></form><div id="lesson-list"></div></section>
+</dialog>
+</body></html>

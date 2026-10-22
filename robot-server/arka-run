@@ -1,0 +1,140 @@
+#!/usr/bin/env bash
+
+set -u
+
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "$ROOT/.." && pwd)"
+
+cd "$ROOT"
+
+
+# ============================================================
+# VENV
+# ============================================================
+
+if [ -f "$PROJECT_ROOT/.venv/bin/activate" ]; then
+    source "$PROJECT_ROOT/.venv/bin/activate"
+elif [ -f "$ROOT/.venv/bin/activate" ]; then
+    source "$ROOT/.venv/bin/activate"
+fi
+
+
+# ============================================================
+# MODELOS
+# ============================================================
+
+export ARKA_CHAT_MODEL="${ARKA_CHAT_MODEL:-qwen3:8b}"
+
+# Modelos separados para não disputar VRAM.
+export ARKA_EMBED_NUM_GPU="${ARKA_EMBED_NUM_GPU:-0}"
+export ARKA_EMBED_KEEP_ALIVE="${ARKA_EMBED_KEEP_ALIVE:-30m}"
+
+# TTS
+export ARKA_TTS_VOICE="${ARKA_TTS_VOICE:-pf_dora}"
+export ARKA_TTS_SPEED="${ARKA_TTS_SPEED:-1.25}"
+
+# STT prioriza qualidade.
+export WHISPER_MODEL="${WHISPER_MODEL:-small}"
+
+export WHISPER_BEAM_SIZE="${WHISPER_BEAM_SIZE:-5}"
+
+
+# ============================================================
+# ARGUMENTOS
+# ============================================================
+
+MODE=""
+RUN_CHECK=0
+
+for arg in "$@"; do
+
+    case "$arg" in
+
+        --txt)
+            MODE="txt"
+            ;;
+
+        --stt)
+            MODE="stt"
+            ;;
+
+        --check)
+            RUN_CHECK=1
+            ;;
+
+    esac
+
+done
+
+
+# ============================================================
+# CHECK OPCIONAL
+# ============================================================
+
+if [ "$RUN_CHECK" -eq 1 ]; then
+
+    ./arka-check || exit $?
+
+fi
+
+
+# ============================================================
+# LOG
+# ============================================================
+
+mkdir -p session_logs
+
+STAMP="$(date +%Y-%m-%d_%H-%M-%S)"
+
+LOG="session_logs/arka_${STAMP}.log"
+
+
+# ============================================================
+# START
+# ============================================================
+
+echo
+echo "============================================================"
+echo " ARKA"
+echo "============================================================"
+echo
+echo "Modelo de chat: $ARKA_CHAT_MODEL"
+echo "Log: $ROOT/$LOG"
+echo
+
+
+# ============================================================
+# MODEL WARMUP
+# ============================================================
+
+if [ "${ARKA_WARMUP:-1}" = "1" ]; then
+
+    python -u warmup_arka.py || {
+        echo "⚠️ Warmup falhou; continuando."
+    }
+
+fi
+
+
+CMD=(
+    python
+    -u
+    arka.py
+)
+
+if [ -n "$MODE" ]; then
+
+    CMD+=(
+        --mode
+        "$MODE"
+    )
+
+fi
+
+
+"${CMD[@]}" \
+    2>&1 \
+    | tee "$LOG"
+
+
+exit ${PIPESTATUS[0]}

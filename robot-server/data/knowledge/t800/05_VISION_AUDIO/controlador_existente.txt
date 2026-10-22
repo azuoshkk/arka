@@ -1,0 +1,660 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+==============================================================================
+Controlador Seguro do Pescoço (Motores Q25H - J23 Pitch e J24 Yaw)
+T800 Humanoid Robot - Módulo Exclusivo com Servidor de Controle e Trajetória Suave
+==============================================================================
+
+Especificações Técnicas e Segurança:
+- Motor Q25H: Inércia ultra-baixa (0.0067 kg·m²).
+- Limites Rígidos de Software (Clamping):
+    * Pitch (J23 - Cima/Baixo): -0.523 rad (-30°) a +0.523 rad (+30°)
+    * Yaw (J24 - Esquerda/Direita): -1.222 rad (-70°) a +1.222 rad (+70°)
+- Ganhos de Controle:
+    * Stiffness (Kp): 100.0
+    * Damping (Kd): 3.0
+- Trajetória Suave:
+    * Interpolação polinomial de 5º grau (Quintic Spline: s(t) = 10t^3 - 15t^4 + 6t^5)
+    * Publicação contínua a 100 Hz no canal /motion/joint_override_command
+- API Local:
+    * Servidor HTTP REST na porta 5055 para controle do Dashboard e da Ponte ROS 2.
+"""
+
+import os
+import sys
+import time
+import math
+import json
+import threading
+import http.server
+import urllib.parse
+
+# Configuração de Rede e Ambiente ROS 2 oficial do T800
+os.environ["ROS_DOMAIN_ID"] = os.environ.get("ROS_DOMAIN_ID", "69")
+os.environ["ROS_LOCALHOST_ONLY"] = os.environ.get("ROS_LOCALHOST_ONLY", "0")
+os.environ["RMW_IMPLEMENTATION"] = os.environ.get("RMW_IMPLEMENTATION", "rmw_cyclonedds_cpp")
+if os.path.exists("/app/applications/install/bringup/cyclonedds.xml"):
+    os.environ["CYCLONEDDS_URI"] = "file:///app/applications/install/bringup/cyclonedds.xml"
+elif os.path.exists("/home/ubuntu/cyclonedds.xml"):
+    os.environ["CYCLONEDDS_URI"] = "file:///home/ubuntu/cyclonedds.xml"
+
+# Índices das juntas no robô humanóide T800
+JOINT_HEAD_PITCH = 23
+JOINT_HEAD_YAW = 24
+
+# Limites físicos de segurança em radianos
+PITCH_MIN = -0.523  # ~ -30°
+PITCH_MAX = 0.523   # ~ +30°
+YAW_MIN = -1.222    # ~ -70°
+YAW_MAX = 1.222     # ~ +70°
+
+KP_GAIN = 100.0     # Rigidez (Stiffness)
+KD_GAIN = 3.0       # Amortecimento (Damping)
+CONTROL_FREQ = 100.0  # 100 Hz
+HTTP_PORT = 5055
+
+# Tenta carregar ROS 2 e mensagens do protocolo T800
+ROS2_AVAILABLE = False
+try:
+    import rclpy
+    from rclpy.node import Node
+    from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy, HistoryPolicy
+    from std_msgs.msg import Header
+    from interface_protocol.msg import JointOverrideCommand, JointState, MotionStateRequest
+    ROS2_AVAILABLE = True
+    print("[NECK] ✅ Módulos ROS 2, JointOverrideCommand e MotionStateRequest importados com sucesso!")
+except ImportError as e:
+    print(f"[NECK] ⚠️ ROS 2 ou interface_protocol não disponível ({e}).")
+    print("[NECK] ℹ️ Iniciando em Modo Simulação / Mock para testes e desenvolvimento.")
+
+def clamp(val, min_val, max_val):
+    return max(min_val, min(max_val, float(val)))
+
+def clamp_angles(pitch_rad: float, yaw_rad: float):
+    """Aplica limites rígidos de software para proteger o pescoço e cabeamento."""
+    c_pitch = clamp(pitch_rad, PITCH_MIN, PITCH_MAX)
+    c_yaw = clamp(yaw_rad, YAW_MIN, YAW_MAX)
+    return c_pitch, c_yaw
+
+
+class NeckTrajectoryController:
+    """
+    Controlador de trajetória com interpolação contínua de 5º grau (Quintic Spline)
+    a 100 Hz e publicação para /motion/joint_override_command.
+    """
+    def __init__(self, ros_node=None):
+        self.ros_node = ros_node
+        self.lock = threading.Lock()
+        
+        # Posições atuais comandadas
+        self.current_pitch = 0.0
+        self.current_yaw = 0.0
+        
+        # Posições alvo
+        self.target_pitch = 0.0
+        self.target_yaw = 0.0
+        
+        # Parâmetros de interpolação
+        self.start_pitch = 0.0
+        self.start_yaw = 0.0
+        self.start_time = 0.0
+        self.duration = 1.5
+        self.is_moving = False
+        
+        # Feedback físico real lido de /hardware/joint_state
+        self.actual_pitch = 0.0
+        self.actual_yaw = 0.0
+        self.has_received_state = False
+        self.last_state_time = 0.0
+        
+        self.running = True
+        
+        # Publisher ROS 2 se disponível
+        self.cmd_pub = None
+        self.state_pub = None
+        self.balance_mode_active = False
+
+        if self.ros_node and ROS2_AVAILABLE:
+            self.cmd_pub = self.ros_node.create_publisher(
+                JointOverrideCommand, "/motion/joint_override_command", 10
+            )
+            try:
+                self.state_pub = self.ros_node.create_publisher(
+                    MotionStateRequest, "/motion/set_motion_state", 10
+                )
+                # Modo balance inicia estritamente DESATIVADO por segurança
+                print("[NECK] 🔒 Modo balance iniciado como DESATIVADO. Requer ativação explícita do operador.")
+            except Exception as e:
+                print(f"[NECK] Aviso ao criar publicador MotionStateRequest: {e}")
+
+    def set_balance_mode(self, active: bool = True):
+        """Ativa ou desativa o modo lower_body_balance necessário para override."""
+        self.balance_mode_active = bool(active)
+        if self.balance_mode_active and self.state_pub and ROS2_AVAILABLE:
+            try:
+                req = MotionStateRequest()
+                req.target_motion_name = "lower_body_balance"
+                self.state_pub.publish(req)
+                print("[NECK] ⚡ Comando enviado: target_motion_name = 'lower_body_balance' em /motion/set_motion_state")
+                return True
+            except Exception as e:
+                print(f"[NECK] ⚠️ Erro ao publicar em /motion/set_motion_state: {e}")
+                return False
+        elif not self.balance_mode_active:
+            print("[NECK] 🔒 Modo balance desativado pelo operador.")
+            return True
+        return False
+
+    def on_hardware_joint_state(self, positions):
+        """Atualiza a posição física real das juntas lidas pelo robô."""
+        with self.lock:
+            if len(positions) > JOINT_HEAD_YAW:
+                self.actual_pitch = float(positions[JOINT_HEAD_PITCH])
+                self.actual_yaw = float(positions[JOINT_HEAD_YAW])
+                if not self.has_received_state:
+                    # Primeira leitura real: sincroniza a posição inicial com a posição real
+                    self.current_pitch = self.actual_pitch
+                    self.current_yaw = self.actual_yaw
+                    self.target_pitch = self.actual_pitch
+                    self.target_yaw = self.actual_yaw
+                    self.has_received_state = True
+                    print(f"[NECK] Sincronizado com posição inicial do robô: Pitch={self.actual_pitch:.3f} rad, Yaw={self.actual_yaw:.3f} rad")
+                self.last_state_time = time.time()
+
+    def set_target(self, target_pitch: float, target_yaw: float, duration: float = 1.5):
+        """Comanda uma nova posição alvo com interpolação suave (se o modo balance estiver ativo)."""
+        if not self.balance_mode_active:
+            print("[NECK] ⚠️ Movimento REJEITADO por segurança: Modo balance (lower_body_balance) está DESATIVADO!")
+            return False
+
+        safe_pitch, safe_yaw = clamp_angles(target_pitch, target_yaw)
+        safe_duration = max(0.2, min(5.0, float(duration)))
+        
+        with self.lock:
+            self.start_pitch = self.current_pitch
+            self.start_yaw = self.current_yaw
+            self.target_pitch = safe_pitch
+            self.target_yaw = safe_yaw
+            self.start_time = time.time()
+            self.duration = safe_duration
+            self.is_moving = True
+            
+        print(f"[NECK] Novo alvo: Pitch [{self.start_pitch:.3f} -> {safe_pitch:.3f} rad], "
+              f"Yaw [{self.start_yaw:.3f} -> {safe_yaw:.3f} rad] em {safe_duration:.2f}s")
+        return True
+
+    def step_target(self, delta_pitch: float, delta_yaw: float, duration: float = 0.4):
+        """Comanda um deslocamento relativo (passo) a partir do alvo atual."""
+        with self.lock:
+            new_pitch = self.target_pitch + float(delta_pitch)
+            new_yaw = self.target_yaw + float(delta_yaw)
+        self.set_target(new_pitch, new_yaw, duration)
+
+    def center(self, duration: float = 1.5):
+        """Retorna suavemente ao centro neutro (0, 0)."""
+        self.set_target(0.0, 0.0, duration)
+
+    def get_status(self):
+        """Retorna o estado completo em formato serializável."""
+        with self.lock:
+            return {
+                "online": True,
+                "is_moving": self.is_moving,
+                "current_pitch": round(self.current_pitch, 4),
+                "current_yaw": round(self.current_yaw, 4),
+                "current_pitch_deg": round(math.degrees(self.current_pitch), 2),
+                "current_yaw_deg": round(math.degrees(self.current_yaw), 2),
+                "target_pitch": round(self.target_pitch, 4),
+                "target_yaw": round(self.target_yaw, 4),
+                "target_pitch_deg": round(math.degrees(self.target_pitch), 2),
+                "target_yaw_deg": round(math.degrees(self.target_yaw), 2),
+                "actual_pitch": round(self.actual_pitch, 4),
+                "actual_yaw": round(self.actual_yaw, 4),
+                "has_hardware_feedback": self.has_received_state,
+                "limits": {
+                    "pitch_min": PITCH_MIN,
+                    "pitch_max": PITCH_MAX,
+                    "pitch_min_deg": round(math.degrees(PITCH_MIN), 1),
+                    "pitch_max_deg": round(math.degrees(PITCH_MAX), 1),
+                    "yaw_min": YAW_MIN,
+                    "yaw_max": YAW_MAX,
+                    "yaw_min_deg": round(math.degrees(YAW_MIN), 1),
+                    "yaw_max_deg": round(math.degrees(YAW_MAX), 1),
+                },
+                "gains": {
+                    "kp": KP_GAIN,
+                    "kd": KD_GAIN
+                },
+                "balance_mode_requested": self.balance_mode_active,
+                "ros_domain_id": int(os.environ.get("ROS_DOMAIN_ID", "69")),
+                "rmw_implementation": os.environ.get("RMW_IMPLEMENTATION", "rmw_cyclonedds_cpp"),
+                "simulation": not ROS2_AVAILABLE
+            }
+
+    def run_control_loop(self):
+        """Loop a 100 Hz que calcula a interpolação suave e publica os comandos."""
+        dt = 1.0 / CONTROL_FREQ
+        while self.running:
+            now = time.time()
+            with self.lock:
+                if self.is_moving:
+                    elapsed = now - self.start_time
+                    t = min(1.0, elapsed / self.duration) if self.duration > 0 else 1.0
+                    
+                    # Polinômio de quintic spline suave (s(t) = 10t^3 - 15t^4 + 6t^5)
+                    s = 10 * (t ** 3) - 15 * (t ** 4) + 6 * (t ** 5)
+                    self.current_pitch = self.start_pitch + s * (self.target_pitch - self.start_pitch)
+                    self.current_yaw = self.start_yaw + s * (self.target_yaw - self.start_yaw)
+                    
+                    if t >= 1.0:
+                        self.current_pitch = self.target_pitch
+                        self.current_yaw = self.target_yaw
+                        self.is_moving = False
+                
+                cur_p = self.current_pitch
+                cur_y = self.current_yaw
+
+            # Publicação contínua no ROS 2 somente se o modo balance estiver ativo
+            if self.balance_mode_active and self.cmd_pub and ROS2_AVAILABLE:
+                try:
+                    cmd = JointOverrideCommand()
+                    cmd.header = Header()
+                    cmd.header.stamp = self.ros_node.get_clock().now().to_msg()
+                    cmd.header.frame_id = ""
+                    cmd.weight = 1.0
+                    cmd.joint_indices = [JOINT_HEAD_PITCH, JOINT_HEAD_YAW]
+                    cmd.position = [cur_p, cur_y]
+                    cmd.velocity = [0.0, 0.0]
+                    cmd.feed_forward_torque = [0.0, 0.0]
+                    cmd.torque = [0.0, 0.0]
+                    cmd.stiffness = [KP_GAIN, KP_GAIN]
+                    cmd.damping = [KD_GAIN, KD_GAIN]
+                    self.cmd_pub.publish(cmd)
+                except Exception as e:
+                    pass
+            elif not ROS2_AVAILABLE and self.is_moving:
+                # Em modo simulação, o feedback simula o hardware real
+                with self.lock:
+                    self.actual_pitch = cur_p
+                    self.actual_yaw = cur_y
+                    self.has_received_state = True
+
+            time.sleep(dt)
+
+
+class NeckHttpHandler(http.server.BaseHTTPRequestHandler):
+    """Handler HTTP para receber comandos do Dashboard e da ponte WebSocket."""
+    controller = None
+
+    def log_message(self, format, *args):
+        # Desativa logs HTTP repetitivos no terminal
+        pass
+
+    def _send_cors_headers(self):
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self._send_cors_headers()
+        self.end_headers()
+
+    def do_GET(self):
+        parsed = urllib.parse.urlparse(self.path)
+        if parsed.path == "/health":
+            self.send_response(200)
+            self._send_cors_headers()
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(b'{"status": "ok", "service": "neck_controller"}')
+        elif parsed.path == "/status":
+            st = self.controller.get_status() if self.controller else {"online": False}
+            data = json.dumps(st).encode("utf-8")
+            self.send_response(200)
+            self._send_cors_headers()
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(data)
+        else:
+            self.send_response(404)
+            self.end_headers()
+
+    def do_POST(self):
+        parsed = urllib.parse.urlparse(self.path)
+        content_len = int(self.headers.get("Content-Length", 0))
+        post_body = self.rfile.read(content_len) if content_len > 0 else b"{}"
+        
+        try:
+            body = json.loads(post_body.decode("utf-8")) if post_body else {}
+        except Exception:
+            body = {}
+
+        if parsed.path == "/move":
+            pitch = float(body.get("pitch", 0.0))
+            yaw = float(body.get("yaw", 0.0))
+            duration = float(body.get("duration", 1.5))
+            if self.controller:
+                self.controller.set_target(pitch, yaw, duration)
+            self.send_response(200)
+            self._send_cors_headers()
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(b'{"success": true, "action": "move"}')
+
+        elif parsed.path == "/step":
+            d_pitch = float(body.get("d_pitch", 0.0))
+            d_yaw = float(body.get("d_yaw", 0.0))
+            duration = float(body.get("duration", 0.4))
+            if self.controller:
+                self.controller.step_target(d_pitch, d_yaw, duration)
+            self.send_response(200)
+            self._send_cors_headers()
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(b'{"success": true, "action": "step"}')
+
+        elif parsed.path == "/center":
+            duration = float(body.get("duration", 1.5))
+            if self.controller:
+                self.controller.center(duration)
+            self.send_response(200)
+            self._send_cors_headers()
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(b'{"success": true, "action": "center"}')
+
+        elif parsed.path == "/balance_mode" or parsed.path == "/enable_balance":
+            enable = body.get("enable", True) if isinstance(body, dict) else True
+            ok = False
+            if self.controller:
+                ok = self.controller.set_balance_mode(enable)
+            self.send_response(200)
+            self._send_cors_headers()
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            resp = json.dumps({
+                "success": True,
+                "published": ok,
+                "balance_mode_active": self.controller.balance_mode_active if self.controller else False,
+                "mode": "lower_body_balance" if enable else "disabled"
+            }).encode("utf-8")
+            self.wfile.write(resp)
+
+        else:
+            self.send_response(404)
+            self.end_headers()
+
+
+def start_http_server(controller, port=HTTP_PORT):
+    NeckHttpHandler.controller = controller
+    httpd = http.server.ThreadingHTTPServer(("0.0.0.0", port), NeckHttpHandler)
+    print(f"[NECK] Servidor HTTP ativo em http://0.0.0.0:{port}")
+    t = threading.Thread(target=httpd.serve_forever, daemon=True)
+    t.start()
+    return httpd
+
+
+def main():
+    print("==========================================================")
+    print("  T800 NECK CONTROLLER - MÓDULO EXCLUSIVO MOTORES Q25H")
+    print("  J23 Pitch [-30°, +30°] | J24 Yaw [-70°, +70°]")
+    print(f"  Kp={KP_GAIN} | Kd={KD_GAIN} | 100Hz Quintic Spline")
+    print("==========================================================")
+    
+    node = None
+    if ROS2_AVAILABLE:
+        try:
+            rclpy.init(args=None)
+            node = Node("safe_neck_controller")
+            print("[NECK] Nó ROS 2 'safe_neck_controller' criado.")
+        except Exception as e:
+            print(f"[NECK] Erro ao inicializar rclpy: {e}")
+            node = None
+
+    controller = NeckTrajectoryController(ros_node=node)
+
+    # Se ROS 2 estiver ativo, subscreve ao estado das juntas
+    if node and ROS2_AVAILABLE:
+        def joint_state_cb(msg):
+            if hasattr(msg, "position"):
+                controller.on_hardware_joint_state(msg.position)
+
+        # Assina com QoS BEST_EFFORT e VOLATILE obrigatórios para compatibilidade com o nó de hardware do T800
+        hardware_qos = QoSProfile(
+            depth=10,
+            reliability=ReliabilityPolicy.BEST_EFFORT,
+            durability=DurabilityPolicy.VOLATILE,
+            history=HistoryPolicy.KEEP_LAST
+        )
+        node.create_subscription(JointState, "/hardware/joint_state", joint_state_cb, hardware_qos)
+        node.create_subscription(JointState, "/joint_states", joint_state_cb, hardware_qos)
+
+    # Inicia loop de controle a 100 Hz em thread dedicada
+    control_thread = threading.Thread(target=controller.run_control_loop, daemon=True)
+    control_thread.start()
+
+    # Inicia servidor HTTP REST (porta 5055)
+    httpd = start_http_server(controller, HTTP_PORT)
+
+    # Executa o spin do ROS 2 se disponível
+    try:
+        if node and ROS2_AVAILABLE:
+            rclpy.spin(node)
+        else:
+            # Mantém vivo se em modo simulação
+            while True:
+                time.sleep(1.0)
+    except KeyboardInterrupt:
+        print("\n[NECK] Encerrando controlador de pescoço...")
+    finally:
+        controller.running = False
+        if httpd:
+            try:
+                httpd.shutdown()
+            except Exception:
+                pass
+        if node and ROS2_AVAILABLE:
+            try:
+                node.destroy_node()
+                if rclpy.ok():
+                    rclpy.shutdown()
+            except Exception:
+                pass
+        print("[NECK] Finalizado com sucesso.")
+
+
+if __name__ == "__main__":
+    main()
+[NECK] Novo alvo: Pitch [0.000 -> 0.000 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.000 -> 0.000 rad], Yaw [0.000 -> 0.087 rad] em 0.35s
+[NECK] Novo alvo: Pitch [0.000 -> 0.000 rad], Yaw [0.087 -> 0.000 rad] em 1.50s
+[NECK] Novo alvo: Pitch [0.000 -> 0.000 rad], Yaw [0.000 -> 0.000 rad] em 1.50s
+[NECK] ⚡ Comando enviado: target_motion_name = 'lower_body_balance' em /motion/set_motion_state
+[NECK] ⚡ Comando enviado: target_motion_name = 'lower_body_balance' em /motion/set_motion_state
+[NECK] Novo alvo: Pitch [0.000 -> 0.000 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.000 -> 0.436 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.263 -> -0.349 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] ⚡ Comando enviado: target_motion_name = 'lower_body_balance' em /motion/set_motion_state
+[NECK] ⚡ Comando enviado: target_motion_name = 'lower_body_balance' em /motion/set_motion_state
+[NECK] Novo alvo: Pitch [-0.349 -> -0.349 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [-0.349 -> 0.000 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.000 -> 0.436 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.436 -> -0.349 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [-0.349 -> 0.436 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.436 -> 0.000 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.000 -> -0.349 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [-0.349 -> 0.000 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.000 -> 0.436 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] ⚡ Comando enviado: target_motion_name = 'lower_body_balance' em /motion/set_motion_state
+[NECK] Novo alvo: Pitch [0.436 -> 0.436 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.436 -> 0.436 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.436 -> 0.436 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.436 -> 0.436 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.436 -> 0.436 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.436 -> 0.436 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.436 -> 0.436 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.436 -> 0.000 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.433 -> 0.000 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.430 -> 0.000 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.416 -> 0.000 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] ⚡ Comando enviado: target_motion_name = 'lower_body_balance' em /motion/set_motion_state
+[NECK] Novo alvo: Pitch [0.000 -> 0.000 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.000 -> -0.349 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [-0.349 -> -0.349 rad], Yaw [0.000 -> 0.087 rad] em 0.35s
+[NECK] Novo alvo: Pitch [-0.349 -> -0.349 rad], Yaw [0.019 -> 0.175 rad] em 0.35s
+[NECK] Novo alvo: Pitch [-0.349 -> -0.349 rad], Yaw [0.175 -> 0.087 rad] em 0.35s
+[NECK] Novo alvo: Pitch [-0.349 -> -0.349 rad], Yaw [0.132 -> 0.000 rad] em 0.35s
+[NECK] Novo alvo: Pitch [-0.349 -> -0.349 rad], Yaw [0.073 -> -0.087 rad] em 0.35s
+[NECK] Novo alvo: Pitch [-0.349 -> -0.349 rad], Yaw [-0.014 -> -0.175 rad] em 0.35s
+[NECK] Novo alvo: Pitch [-0.349 -> -0.349 rad], Yaw [-0.116 -> -0.262 rad] em 0.35s
+[NECK] Novo alvo: Pitch [-0.349 -> -0.262 rad], Yaw [-0.262 -> -0.262 rad] em 0.35s
+[NECK] Novo alvo: Pitch [-0.294 -> -0.175 rad], Yaw [-0.262 -> -0.262 rad] em 0.35s
+[NECK] Novo alvo: Pitch [-0.237 -> -0.087 rad], Yaw [-0.262 -> -0.262 rad] em 0.35s
+[NECK] Novo alvo: Pitch [-0.166 -> 0.000 rad], Yaw [-0.262 -> -0.262 rad] em 0.35s
+[NECK] Novo alvo: Pitch [0.000 -> 0.000 rad], Yaw [-0.262 -> -0.175 rad] em 0.35s
+[NECK] Novo alvo: Pitch [0.000 -> 0.000 rad], Yaw [-0.243 -> -0.087 rad] em 0.35s
+[NECK] Novo alvo: Pitch [0.000 -> 0.000 rad], Yaw [-0.087 -> 0.000 rad] em 0.35s
+[NECK] Novo alvo: Pitch [0.000 -> 0.087 rad], Yaw [0.000 -> 0.000 rad] em 0.35s
+[NECK] Novo alvo: Pitch [0.057 -> 0.175 rad], Yaw [0.000 -> 0.000 rad] em 0.35s
+[NECK] Novo alvo: Pitch [0.094 -> 0.262 rad], Yaw [0.000 -> 0.000 rad] em 0.35s
+[NECK] Novo alvo: Pitch [0.205 -> 0.349 rad], Yaw [0.000 -> 0.000 rad] em 0.35s
+[NECK] Novo alvo: Pitch [0.294 -> 0.436 rad], Yaw [0.000 -> 0.000 rad] em 0.35s
+[NECK] Novo alvo: Pitch [0.436 -> 0.000 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.000 -> -0.349 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [-0.349 -> 0.000 rad], Yaw [0.000 -> 0.000 rad] em 1.20s
+[NECK] Novo alvo: Pitch [0.000 -> 0.000 rad], Yaw [0.000 -> -0.087 rad] em 0.40s
+[NECK] Novo alvo: Pitch [0.000 -> 0.000 rad], Yaw [-0.060 -> -0.175 rad] em 0.40s
+[NECK] Novo alvo: Pitch [0.000 -> 0.000 rad], Yaw [-0.165 -> -0.262 rad] em 0.40s
+total 156
+drwxrwxr-x 2 ubuntu ubuntu   4096 Sep 17 01:15 __pycache__
+-rw-rw-r-- 1 ubuntu ubuntu      0 Sep 18 01:26 a.out
+-rw-r--r-- 1 ubuntu ubuntu  19674 Sep 22 23:41 neck_controller.py
+-rw-r--r-- 1 ubuntu ubuntu 108752 Sep 22 23:41 ros2_websocket_bridge.py
+-rw-rw-r-- 1 ubuntu ubuntu   2346 Sep 17 01:15 sensors.launch.py
+-rw-r--r-- 1 ubuntu ubuntu  15333 Sep 22 01:09 speech_server.py
+Type: interface_protocol/msg/JointState
+
+Publisher count: 1
+
+Node name: _NODE_NAME_UNKNOWN_
+Node namespace: _NODE_NAMESPACE_UNKNOWN_
+Topic type: interface_protocol/msg/JointState
+Endpoint type: PUBLISHER
+GID: 01.10.2d.0f.3f.97.e3.f1.52.c7.b4.c5.00.00.5b.03.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: BEST_EFFORT
+  History (Depth): KEEP_LAST (3)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Subscription count: 2
+
+Node name: ros2_websocket_bridge
+Node namespace: /
+Topic type: interface_protocol/msg/JointState
+Endpoint type: SUBSCRIPTION
+GID: 01.10.4d.2f.f0.96.7d.58.ce.1d.23.86.00.00.19.04.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: BEST_EFFORT
+  History (Depth): KEEP_LAST (10)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Node name: safe_neck_controller
+Node namespace: /
+Topic type: interface_protocol/msg/JointState
+Endpoint type: SUBSCRIPTION
+GID: 01.10.54.49.ea.ac.4b.55.aa.b6.a6.28.00.00.16.04.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: BEST_EFFORT
+  History (Depth): KEEP_LAST (10)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Type: interface_protocol/msg/MotionState
+
+Publisher count: 1
+
+Node name: _NODE_NAME_UNKNOWN_
+Node namespace: _NODE_NAMESPACE_UNKNOWN_
+Topic type: interface_protocol/msg/MotionState
+Endpoint type: PUBLISHER
+GID: 01.10.2d.0f.3f.97.e3.f1.52.c7.b4.c5.00.00.6d.03.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): KEEP_LAST (10)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Subscription count: 4
+
+Node name: ros2_websocket_bridge
+Node namespace: /
+Topic type: interface_protocol/msg/MotionState
+Endpoint type: SUBSCRIPTION
+GID: 01.10.4d.2f.f0.96.7d.58.ce.1d.23.86.00.00.1e.04.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: BEST_EFFORT
+  History (Depth): KEEP_LAST (10)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Node name: robot_manager
+Node namespace: /
+Topic type: interface_protocol/msg/MotionState
+Endpoint type: SUBSCRIPTION
+GID: 01.10.74.12.40.3b.f8.ca.da.f8.84.f9.00.00.18.04.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): KEEP_LAST (1)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Node name: data_recorder
+Node namespace: /
+Topic type: interface_protocol/msg/MotionState
+Endpoint type: SUBSCRIPTION
+GID: 01.10.97.cb.d6.53.03.81.6f.67.3f.3f.00.00.19.04.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): KEEP_LAST (1)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Node name: dashboard_node
+Node namespace: /
+Topic type: interface_protocol/msg/MotionState
+Endpoint type: SUBSCRIPTION
+GID: 01.10.ff.e0.eb.ec.6f.27.8b.10.b3.57.00.00.17.04.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): KEEP_LAST (1)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+

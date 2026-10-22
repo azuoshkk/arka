@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f8fc">
+<title>Arka · Rosto</title>
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/face.css">
+<script src="/assets/spectrum.js" defer></script>
+<script src="/assets/face.js" defer></script>
+</head>
+<body class="face-only">
+<section class="stage" id="stage" data-state="idle" aria-label="Rosto da Arka">
+<div class="avatar">
+<div class="eyes" aria-hidden="true"><i></i><i></i></div>
+<canvas id="voice-spectrum" width="320" height="320" aria-hidden="true"></canvas>
+</div>
+</section>
+<audio id="player" preload="auto" hidden></audio>
+</body>
+</html>

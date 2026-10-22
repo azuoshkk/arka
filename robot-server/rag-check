@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+set -u
+
+ROOT="$(
+    cd "$(dirname "$0")"
+    pwd
+)"
+
+cd "$ROOT"
+
+
+echo
+echo "============================================================"
+echo " ARKA RAG CHECK + CREDENTIALS"
+echo "============================================================"
+echo
+
+
+./rag-check-core "$@"
+
+STATUS=$?
+
+if [ "$STATUS" -ne 0 ]; then
+
+    echo
+    echo "❌ Core RAG falhou."
+    exit "$STATUS"
+
+fi
+
+
+echo
+echo "============================================================"
+echo " TESTE DE CREDENCIAIS"
+echo "============================================================"
+echo
+
+
+python -u test_credentials_rag.py
+
+STATUS=$?
+
+if [ "$STATUS" -ne 0 ]; then
+
+    echo
+    echo "❌ Credentials RAG falhou."
+    exit "$STATUS"
+
+fi
+
+
+echo
+echo "============================================================"
+echo " RAG + CREDENTIALS: PASS"
+echo "============================================================"
+echo
+
+
+exit 0

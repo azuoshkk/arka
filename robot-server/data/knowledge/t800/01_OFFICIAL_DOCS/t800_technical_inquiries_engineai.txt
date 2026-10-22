@@ -1,0 +1,75 @@
+  EngineAI T800 — Technical Inquiries
+  Technical Inquiries from IPQ Tecnologia to EngineAI
+
+
+
+
+    To EngineAI Support Team: Below is the updated and simplified list of technical inquiries regarding the T800
+    humanoid robot, organized by operational domains.
+
+
+
+1. Maintenance & Servicing
+
+   1.1. Routine Maintenance & IMU Calibration
+   What are the recommended procedures for routine maintenance on the T800? Additionally, is it necessary to recalibrate
+   the IMU after an impact, and how is that performed?
+
+
+
+   1.2. Charging Base / Dock
+   Is there a charging dock or similar base available to charge the T800 without removing the battery, while keeping the
+   robot powered off?
+
+
+
+2. Hardware Diagnostics & Troubleshooting
+
+   2.1. Leg & Motor Telemetry
+   Is there a built-in diagnostic tool, API, or specific procedure to inspect motor telemetry and health status (specifically to
+   diagnose potential play/looseness in the left leg)?
+
+
+
+   2.2. Component & Limb Replacement
+   Can our specific model have its limbs replaced? If so, could you provide documentation outlining how to perform this?
+
+
+
+3. System Formatting, Files & Software Architecture
+
+   3.1. System Formatting, ISO & Specific Files
+   What is the standard process to reflash or format the system? Do you provide a dedicated ISO/system image, and can
+   you send specific system files upon request?
+
+
+
+   3.2. NVIDIA CPU/Core Allocation
+   How many CPU cores does the NVIDIA board use natively, and how many are available for our custom projects?
+
+
+
+   3.3. Sensor Topics & Data Acquisition
+   What is the correct method to enable ROS topics (or similar APIs) to capture data from sensors like cameras, IMU,
+   LiDAR, etc.?
+
+
+
+
+IPQ Tecnologia — T800 Technical Inquiries - Confidential                                                                   Page 1 of 2
+   3.4. Native Wi-Fi Configuration
+   What is the SSID name and password for the native Wi-Fi network, and what is its intended operational purpose?
+
+
+
+4. Support & Workflow
+
+   4.1. After-Sales Support & Workflow
+   How does your after-sales support workflow operate, including standard communication channels, SLAs/response times,
+   warranty terms, and escalation processes?
+
+
+
+
+IPQ Tecnologia — T800 Technical Inquiries - Confidential                                                            Page 2 of 2
+

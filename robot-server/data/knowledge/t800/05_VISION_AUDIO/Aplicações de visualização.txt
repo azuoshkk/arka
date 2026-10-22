@@ -1,0 +1,19 @@
+Aplicação de Visualização
+Aplicação de Visualização
+Explicação
+As aplicações de visualização robótica são uma série de programas de visualização implementados pelo EngineAI na unidade de controle de aplicações robóticas, destinados a proporcionar aos usuários uma experiência de interação com robôs de alta qualidade.
+Nome da página
+Explicação
+Link
+Panelo principal
+Ver e configurar informações e estado do robô
+http://192.168.0.162:9002/
+Gerenciador de Nodos
+ferramenta de gestão e operação de processos em nó
+http://192.168.0.162:9001/
+Web Visualization
+ferramenta integrada de visualização de robôs de código aberto
+http://192.168.0.162:9003/
+Web IDE
+Ambiente integrado de desenvolvimento secundário
+http://192.168.0.162:9004/

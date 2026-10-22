@@ -1,0 +1,796 @@
+Guia de Desenvolvimento do T800 (Versão de Desenvolvimento)
+A série Zhongqing T800 é um robô humanoide de alto desempenho destinado ao uso industrial e comercial, projetado especificamente para operações práticas, implantação em ambientes complexos e desenvolvimento adicional. Como plataforma operacional humanoide com elevada capacidade de movimento dinâmico e trabalho sob alta carga, o T800 consegue executar com estabilidade tarefas como transporte de cargas pesadas, corrida rápida e operações precisas. Oferece diversas configurações, desde a versão básica até a versão MAX, suporta uma mão ágil e um ambiente completo para desenvolvimento adicional, fornecendo uma base sólida de hardware e software tanto para usuários do setor quanto para instituições de pesquisa.
+O T800 é composto por uma parte superior e uma inferior, oferecendo múltiplos graus de liberdade. Um braço individual possui cinco graus de liberdade (versão básica); as versões PRO e MAX adicionam ainda um grau de liberdade no pulso. Uma perna possui seis graus de liberdade (3 na articulação do quadril, 1 na do joelho e 2 na do tornozelo). A região lombar tem um grau de liberdade e a cabeça possui dois. Dependendo da versão, a versão básica oferece 25 graus totais de liberdade, a versão PRO alcança 29, enquanto a versão MAX, com a mão ágil, pode atingir até 43 graus totais. Graças a motores articulares de alto desempenho (planetares ou harmônicos) com torque articular de até 450 N·m, o robô consegue realizar caminhadas dinâmicas estáveis e operações sob elevadas cargas.
+As versões atualmente disponíveis do T800, bem como seus modelos completos e as configurações básicas correspondentes, são os seguintes:
+
+Especificações do robô
+Modelo
+Versão de desenvolvimento do T800
+Dimensões do produto
+173cm(H)
+Peso sob carga elétrica
+Cerca de 84,5 kg
+Comprimento da parte inferior do corpo e das coxas
+91cm
+Comprimento do antebraço + braço superior
+60cm
+Grandeza total de liberdade
+25
+Grade de liberdade da pescoça
+2
+Grade de liberdade de braço único
+5
+Grade de liberdade da região lombar
+1
+Grade de liberdade de perna única
+6
+Trajetória de percurso oco em toda a articulação
+É
+Velocidade de deslocamento (para a frente)
+0~1.5m/s
+Velocidade de deslocamento (recuo)
+0~0.8 m/s
+Velocidade de deslocamento (desvio lateral)
+0~0.5m/s
+Velocidade de deslocamento (viragem para a esquerda ou para a direita)
+0~20°/s
+Velocidade de corrida (suportada pelo hardware)
+<3m/s
+Inclinação máxima de deslocamento
+20° (pendência lateral + pendência longitudinal)
+Altura máxima que pode ser ultrapassada
+20cm
+Torque máximo pico na articulação da perna
+450 N*m
+Codificador de articulações
+Dual encoder de código absoluto
+Tipos de articulações
+Planeta
+Ruído (ao caminhar, a uma distância de 1 metro)
+≤55 dB（TBD）
+Ruído (corrida, a 1 metro de distância)
+≤60 dB（TBD）
+Nível de proteção
+IPX4
+Temperatura de operação
+-10℃ ~ 40℃
+Umidade de trabalho
+5% a 90% (sem condensação)
+Altura de resistência à queda (em estado desligado)
+Estado de ativação após desligamento: >1 m
+MTBF
+>1000hr
+MTTR
+<30mins
+Vida útil total do equipamento
+>5 anos
+Sensor de percepção
+Sistema de visão binocular e lidar desenvolvido internamente (para cabeça e pescoço)
+Potência computacional básica
+Intel Atom x7425E
+Módulo de alta capacidade computacional
+AGX ORIN 64G
+Memória em execução
+64G
+Espaço no disco rígido
+256G SSD
+Desenvolvimento secundário
+Suporte
+Tipos de baterias inteligentes
+Bateria de íons de lítio ternária (1,22 kWh)
+Durabilidade da bateria
+2 horas (padrão)
+Potência de carregamento
+Bateria de íons de lítio ternária: 71,4 V * 10 A
+Tempo de carregamento
+Bateria de íons de lítio ternária com autonomia de 2,5 horas
+Configuração da iluminação
+2 faróis dianteiros + 2 faróis laterais + faróis de joelho
+Controle remoto portátil
+Suporte
+Ecrã tátil
+-
+Mão hábil
+Não é suportado.
+ 
+Interfaz Elétrica
+
+
+Número
+Tipo de interface
+Abreviação do interface
+Instruções sobre a interface
+1
+USB A
+USB A 3.0 (conexão interna AGX ORIN)
+Conectar a saída de alimentação de 5 V/1 A do módulo de alta capacidade computacional ORIN
+2
+USB A
+USB A 3.0 (conexão interna do NeZha N97)
+Conexão ao módulo de capacidade computacional básica X86 com saída de alimentação de 5 V/1 A
+3
+Ethernet
+RJ45
+Interface de Ethernet Gigabit
+Nota adicional:
+interface de alimentação externa: não suportada
+Porta de carregamento na estrutura do dispositivo: não suportada (a bateria deve ser carregada separadamente).
+Computador a bordo
+A série T800 inclui, como configuração padrão em todas as versões a partir da versão de desenvolvimento e superiores, o módulo de alta capacidade computacional (PC de IA).
+Parâmetro
+Nezha
+AGX ORIN 64G
+CPU
+Intel® N97
+（Alder Lake-N）
+Arquitetura de 12 núcleos Arm Cortex-A78AE
+Número de núcleos
+4
+12
+Número de threads
+4
+12
+Frequência máxima de turbo
+3.6GHz
+2.2 GHz
+Memória de vídeo
+\
+64 GB de LPDDR5 (compartilhado com a memória)
+Memória
+1LPDDR5 8GB
+64 GB de LPDDR5 (integrado)
+Armazenamento
+eMMC 64GB
+256G SSD
+Unidade de Processamento de Imagens Intel®
+Sem
+Sem
+GPU
+Intel® UHD Graphics Gen12
+2048 ampères nucleares
+Frequência dinâmica máxima da placa gráfica
+\
+1.3 GHz
+Gauss e o acelerador neural
+Intel® UHD Graphics
+Suporte ao raciocínio baseado em IA
+Há (275 TOPS)
+Conjunto de instruções
+x86-64
+ARMv8.2
+OpenGL
+Suporte
+Suporte (4.6)
+OpenCL
+Suporte
+Suporte (3.0)
+DirectX
+Suporte
+Não é suportado.
+Endereço IP
+192.168.0.163
+192.168.0.162
+Operar o sistema operacional
+Ubuntu
+Ubuntu
+Os nomes de usuário e senhas iniciais, bem como os endereços IP dos módulos de capacidade computacional básica e das unidades de alta capacidade computacional, estão listados na figura abaixo.
+Device
+IP
+SSH Username
+SSH Password
+Nezha
+192.168.0.163
+user
+1
+Jetson Orin
+192.168.0.162
+ubuntu
+ubuntu
+Diagrama da arquitetura de rede
+
+Configuração do sensor T800
+Lista de Configuração
+Classificação de sensores
+Tipo de sensor
+Localização/Quantidade
+Quantidade:
+Funções principais suportadas
+Base
+Percepção visual RGB
+Cabeça
+1 (binaural)
+Reconhecimento facial, reconhecimento de gestos, chamadas de vídeo e coleta de memórias
+
+Percepção de profundidade visual RGBD
+Cabeça
+1
+Modelagem 3D, detecção de obstáculos, navegação, reconhecimento de objetos e seguimento
+
+Lidar
+Cabeça
+1
+Mapeamento SLAM, localização em tempo real e planejamento global de rotas
+
+IMU
+Centro do tronco
+1
+Percepção da postura, controle do equilíbrio e planejamento da marcha
+
+Sensores de torque
+
+Principais articulações
+Controle de flexibilidade, detecção de colisões,
+Interação Segura
+Matriz de microfones
+Cabeça
+Huanmai 4
+Interação por voz, ativação e detecção de eventos sonoros
+
+Alto-falante de alta fidelidade
+Tronco
+2
+Feedback de voz, reprodução de música e chamadas
+Instalação do sensor T800
+Instalação e configuração da câmera de profundidade
+O robô possui na cabeça uma câmera Odin2, que lhe confere uma excelente capacidade de percepção visual, permitindo uma detecção e compreensão mais precisas do ambiente circundante, bem como uma percepção espacial exata e a identificação de obstáculos. Isso permite que o robô interaja com o ambiente de forma mais inteligente e flexível e se adapte a diversas situações.
+
+Parâmetros do módulo IMU
+Parâmetro do ângulo de orientação
+Parâmetro
+Subitem
+Valor típico
+Nota
+Angulo de rolamento horizontal
+Precisão
+0.05°
+1σ RMS, medida a 25 °C, em condições estáticas e sem aceleração prolongada
+
+Alcance de medição
+±180°
+
+Angulo de inclinação
+Precisão
+0.05°
+1σ RMS, medida a 25 °C, em condições estáticas e sem aceleração prolongada
+
+Alcance de medição
+±90°
+
+Sem ângulo de rumo de referência
+Precisão
+0.2°
+1σ RMS, medição a 25 °C; ao ligar o dispositivo, o ângulo de rumo é definido por padrão como 0 °.
+
+Alcance de medição
+±180°
+
+Angulo de rumo de referência magnética
+Precisão
+1°
+1σ RMS, necessário em um campo magnético estável e após calibração do sensor magnético no local.
+
+Alcance de medição
+±180°
+
+Resolución angular
+
+0.001°
+O valor mínimo de variação que o sensor consegue detetar dentro do seu intervalo de medição.
+Parâmetros do giroscópio
+Parâmetro
+Valor típico
+Nota
+Alcance de medição
+±450°/s
+
+Nelinearidade
+±0.05%FS
+
+Densidade de ruído
+0.015°/s/√Hz
+
+Inestabilidade do zero de polaridade
+5°/h
+Allan variance, 1σ
+Largura de banda (-3 dB)
+50Hz
+
+Desvio do ponto zero
+±0.5°/s
+1σ RMS
+Derivação térmica em zero tempo
+±1°/s
+1σ RMS, -40~85℃
+Parâmetros do acelerómetro
+Parâmetro
+Valor típico
+Alcance de medição
+±16g
+Nelinearidade
+±0.1%FS
+Densidade de ruído
+100ug/√Hz
+Inestabilidade do zero de polaridade
+0.035mg
+Largura de banda (-3 dB)
+50Hz
+Desvio do ponto zero
+±20mg
+Derivação térmica em zero tempo
+±10mg
+Parâmetros do sensor magnético
+Parâmetro
+Valor típico
+Nota
+Alcance de medição
+±8Gauss
+
+Nelinearidade
+±0.1%FS
+FS = ±8G
+Ruído
+0.4mGauss
+RMS
+Indicadores Físicos e Elétricos
+Parâmetro
+Valor típico
+Nota
+Tensão de entrada
+5VDC
+Ruído ≤ 30 mV pico-pico
+Consumo de energia
+190mW
+@5V
+Interface de comunicação
+UART / USB
+O UART corresponde ao número de produto YIS320-E11; o USB corresponde ao YIS320-E30.
+Protótipo de Saída
+Yesense YIS protocol
+Protótipo privado Yesense
+frequência de saída
+200Hz
+Máximo de 400 Hz
+Dimensão
+22.4×22.4×9.4mm
+
+Peso
+7.7g
+±1g
+Material da carcaça
+Alumínio
+
+Indicadores de adaptabilidade ambiental
+Parâmetro
+Valor típico
+Nota
+Temperatura de operação
+-40~85℃
+
+Temperatura de armazenamento
+-45~85℃
+Umidade relativa ≤ 65%
+Resistência ao impacto
+2000g
+
+Motor de articulação
+O sistema de motores articulados T800 utiliza motores servo de alto desempenho da série Q, desenvolvidos internamente pela Zhongqing (incluindo modelos Q300H, Q200H, Q50H e Q25H), atendendo a todas as necessidades, desde articulações principais com alto torque até articulações finais de baixo peso. Os seguintes modelos apresentam os seguintes valores de torque máximo na extremidade articular: o motor Q300H-L alcança um torque máximo de 415 N·m, com uma saída contínua de 92 N·m; o Q300H tem um torque máximo de 370 N·m e uma saída contínua de 80 N·m; o Q200H oferece um torque máximo de 222 N·m e uma saída contínua de 42 N·m; o motor articular leve Q50H tem um torque máximo de 160 N·m e uma saída contínua de 28 N·m; já o motor articular miniatura Q25H apresenta um torque máximo de 52 N·m e uma saída contínua de 10 N·m.Todos os motores da série Q possuem um design de eixo oco, que garante alta resistência mecânica ao mesmo tempo em que promove uma estrutura leve e compacta, facilitando a instalação dos cabos internos.
+O motor integra um sistema de duplo codificador, combinado com um codificador de posição de alta precisão e sensores de torque e corrente, permitindo fornecer feedback preciso de posição, velocidade e força, atendendo assim às exigências de controle dinâmico avançado. Graças ao design do rotor de baixa inércia (a inércia do rotor no extremo articular do Q300H chega a 0,14 kg·m², enquanto no Q25H é de apenas 0,0067 kg·m²), o articulado apresenta uma resposta extremamente rápida e um desempenho dinâmico excepcional. A estrutura otimizada de dissipação térmica permite ao motor operar por longos períodos sob carga elevada, garantindo o funcionamento contínuo e estável do robô. Além disso, o articulado linear L05 e o articulado digital F17 fornecem, respetivamente, uma força linear de 200 N e uma força de acionamento precisa de 1,1 N·m, assegurando flexibilidade e controle preciso em todo o braço.
+A diagrama simplificada da configuração dos articulações do mecanismo completo das versões básica e de desenvolvimento do T800 é a seguinte:
+
+As especificações técnicas do motor de articulação são as seguintes:
+Modelo do motor
+Q25H
+Q50H
+Q200H
+Q300H
+Q300H-L
+Codificador de articulações
+Dupla codificação
+Dupla codificação
+Dupla codificação
+Dupla codificação
+Dupla codificação
+Tipos de articulações
+Todos os planetas
+Todos os planetas
+Todos os planetas
+Todos os planetas
+Todos os planetas
+Momento máximo (Nm)
+50
+160
+222
+370
+415
+Densidade de densidade de torque máximo (Nm/kg)
+100
+168
+134
+176
+160
+Velocidade máxima de rotação (rpm)
+8400
+8000
+3200
+6000
+5800
+Relação de redução
+25
+25
+14.45
+24
+24
+Massa (kg)
+0.5
+0.95
+1.65
+2.1
+2.6
+Diâmetro (mm)
+62
+76
+97
+110
+110
+Altura (mm)
+60
+62
+65
+65
+80
+Tensão nominal (V)
+48
+63
+63
+63
+63
+Precisão do controle de força
+5%
+5%
+5%
+5%
+5%
+Sistema de coordenadas e configuração do equipamento completo
+Sistema de coordenadas
+Quando todas as articulações estão na posição padrão, os sistemas de coordenadas são apresentados na figura abaixo: o vermelho corresponde ao eixo x, o verde ao eixo y e o azul ao eixo z.
+
+
+Número da articulação e espaço de movimento articular
+Número
+Barra de ligação
+Nomenclatura de bielas e malhas
+Nomenclatura das articulações
+Espaço de movimento das articulações
+(rad)
+1
+Inclinação do quadril esquerdo para baixo
+LINK_HIP_PITCH_L
+J00_HIP_PITCH_L
+-2.88 ~ 2.181
+2
+Girar lateralmente o quadril esquerdo
+LINK_HIP_ROLL_L
+J01_HIP_ROLL_L
+-0.2618 ~ 1.7444
+3
+O quadril esquerdo desvia-se.
+LINK_HIP_YAW_L
+J02_HIP_YAW_L
+-1.4137 ~ 3.8921
+4
+Inclinação do joelho esquerdo para baixo
+LINK_KNEE_PITCH_L
+J03_KNEE_PITCH_L
+-0.261667 ~ 2.355
+5
+Inclinação do tornozelo esquerdo para baixo
+LINK_ANKLE_PITCH_L
+J04_ANKLE_PITCH_L
+-0.68068 ~ 0.68068
+6
+Girar lateralmente no tornozelo esquerdo
+LINK_ANKLE_ROLL_L
+J05_ANKLE_ROLL_L
+-0.3491 ~ 0.1745
+7
+Inclinação do quadril direito para baixo
+LINK_HIP_PITCH_R
+J06_HIP_PITCH_R
+-2.879 ~ 2.181
+8
+Girar lateralmente no quadril direito
+LINK_HIP_ROLL_R
+J07_HIP_ROLL_R
+-1.7444 ~ 0.2618
+9
+Desvio do quadril direito
+LINK_HIP_YAW_R
+J08_HIP_YAW_R
+-3.8921 ~ 1.4137
+10
+Inclinação do joelho direito para baixo
+LINK_KNEE_PITCH_R
+J09_KNEE_PITCH_R
+-0.261667 ~ 2.355
+11
+Inclinação do tornozelo direito para baixo
+LINK_ANKLE_PITCH_R
+J10_ANKLE_PITCH_R
+-0.68068 ~ 0.68068
+12
+Girar lateralmente no tornozelo direito
+LINK_ANKLE_ROLL_R
+J11_ANKLE_ROLL_R
+-0.1745 ~ 0.3491
+13
+Desvio lateral da coluna vertebral
+LINK_TORSO_YAW
+J12_TORSO_YAW
+-2.81 ~ 2.81
+14
+Inclinação do ombro esquerdo para baixo
+LINK_SHOULDER_PITCH_L
+J13_SHOULDER_PITCH_L
+-3.229 ~ 2.443
+15
+Rodar horizontalmente pelo ombro esquerdo
+LINK_SHOULDER_ROLL_L
+J14_SHOULDER_ROLL_L
+-0.436 ~ 2.487
+16
+O ombro esquerdo desvia-se.
+LINK_SHOULDER_YAW_L
+J15_SHOULDER_YAW_L
+-2.618 ~ 2.618
+17
+Inclinação do cotovelo esquerdo
+LINK_ELBOW_PITCH_L
+J16_ELBOW_PITCH_L
+-2.295 ~ 0.288
+18
+O cotovelo esquerdo desvia-se.
+LINK_ELBOW_YAW_L
+J17_ELBOW_YAW_L
+-2.618 ~ 2.618
+19
+Inclinação do ombro direito para baixo
+LINK_SHOULDER_PITCH_R
+J18_SHOULDER_PITCH_R
+-3.229 ~ 2.443
+20
+Rodar horizontalmente com o ombro direito
+LINK_SHOULDER_ROLL_R
+J19_SHOULDER_ROLL_R
+-2.487 ~ 0.436
+21
+O ombro direito desvia-se.
+LINK_SHOULDER_YAW_R
+J20_SHOULDER_YAW_R
+-2.618 ~ 2.618
+22
+Inclinação do cotovelo direito para baixo
+LINK_ELBOW_PITCH_R
+J21_ELBOW_PITCH_R
+-2.295 ~ 0.288
+23
+O cotovelo direito desvia-se.
+LINK_ELBOW_YAW_R
+J22_ELBOW_YAW_R
+-2.618 ~ 2.618
+24
+Inclinação da cabeça para cima ou para baixo
+LINK_HEAD_PITCH
+J23_HEAD_PITCH
+-0.523 ~ 0.523
+25
+Desvio da direção do cabeçote
+LINK_HEAD_YAW
+J24_HEAD_YAW
+1.222 ~ 1.222
+Os parâmetros do espaço de movimento articular encontram-se em URDF.
+Indicador luminoso
+Utiliza uma fonte luminosa LED inteligente de controle externo que integra um circuito de controle centralizado e um circuito emissor de luz, sendo cada componente correspondente a um pixel. Cada pixel contém um circuito de acionamento composto por interface digital inteligente para armazenamento de sinais, formação e amplificação, além de um oscilador interno de alta precisão e uma unidade de controle de corrente fixa programável, garantindo eficazmente uma elevada uniformidade na cor da luz emitida por cada pixel.
+Valor nominal máximo
+Parâmetro
+Símbolo
+Área
+Unidade
+Tensão da fonte de alimentação
+
++3.7~+5.3
+V
+Tensão de entrada para o circuito lógico
+
+-0.3V~$V_{DD}$+0.7
+V
+Parâmetros Elétricos
+Parâmetro
+Símbolo
+Mínimo
+Máximo
+Unidade
+Condições de teste
+Corrente de entrada
+
+——
+±1
+μA
+
+Entrada de nível elevado
+
+0.7
++0.7
+V
+, SET
+Entrada de nível baixo
+
+-0.3V
+0.7V
+V
+, SET
+Propriedades dos interruptores
+Parâmetro
+Símbolo
+Máximo
+Unidade
+Condições de teste
+Tempo de latência de transmissão
+
+300
+ns
+CL=15pF, DIN→DOUT, RL=10KΩ
+Tempo de descida
+
+120
+μs
+CL=300pF, OUTR/OUTG/OUTB
+Capacitância de entrada
+
+15
+pF
+——
+Parâmetros de características dos LEDs
+Parâmetro
+Símbolo
+Cor
+Corrente estática < 0,6 mA – valor mínimo
+Corrente estática < 0,6 mA – valor típico
+Corrente estática < 0,6 mA – valor máximo
+Unidade
+Corrente de trabalho
+Intensidade de emissão luminosa
+
+Red
+260
+320
+380
+mcd
+12.5mA
+
+
+Green
+850
+1000
+1200
+mcd
+12.5mA
+
+
+Blue
+90
+110
+130
+mcd
+12.5mA
+Tamanho de onda
+
+Red
+620
+623
+625
+nm
+12.5mA
+
+
+Green
+520
+523
+525
+nm
+12.5mA
+
+
+Blue
+449
+451
+454
+nm
+12.5mA
+*Bateria
+Parâmetros principais
+Número
+Tipo de bateria
+Bateria de íons de lítio ternária
+Nota
+1
+Capacidade nominal
+20Ah
+
+2
+Tensão nominal
+61.2V
+
+3
+Energia da bateria
+1.22kWh
+
+4
+Faixa de tensão de operação
+50V ~ 71.2V
+
+5
+Corrente máxima contínua de descarga
+90A
+
+6
+Corrente de descarga de pico de curta duração
+800A
+
+7
+Corrente máxima de carregamento contínuo
+10A
+
+8
+Tensão máxima de carga
+71.2V
+
+9
+Durabilidade da bateria
+>=3H
+Andar normalmente
+10
+Tempo de carregamento
+2.5H
+
+11
+Câmbio de baterias de fácil remoção
+Suporte
+
+12
+Modo de carregamento
+Carregamento exclusivo da bateria (o corpo do dispositivo não suporta este modo)
+
+13
+Massa total do sistema
+≈7.2KG
+
+14
+Material da carcaça do pacote
+Alumínio
+
+15
+Temperatura do ambiente de trabalho
+Carregamento da bateria: 0°C a +45°C
+Descarga da bateria: -20°C a +60°C
+
+16
+Temperatura ambiente do ambiente de armazenamento
+Ano: 0°C a 25°C; umidade relativa ≤70%
+3 meses: -10°C a 40°C; umidade relativa ≤70%
+
+17
+Umidade do ambiente de trabalho
+≤95%
+
+18
+Requisitos de altitude para o trabalho
+≤4000M
+
+Requisitos de armazenamento
+A bateria deve ser armazenada em estado de carga incompleta.
+Temperatura de armazenamento: para períodos inferiores a 3 meses, entre -10 °C e 40 °C; para períodos iguais ou superiores a 3 meses, entre 0 °C e 25 °C.
+Umidade de armazenamento: entre 2% RH e 90% RH; recomenda-se armazenar dentro do intervalo de até 85% RH.
+Ambiente de armazenamento: o produto deve ser mantido em um local limpo, seco, bem ventilado e fresco, evitando exposição direta à luz solar, temperaturas elevadas, chuva, gases corrosivos, vibrações intensas, impactos mecânicos e pressões elevadas; deve estar longe de fontes de fogo e calor; a altitude deve ser inferior a 1500 metros e a pressão atmosférica deve estar entre 86 kPa e 106 kPa.
+Armazenamento e manutenção do SOC: armazenar com níveis de SOC entre 20% e 50%; monitorar o estado do SOC a cada dois meses; caso este fique abaixo de 20%, realizar uma carga complementar para ajustá-lo entre 40% e 50%; antes do uso, é necessário realizar uma carga completa.
+Requisitos de transporte
+A bateria deve ser transportada quando não está completamente carregada, preferencialmente com um nível de carga (SOC) entre 20% e 50%. Durante o transporte, deve ser manuseada com cuidado, evitando impactos, golpes, vibrações intensas, choques, exposição ao sol ou à chuva; é essencial garantir que não ocorra curto-circuito e proíbe-se rigorosamente a sua armazenagem junto a substâncias corrosivas, como ácidos ou álcalis. Ao carregar ou descarregar, deve-se movê-la com delicadeza, evitando quedas, rotações bruscas ou pressões excessivas.

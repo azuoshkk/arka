@@ -1,0 +1,427 @@
+T800 Shopping Mall Deployment
+seg., 14 de set. de 2026
+
+0:40 - Juliano Alves (JBAlves)
+Yeah, something.
+
+3:41 - Juliano Alves (JBAlves)
+The passage that the document is here, the document that the passage of shopping, phalanx industry, is.
+
+5:04 - Luiz Sergio Marques
+I think the Elliott because he is not responding to me.
+
+6:04 - Falante não identificado
+Hey, Edward.
+
+6:18 - Juliano Alves (JBAlves)
+Hey, how are you, Edward?
+
+6:22 - Falante não identificado
+Hey, Zach. No mic.
+
+6:28 - Juliano Alves (JBAlves)
+Turn on the mic. Okay, okay.
+
+6:29 - Edward
+Can you hear me? Ah, yes. Nice.
+
+6:34 - Edward
+Okay. Now I can hear you.
+
+6:36 - Juliano Alves (JBAlves)
+How are you, guys?
+
+6:37 - Edward
+I'm fine. Thank you.
+
+6:39 - Falante não identificado
+Great.
+
+6:41 - Juliano Alves (JBAlves)
+So we are here to discuss the questions we sent to you guys. Is negotiating with a big shopping mall here in Brazil the possibility to use some T800 as a security platform walking in the corridors. And they had they want to have more information to create the the business proposition for the shopping mall. Because that I send you some questions asking exactly about some case user case, some questions you already have to discuss.
+
+
+
+7:31 - Adhemar Fontes
+and I don't know, Wademar, Luiz, Guilherme, if you have some new questions about these I think we can go further and Edward can bring some use case and then we can go deeper. For example, if we're going to use during the day or only during the night, this kind of situation, right? If we can get it to be totally autonomous.
+
+7:59 - Juliano Alves (JBAlves)
+or if we need to have someone monitoring the biggest questions they have, for example, if we put the T800 autonomous walking in a corridor, is if someone is in in his front or coming to talk to him, how they will react or how they can prepare to reaction, for example. Right.
+
+8:53 - Edward
+So we can use um mic remotely control and then you can talk with the robot and the robot will use LLM or with internet with feedback questions you ask. But while the robot is walking, you cannot answer the questions.
+
+9:08 - Juliano Alves (JBAlves)
+Okay, so they will need to walk, stop, and then answer the questions.
+
+9:13 - Edward
+Yes. Okay.
+
+9:15 - Juliano Alves (JBAlves)
+Yeah, the the main concern is that he uh walk towards some person.
+
+9:22 - Adhemar Fontes
+Uh hate someone doesn't stop and hate someone.
+
+9:28 - Edward
+Um About these functions, we we think we can use software to avoid hit someone. But now we didn't have a preparation of the totally software part. But you need first we need to check the environment you want to use when the robots, the the environment around the robots. And then we need to find out a solution to like compare with the situations. Actually, we have the function on PM01, and I will share the screen to you guys.
+
+
+
+10:21 - Edward
+Okay. Can you? Oh, sorry.
+
+10:29 - Edward
+Okay, can you see my screen?
+
+10:32 - Juliano Alves (JBAlves)
+Not yet.
+
+10:36 - Edward
+Okay. I'll show you the function of PM01 in the shopping mall. Actually, we have a demo of PM01.
+
+10:48 - Juliano Alves (JBAlves)
+Please, if you can send us the videos as well.
+
+10:52 - Edward
+I can send you. This is PM01 and it's working in the... You see? You can avoid people.
+
+11:03 - Edward
+And actually, if someone stands in front of the PM01 and the PM01 will find another way to go to the destination, yeah. It's a totally update. In less case it stops situation that it's it's a crowd, it will stop walking so you will continue walking and then find out a way to to escape yeah yeah if if there are a lot of people if there are a lot of people surrounding the rope and the ropes can find any way to move out of this area the rope kids will stop yeah we'll try we'll try try to find a way and then continue like walking around yeah yeah so we need to leave at least some space for the rope to leave this area yeah okay yeah because during during holidays maybe it's too many people there.
+
+
+
+12:00 - Adhemar Fontes
+So crowded, yeah. We need to think on the extreme situations, right?
+
+12:04 - Edward
+Yeah, yeah, yeah, I know. Yeah, so you want the robot to stop in the immediately, right?
+
+12:11 - Adhemar Fontes
+Especially because, for example, uh in this case, this one is uh shorter than the the TA eight hundred, right? The height, yes. It's better because we have some kids. I worry because a kid can run in front of the robot and the T eight hundred it I think the uh the angle that it can catch some movements is uh there is a uh a gap of space uh bel just below the head. Shorter the robot, I think this this gap is is more like a blind spot?
+
+ Yeah, a blind spot, for example.
+
+12:53 - Edward
+Of course, and if the children run very fast and appear in front of the robotics suddenly, and I think that's not very dangerous. Yeah, it's very dangerous, and there's no time left for the robotics to react with this situation. This is a shorter robot.
+
+13:10 - Adhemar Fontes
+I think the blind area is smaller, but it's still something we need to worry.
+
+13:17 - Edward
+Yeah, yeah, of course, of course. Yeah.
+
+13:22 - Edward
+so I think maybe we should have a signal or sign on the robotics to tell people don't get too close to the robotics. Yeah, yeah, yeah.
+
+13:38 - Edward
+Even for the shorter one, when you get very close to the robot, if the robot's power is suddenly shut down, it's very dangerous, also. Yeah.
+
+13:50 - Edward
+You see, that's the first perspective from Robix from his camera.
+
+13:55 - Juliano Alves (JBAlves)
+He has the both cameras, okay.
+
+13:57 - Edward
+Yeah, we also can see the page. So okay.
+
+14:05 - Edward
+So basically, the hardware for Rotix can satisfy your need, but the software you need to develop by your own.
+
+14:14 - Falante não identificado
+Yeah.
+
+14:15 - Edward
+I think most of the functions depends on the capability of your device.
+
+14:24 - Juliano Alves (JBAlves)
+Yeah, the IPK is already developing some softwares for the T eight hundred, but we only have these questions to be certain to present the pres the business proposition for them all. So this is one of the biggest questions, right, Adhemar? I don't know if you have anything else.
+
+14:46 - Adhemar Fontes
+The the use case we're thinking, Juliano, it's for during the day or during the the close time?
+
+14:55 - Juliano Alves (JBAlves)
+I believe they they want to use during the day to show the robots because the the shopping mall see the value to show this technology to everybody.
+
+15:06 - Edward
+So and uh the idea is uh the robots can answer questions for example about location of the stores I believe I can we we can program in some ai to respond them right exactly the the store informations you need to like add to the ln inside the robot you need you to use uh large language mode and then you need to apply robot and then you can send the store information the message inside the LLM and then the robot can answer.
+
+
+
+15:44 - Juliano Alves (JBAlves)
+I'm recording the meet the meeting.
+
+15:46 - Adhemar Fontes
+So guys if you needed to see or show someone we tried to embed an LLM uh model inside the robot.
+
+16:00 - Guilherme C. Andrade
+Yeah yeah. Are we trying to use Oloma?
+
+16:05 - Edward
+Olama to Elenium and it's working running inside the robot right not communicating outside maybe you try try a microphone I think maybe the robot cannot hear very clearly last time you can use a USB connect to a remote remote microphone and then try talk to the microphone and to see.
+
+16:29 - Guilherme C. Andrade
+Yeah, the problem we we find is the microphone in the robot is very, very is very, very bad. So he cannot understand what what I will be saying.
+
+16:43 - Juliano Alves (JBAlves)
+But saying to use uh outside microphone, look it in the USD microphone.
+
+16:49 - Adhemar Fontes
+Yeah. But do you think you're improve this this microphone of the robots? Yes, yes, yes.
+
+16:54 - Edward
+We used to use use a microphone because some some sometimes we use the robot outside, which is very noisy. Yeah. If you can suggest a model of the the microphone or or any regular maybe DJI DJI have the microphone you can like connect directly.
+
+17:13 - Juliano Alves (JBAlves)
+Digi, okay.
+
+17:14 - Edward
+Yeah. Yeah.
+
+17:19 - Falante não identificado
+Do you think user can?
+
+17:21 - Guilherme C. Andrade
+with leader is is a good option to make the autonomous state a cam with leader?
+
+17:32 - Edward
+Now we ha our company have prepared a strategy about letter robots automatically walking around, but we need to check if we use the strategy use the reader. But you can we can check with our product department later. Maybe we can provide a package to you and then you can upgrade to let the robot have these functions. But we need to check, okay?
+
+18:04 - Guilherme C. Andrade
+All right, because uh our plan is yu is use the can to make a vision. And using leader to detect other other objects to can make the robot fall or something like this.
+
+18:20 - Edward
+Okay, okay. So you want to use the camera, only use camera without a ladder lighter?
+
+18:30 - Guilherme C. Andrade
+No, we want to use the camera with the leader, the leader. With compare.
+
+18:37 - Edward
+Compare together. Okay.
+
+18:40 - Adhemar Fontes
+okay.
+
+18:41 - Edward
+Yeah, because we in this uh in sorry Because in this video we use the laser lidar and camera to yeah and the laser lidar you see on installed on here on his chest and we use the laser lidar to scan the whole building firstly and to build up a 3D mapping, you 3D mapping and then the robotics will know when when the roptics is in this area he will know uh his location yeah so that's our strategy yeah yeah probably is the the best way to organize this is create a whole map of the shopping with all the the points he will be walking and s stop to make the presentation or the answers right Yeah,
+
+19:35 - Guilherme C. Andrade
+but the blind spot, the blind area, it's what I think.
+
+19:43 - Guilherme C. Andrade
+I think we can use the leader to see if have some objectives or some kids in the blind area to prevent a fall or hurt someone.
+
+20:03 - Guilherme C. Andrade
+Like after mapping ma mapping the the mode is still using the leader to see blind errors.
+
+21:04 - Adhemar Fontes
+Do you know the the angle of the leader? When you face down yes, we have a document of all the details.
+
+21:13 - Edward
+Yeah, I will show you.
+
+22:49 - Juliano Alves (JBAlves)
+We are talking about the LIDAR, Edward. Sorry, we are talking about the LIDAR and how we can, for example, have a mapping of the place and then. If someone is walking in there, the LiDAR can receive the information and the robot can walk away.
+
+23:11 - Falante não identificado
+Okay, nice. Yeah, that's your strategy.
+
+23:13 - Edward
+I think that's a software strategy. I can show you.
+
+23:17 - Juliano Alves (JBAlves)
+Please send us with the videos. I already translate the material you send us in this morning.
+
+23:26 - Edward
+Yeah, I can send you the document. Being translated, yeah, just like this. Nice.
+
+23:34 - Edward
+Okay, so this is the angle of the laser lighter of K800.
+
+23:41 - Guilherme C. Andrade
+Uh is the leader angle?
+
+23:44 - Falante não identificado
+Yep.
+
+23:47 - Guilherme C. Andrade
+The leader and the camera have the same angle.
+
+24:26 - Juliano Alves (JBAlves)
+The lighter and the camera has the same angle? Yeah.
+
+24:30 - Edward
+Yes, I think so. Yeah.
+
+25:07 - Edward
+Yeah. And I think the the angle is the same for the cameras and late late lighter. Yeah.
+
+25:22 - Guilherme C. Andrade
+we can make some tests once we get back the the robot we can uh turn on the LiDAR and and make some tests with some objects to to get this this point and understand if it's uh make some difference use the lidar either the the camera yeah combine them is the best solution now we can detect a lot of things person cars and tables we uh only with camera The LiDAR is most to see the distance between the object and the robot and to see not objects it's not in the I forgot objects case not analysis, objects we not detected like a anomalous objects.
+
+
+
+26:16 - Edward
+Yeah, but it also also depends on the software you deviate. Yeah, because we don't have the functions like directly to detect the object. You also need to need a AI to analyze which which things the name is it is.
+
+26:34 - Guilherme C. Andrade
+Yeah.
+
+26:37 - Adhemar Fontes
+Okay, and maybe Lemmy we we understand if we need to m create some uh checkpoints around the environment so the robots can not only because it's a big area the shopping mall it's different than one room two rooms so maybe we need to create some checkpoints for the robot to to adjust its location inside the area right the robot will robova exubiscado no they they said they said they will use one robot per floor.
+
+
+
+27:13 - Guilherme C. Andrade
+Oh, all right. Thanks.
+
+27:18 - Juliano Alves (JBAlves)
+If needed, we believe he can use the elevator, right?
+
+27:22 - Edward
+So, yeah, but how in this case, I think we need to use the elevator to the second floor, right?
+
+27:37 - Guilherme C. Andrade
+Yeah, yeah, but how are you gonna do this?
+
+27:43 - Edward
+I forgot the name. I think there is a controller, it's a software part. You can send a signal to the elevator and then t let the elevator go to the stair you want and then robot go inside and then close the door and then elevator will work, right?
+
+27:57 - Guilherme C. Andrade
+Yeah, but but we need a person to help the robot to do this, no?
+
+28:03 - Juliano Alves (JBAlves)
+Not necessarily if he but this is not this is not the challenge for for now. The challenge for yeah, one robot for a floor in the future. Perhaps we need to find a way to the robot modifier elevator, wait to open and then yeah actually we have a supplier they can.
+
+28:30 - Adhemar Fontes
+they have finished the solution and the lotus can walk into the elevator and take the elevator autonomously I'll find the video to show you guys okay nice we need to think how how it's going to behave once it's moving and someone asks something because it doesn't stop while moving right so how are you going to control it to detect that someone spoke to it The microphone perhaps hear the sound stop and ask again what?
+
+
+
+29:04 - Juliano Alves (JBAlves)
+Ask again, please. Perhaps.
+
+29:19 - Edward
+You can communication directly from robot to the elevator and then to let the elevator go downstairs. I think you need to add a modal d modal bus mood inside the elevator and then there the elevator can make communication with the robot. That's the point.
+
+29:37 - Edward
+And then you need you need to use the robot and then the elevator in the stand by five, I think.
+
+29:53 - Adhemar Fontes
+But I think this would will be an improvement on the project. The first challenge is to move around get an image send the image to the security center and give the ability to stop and answer something to a visitor, right? That would be the first challenge, Juliano.
+
+30:23 - Edward
+Yeah, yeah, yeah.
+
+30:25 - Juliano Alves (JBAlves)
+This part will take time because many people talk, but some people in Brazil like to touch, right? That's the problem. Problem.
+
+30:54 - Guilherme C. Andrade
+We can we can set a keyword to to it stop like with say Akanju, uh you will stop. And asking and and the person can ask what he wants. I in this case we we I think I think this better is the best option to make this you use in keyword to respond anyone but we can how can I say that we can fix the microphone in the in the T T eight hundred like have some some way to fix to fix the microphone in in the in it in the yeah what's the solution we have guys to fix the microphone in the T eight hundred machine nothing microphone why do Yeah, so for the microphone part, I think nowadays in the market, um it didn't depend microphone's qualities.
+
+
+
+32:21 - Edward
+Which every microphone you use, you have the same questions if you the microphone is on the robots. Because it can take of wires outside the environment, so you cannot recognize the sounds very clearly. And then for the different language, I don't know, but in China, it didn't replay so fast, also. Yeah, but if you use a microphone, that which will be more better. I don't know if the microphone is have a problem or is break, but usually we use.
+
+ Microphone, which is more better.
+
+32:56 - Juliano Alves (JBAlves)
+Okay.
+
+33:15 - Guilherme C. Andrade
+And I think we are.
+
+33:30 - Juliano Alves (JBAlves)
+Edward and Zach, to mapping the area, what do you indicate to us to use? The the robot made made the the mapping the mapping, or we need to map using another type of technology.
+
+33:56 - Edward
+But you indicate.
+
+34:12 - Edward
+you use the controller to control the robot and then to write down the map.
+
+34:17 - Falante não identificado
+Okay. Yeah.
+
+34:18 - Juliano Alves (JBAlves)
+Yeah, I belie I believe it's better because you you can mapping using their their angles and and yeah, but I'm not sure you want oh, okay.
+
+34:29 - Edward
+For our our company just ready for a short time. So I'm not sure the appearance. But it decides on you guys who want to choose the software by our company. Yeah.
+
+34:44 - Falante não identificado
+Okay, nice.
+
+34:48 - Edward
+Any questions, guys?
+
+34:58 - Guilherme C. Andrade
+My tier form, so I put a tutorial and documentation. Exactly.
+
+35:06 - Juliano Alves (JBAlves)
+Do we have some documents about how we can make the mapping using the T800?
+
+35:11 - Edward
+I need to check with the product department because I think this software function is not ready for sales. But I and Edward will ask also tomorrow and then give you feedback about how our RD team already have a navigation.
+
+35:29 - Juliano Alves (JBAlves)
+solution just like you like just like the shop assistant the the solution the scenario in the shopping mall okay yeah everything you have guys will help us to make the solution here in brazil and to present to our first partners ip is is having more than one uh interesting rights luis uh we have for example a big factory uh interesting to use the T800 to move some objects in a dangerous place with a high heat.
+
+ And we will be back soon to talk to you guys about this too. But now we need to solve the problem with the shopping because I believe if we resolve the shopping mall, we will solve a lot of things to use, for example, in public places and other. Right, Adhemar?
+
+36:25 - Edward
+Yeah.
+
+36:26 - Adhemar Fontes
+Yeah, if you have some algorithms that are not, I mean, uh, uh, internal for you, if it's not uh super secret and you can share, this would reduce the time for us to uh deliver solutions. And I think that's that's good for everybody because that would be a channel to sell more robots. So if you can help us to reduce the time for us to develop these solutions, it's going to be great for everybody. For us, for Juliano, for NGINGI.
+
+ So, think about it, okay?
+
+37:08 - Edward
+In the sense of sharing some algorithms.
+
+37:18 - Juliano Alves (JBAlves)
+Okay, guys. Any other questions? Guilherme, Luiz?
+
+37:22 - Guilherme C. Andrade
+No, no.
+
+37:24 - Luiz Sergio Marques
+No, no, no.
+
+37:25 - Adhemar Fontes
+Thank you. Thank you.
+
+37:26 - Juliano Alves (JBAlves)
+So guys, thank you for the answers.
+
+37:31 - Edward
+Please send us the videos. So I thought you can send us when you do the devirments, you face the problems. And then we can send you to another product department and then they will follow the requirement you need.
+
+37:47 - Adhemar Fontes
+maybe we can make the device more faster yeah and then also I will share a link with you later which you can like ask the questions directly through the facial link to the to the people who in charge about the details is that okay great and and I think uh uh we're talking about the shopping mall but uh which starts with a small area of course to understand how to map the area use the lida with more more uh uh secure in a more secure way so as soon as we start the the robot again because we had a the problem with the the uh cable and the the charger we're going to go in this in this uh focus okay have you received the charger Probably we're going to receive it between today and tomorrow, Julian.
+
+
+
+38:48 - Juliano Alves (JBAlves)
+Luiz already sees this and they are talking with Diagaeli today, right, Luiz?
+
+39:11 - Juliano Alves (JBAlves)
+Diagaeli already sent to the city, but don't receive in the building yet. They are talking to them.
+
+39:22 - Juliano Alves (JBAlves)
+Guys, thank you very much for the help. Send us the answers I sent to you guys the videos, the documents. To start. Thank you very much for this. And if we have any other questions, I will send you in the group.
+
+39:44 - Edward
+Okay, okay, okay, thank you.
+
+39:54 - Edward
+Hello, Mr. Juliano. I want to have a meeting with you.
+
+39:58 - Juliano Alves (JBAlves)
+Yeah, yeah, I can continue here to talk to you, no problem. Luiz Rigardo.
+
+40:11 - Juliano Alves (JBAlves)
+Let me stop the recording here.

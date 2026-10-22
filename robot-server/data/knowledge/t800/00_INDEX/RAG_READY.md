@@ -1,0 +1,278 @@
+# RAG READY — primeira carga recomendada
+
+Total de arquivos candidatos: **247**
+
+Este conjunto é deliberadamente conservador.
+
+Foram excluídos:
+
+- duplicatas;
+- arquivos sensíveis;
+- builds;
+- mídia;
+- binários;
+- REVIEW;
+- material incerto;
+
+## Categorias
+
+- ARCHITECTURE: **3**
+- DIAGNOSTICS: **38**
+- ISSUES_SOLUTIONS: **1**
+- OFFICIAL_DOCS: **18**
+- ROBOT_CONFIG: **9**
+- SOFTWARE_BRIDGE: **6**
+- SOFTWARE_DASHBOARD: **16**
+- SOFTWARE_GATEWAY: **14**
+- SOFTWARE_SDK: **98**
+- VISION_AUDIO: **44**
+
+## Arquivos
+
+- **HIGH** [SOFTWARE_DASHBOARD] `GitHub/beniprado/dashgroup-arcanjo/main/INSTRUCOES.md`
+- **HIGH** [SOFTWARE_DASHBOARD] `GitHub/beniprado/dashgroup-arcanjo/main/README.md`
+- **HIGH** [SOFTWARE_DASHBOARD] `GitHub/beniprado/dashgroup-arcanjo/main/ESTRUTURA_E_GUIA_IA.md`
+- **HIGH** [SOFTWARE_DASHBOARD] `GitHub/beniprado/dashgroup-arcanjo/main/ros2_websocket_bridge.py`
+- **HIGH** [SOFTWARE_DASHBOARD] `GitHub/beniprado/dashgroup-arcanjo/main/src/lib/telemetry/types.ts`
+- **HIGH** [SOFTWARE_DASHBOARD] `GitHub/beniprado/dashgroup-arcanjo/main/src/lib/telemetry/useWebSocket.ts`
+- **HIGH** [SOFTWARE_DASHBOARD] `GitHub/beniprado/dashgroup-arcanjo/main/src/config/tabs.ts`
+- **HIGH** [SOFTWARE_DASHBOARD] `GitHub/beniprado/dashgroup-arcanjo/main/src/config/version.ts`
+- **HIGH** [SOFTWARE_DASHBOARD] `GitHub/beniprado/dashgroup-arcanjo/main/.agents/rules/arquitetura.md`
+- **HIGH** [VISION_AUDIO] `GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/camera/video_recorder.py`
+- **HIGH** [VISION_AUDIO] `GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/camera/camera_service.py`
+- **HIGH** [VISION_AUDIO] `GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/audio/audio_service.py`
+- **HIGH** [VISION_AUDIO] `GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/speech/speech_server.py`
+- **HIGH** [VISION_AUDIO] `GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/speech/speech_manager.py`
+- **HIGH** [SOFTWARE_DASHBOARD] `GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/telemetry/telemetry_service.py`
+- **HIGH** [SOFTWARE_DASHBOARD] `GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/map3d/websocket/map_messages.py`
+- **CRITICAL** [SOFTWARE_BRIDGE] `Arquivos/home/guilerme-andrade/t800_bridge.py`
+- **HIGH** [ARCHITECTURE] `Arquivos/home/guilerme-andrade/Downloads/Proposta_Arquitetura_T800_Dashboard_IPK.pdf`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Downloads/T800 Face Follow - Guia completo.pdf`
+- **HIGH** [ISSUES_SOLUTIONS] `Arquivos/home/guilerme-andrade/Downloads/neck_controller_CORRIGIDO.py`
+- **HIGH** [ARCHITECTURE] `Arquivos/home/guilerme-andrade/Downloads/Arcanjo_Dashboard_Guia_Tecnico.docx`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/Downloads/cleanup_t800_project.sh`
+- **HIGH** [ARCHITECTURE] `Arquivos/home/guilerme-andrade/Downloads/T800 Shopping Mall Deployment Transcrição.txt`
+- **CRITICAL** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/CMakeLists.txt`
+- **CRITICAL** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/run.sh`
+- **CRITICAL** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/README.md`
+- **CRITICAL** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/install.sh`
+- **CRITICAL** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/README_CN.md`
+- **CRITICAL** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/env.sh`
+- **CRITICAL** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/build.sh`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/docker/generate.sh`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/docker/dockers/engineai_robotics_env/Dockerfile`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/docker/dockers/engineai_robotics_env/docker-compose.yml`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/docker/dockerfiles/entrypoint.sh`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/docker/dockerfiles/docker-compose.gpu.yml`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/docker/dockerfiles/env.sh`
+- **CRITICAL** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/protocol/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/protocol/interface_protocol/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/protocol/interface_protocol/README.md`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/protocol/interface_protocol/package.xml`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/protocol/interface_protocol/scripts/pm_user_control_data_display.xml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/protocol/interface_protocol/msg/MotorDebug.msg`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/backflip_param/backflip_param.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/rl_walking_example_param/rl_walking_example_param.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/passive_param/passive_param.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/pd_stand_param/pd_stand_param.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/pd_stand_param/pd_stand_param.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/rl_mimic_trajectory_example_param/rl_mimic_trajectory_example_param.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/rl_mimic_trajectory_example_param/rl_mimic_trajectory_example_param.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/rl_lab_param/rl_lab_param.h`
+- **CRITICAL** [SOFTWARE_BRIDGE] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/ros2_bridge_param/ros2_bridge_param.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/rl_dance_example_param/rl_dance_example_param.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/common/src/serial/unix.cpp`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/common/src/serial/serial.cpp`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/common/src/serial/list_ports_linux.cpp`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/common/include/serial/v8stdint.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/common/include/serial/serial.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/common/include/serial/unix.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/rc02/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/rc02/src/rc02_driver.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/rc02/src/analysis_data.cpp`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/rc02/include/rc02/analysis_data.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/rc02/include/rc02/rc02_driver.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/gamepad/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/gamepad/src/gamepad_driver.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/gamepad/include/gamepad/gamepad_driver.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/executor/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/executor/main.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/src/rl_mimic_trajectory_example_runner.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/src/observation_manager.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/src/npy_loader.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/src/csv_loader.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/include/rl_mimic_trajectory_example/csv_loader.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/include/rl_mimic_trajectory_example/observation_manager.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/include/rl_mimic_trajectory_example/npy_loader.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/include/rl_mimic_trajectory_example/rl_mimic_trajectory_example_runner.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/passive/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/passive/src/passive_runner.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/passive/include/passive/passive_runner.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_walking_example/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_walking_example/src/rl_walking_example_runner.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_walking_example/include/rl_walking_example/rl_walking_example_runner.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/pd_stand/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/pd_stand/src/pd_stand_runner.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/pd_stand/include/pd_stand/pd_stand_runner.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/backflip/src/backflip_runner.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/backflip/include/backflip/backflip_runner.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_lab/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_lab/src/rl_lab_runner.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_lab/include/rl_lab/rl_lab_runner.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/src/rl_dance_example_runner.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/src/wbt_obs_registry.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/cnpy/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/cnpy/README.md`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/cnpy/cnpy.cpp`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/cnpy/example1.cpp`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/cnpy/cnpy.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/rl_dance_example/rl_dance_example_runner.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/rl_dance_example/wbt_obs_registry.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/CMakeLists.txt`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/src/gamepad_input_adapter.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/src/virtual_gamepad_input_adapter.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/src/rc02_input_adapter.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/src/base_input_adapter.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/src/input_command_arbiter_runner.cc`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/include/input_command_arbiter/rc02_input_adapter.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/include/input_command_arbiter/base_input_adapter.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/include/input_command_arbiter/input_command_arbiter_runner.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/include/input_command_arbiter/virtual_gamepad_input_adapter.h`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/include/input_command_arbiter/gamepad_input_adapter.h`
+- **CRITICAL** [SOFTWARE_BRIDGE] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/ros2_bridge/CMakeLists.txt`
+- **CRITICAL** [SOFTWARE_BRIDGE] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/ros2_bridge/src/ros2_bridge_runner.cc`
+- **CRITICAL** [SOFTWARE_BRIDGE] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/ros2_bridge/include/ros2_bridge/ros2_bridge_runner.h`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/core/include/data/motor_debug/motor_debug.h`
+- **CRITICAL** [ROBOT_CONFIG] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/mode.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/motion_state_estimator/default.yaml`
+- **CRITICAL** [ROBOT_CONFIG] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/task_resident/robot.yaml`
+- **CRITICAL** [ROBOT_CONFIG] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/task_resident/sim.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/google_logger/default.yaml`
+- **CRITICAL** [ROBOT_CONFIG] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/lcm/robot.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/lcm/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/rl_supine_to_stance/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/base_state_estimator/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/passive/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/rl_walking_example/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/joint_torque_test/default.yaml`
+- **CRITICAL** [ROBOT_CONFIG] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/pd_stand/robot.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/pd_stand/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/motor/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/backflip/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/task_motion/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/rl_stance_to_supine/default.yaml`
+- **CRITICAL** [ROBOT_CONFIG] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/rl_stance_to_supine/trajectory/T800_stand_to_supine.csv`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/global_options/default.yaml`
+- **CRITICAL** [ROBOT_CONFIG] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/global_options/release.yaml`
+- **CRITICAL** [ROBOT_CONFIG] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/parallel_ankle/symmetry.yaml`
+- **CRITICAL** [ROBOT_CONFIG] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/parallel_ankle/asymmetry.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/rl_dance_example/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/google_logger/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/passive/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/rl_walking_example/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/pd_stand/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/motor/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/model/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/task_motion/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/rl_lab/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/parallel_ankle/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/rl_dance_example/default.yaml`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/t800_face_follow_package/README.md`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/t800_face_follow_package/requirements.txt`
+- **HIGH** [SOFTWARE_DASHBOARD] `Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/README.md`
+- **HIGH** [SOFTWARE_DASHBOARD] `Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/ros2_websocket_bridge.py`
+- **HIGH** [SOFTWARE_DASHBOARD] `Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/src/lib/telemetry/useWebSocket.ts`
+- **HIGH** [SOFTWARE_DASHBOARD] `Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/src/lib/telemetry/useOperator.ts`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/modules_dashboard/camera/video_recorder.py`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/modules_dashboard/camera/camera_service.py`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/modules_dashboard/speech/speech_server.py`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/modules_dashboard/speech/speech_manager.py`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/platform_runtime/gateway.py`
+- **HIGH** [SOFTWARE_DASHBOARD] `Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/dashgroup-arcanjo/ros2_websocket_bridge.py`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/dashgroup-arcanjo/modules_dashboard/camera/camera_service.py`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/dashgroup-arcanjo/platform_runtime/gateway.py`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/Video pra debug-2026-07-28_11.22.39.mp4`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/Guia de Integração de Vídeo e Áudio - T800 V3 - Guia de Integração de Vídeo e Áudio - T800 V3.pdf`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/t800Bridge.py`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Gatewat/Dockerfile`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Gatewat/main.py`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Gatewat/t800_bridge.py`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Gatewat/mediamtx.yml`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/projeto_T800_rtsp/ros2_rtsp_gateway.py`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/projeto_T800_rtsp/t800_pub.py`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/projeto_T800_rtsp/mediamtx.yml`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Bridge_project/servidor_voz_t800.py`
+- **CRITICAL** [SOFTWARE_BRIDGE] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Bridge_project/t800_bridge.py`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Bridge_project/docker-compose.yml`
+- **HIGH** [SOFTWARE_SDK] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Bridge_project/t800_simulator.py`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/restaurar_legado.py`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/standby_legacy.py`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/README.md`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/app.py`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/ros_backend.py`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/instalar_controle.py`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/RELATORIO.md`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/core.py`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/sla.txt`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Manual do T800 - Versão de Desenvolvimento.txt`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Relatorio_Status_Projeto_T800_Atualizado.txt`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/示例 - T800-Odin2激光雷达相机.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Questionamentos_pt.txt`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/T800_Integration_Diagnostic_Report_v3.txt`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/T800_Issue_Report.txt`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/EngineAI_T800_Technical_Support_Response_EN_v2.txt`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/t800_technical_inquiries_engineai.txt`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Desenvolvimento de SDK nativo.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Documentacao_Gateway_Visao_T800.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Aplicações de visualização.txt`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/EngineAI T800 MuJoCo Simulation Diagnostic Report V2 - Google 文档.txt`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Native SDK 开发.txt`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Guia de Desenvolvimento T800 (Versão para Desenvolvedores).txt`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Reply for the technical inquiries.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/engineai_oficial/upper_joint_override_example.py`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Reply for the technical inquiries.docx`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/示例 - T800-Odin2激光雷达相机.pdf`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/t800_technical_inquiries_engineai.pdf`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Manual do T800 - Versão de Desenvolvimento.docx`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Aplicações de visualização.docx`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/T800_Integration_Diagnostic_Report_v3.pdf`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Native SDK 开发.docx`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Desenvolvimento de SDK nativo.docx`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Guia de Desenvolvimento T800 (Versão para Desenvolvedores).docx`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/T800_Issue_Report.pdf`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Relatorio_Status_Projeto_T800_Atualizado.pdf`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/EngineAI_T800_Technical_Support_Response_EN_v2.pdf`
+- **CRITICAL** [OFFICIAL_DOCS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/EngineAI T800 MuJoCo Simulation Diagnostic Report V2 - Google 文档.pdf`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Questionamentos_pt.pdf`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Documentacao_Gateway_Visao_T800.pdf`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/sdk_local/assets/config/t800/model/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/sdk_local/assets/config/t800/joint_motor_transform_runner/default.yaml`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/sdk_local/assets/config/t800/ros2_bridge/default.yaml`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/resultado_teste_fisico.txt`
+- **HIGH** [DIAGNOSTICS] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/robot_diagnostico.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/testes_ativacao.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/robot_neck_existente.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/sdk_commit.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/rede_e_status.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/pre_transferencia.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/instalacao_exclusividade.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/controlador_existente.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/original_neck_controller.py`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/telemetria_dds_eth1.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/testes.txt`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/Dockerfile`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/reconhecimento_ros2.py`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/gateway_direto_ros2.py`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/gateway_ros2_rtsp.py`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/ros2_rtsp_gateway.py`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/t800_pub.py`
+- **CRITICAL** [SOFTWARE_GATEWAY] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/simulador_t800_ros2.py`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/visao_comp_arcan/README.md`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/visao_comp_arcan/requirements.txt`
+- **HIGH** [VISION_AUDIO] `Arquivos/home/guilerme-andrade/Área de trabalho/fds/visao_comp_arcan/README.MD`

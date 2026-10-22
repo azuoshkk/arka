@@ -1,0 +1,461 @@
+from __future__ import annotations
+
+import queue
+import re
+import threading
+import time
+
+import numpy as np
+import sounddevice as sd
+
+
+KOKORO_SAMPLE_RATE = 24000
+
+
+# ============================================================
+# AJUSTES
+# ============================================================
+
+MAX_BLOCK_CHARS = 260
+
+# Remove apenas silêncio exagerado na borda
+# do áudio gerado pelo modelo.
+TRIM_THRESHOLD = 0.008
+
+# Mantém um pequeno respiro para não cortar fonemas.
+TRIM_PAD_MS = 35
+
+
+def clean_for_speech(
+    text: str,
+):
+
+    text = text or ""
+
+    # --------------------------------------------------------
+    # RAG / MARKDOWN
+    # --------------------------------------------------------
+
+    text = re.sub(
+        r"\[Fonte\s+\d+\]",
+        "",
+        text,
+        flags=re.IGNORECASE,
+    )
+
+    text = text.replace(
+        "**",
+        "",
+    )
+
+    text = text.replace(
+        "__",
+        "",
+    )
+
+    text = text.replace(
+        "`",
+        "",
+    )
+
+    text = re.sub(
+        r"https?://\S+",
+        "link",
+        text,
+    )
+
+    # --------------------------------------------------------
+    # PONTUAÇÃO
+    #
+    # Não removemos pontos normais.
+    # O Kokoro usa isso para prosódia.
+    #
+    # Só reduzimos casos que provocam pausas exageradas.
+    # --------------------------------------------------------
+
+    # Reticências -> vírgula curta.
+    text = re.sub(
+        r"\.{2,}",
+        ",",
+        text,
+    )
+
+    # ; tende a soar muito longo.
+    text = re.sub(
+        r"\s*;\s*",
+        ", ",
+        text,
+    )
+
+    # Dois-pontos em fala técnica geralmente
+    # funciona melhor como vírgula.
+    text = re.sub(
+        r"\s*:\s*",
+        ", ",
+        text,
+    )
+
+    # Várias exclamações/interrogações.
+    text = re.sub(
+        r"!{2,}",
+        "!",
+        text,
+    )
+
+    text = re.sub(
+        r"\?{2,}",
+        "?",
+        text,
+    )
+
+    # --------------------------------------------------------
+    # ESPAÇOS
+    # --------------------------------------------------------
+
+    text = re.sub(
+        r"\s+",
+        " ",
+        text,
+    )
+
+    return text.strip()
+
+
+def trim_silence(
+    audio,
+):
+
+    """
+    Remove silêncio exagerado no começo/fim
+    de cada bloco de áudio sem mexer nas pausas
+    internas da frase.
+    """
+
+    audio = np.asarray(
+        audio,
+        dtype=np.float32,
+    )
+
+    if audio.size == 0:
+        return audio
+
+    absolute = np.abs(
+        audio
+    )
+
+    indexes = np.where(
+        absolute
+        > TRIM_THRESHOLD
+    )[0]
+
+    if indexes.size == 0:
+        return audio
+
+    pad = int(
+        (
+            TRIM_PAD_MS
+            / 1000
+        )
+        * KOKORO_SAMPLE_RATE
+    )
+
+    start = max(
+        0,
+        int(indexes[0]) - pad,
+    )
+
+    end = min(
+        len(audio),
+        int(indexes[-1]) + pad,
+    )
+
+    return audio[
+        start:end
+    ]
+
+
+class FastTTS:
+
+    def __init__(
+        self,
+        voice="pf_dora",
+        speed=1.507,
+    ):
+
+        self.voice = voice
+        self.speed = speed
+
+        self.pipeline = None
+
+        self.queue = queue.Queue()
+
+        self.load_lock = (
+            threading.Lock()
+        )
+
+        self.worker = threading.Thread(
+            target=self._worker,
+            daemon=True,
+        )
+
+        self.worker.start()
+
+
+    def load(
+        self,
+    ):
+
+        if self.pipeline is not None:
+            return
+
+        with self.load_lock:
+
+            if self.pipeline is not None:
+                return
+
+            print()
+            print(
+                "🔊 Carregando Kokoro TTS..."
+            )
+
+            started = (
+                time.perf_counter()
+            )
+
+            from kokoro import KPipeline
+
+            self.pipeline = KPipeline(
+                lang_code="p",
+                repo_id="hexgrad/Kokoro-82M",
+                device="cpu",
+            )
+
+            print(
+                "✅ Kokoro pronto em "
+                f"{time.perf_counter() - started:.3f}s"
+            )
+
+
+    def say(
+        self,
+        text,
+    ):
+
+        text = clean_for_speech(
+            text
+        )
+
+        if not text:
+            return
+
+        self.queue.put(
+            text
+        )
+
+
+    def _worker(
+        self,
+    ):
+
+        while True:
+
+            text = self.queue.get()
+
+            try:
+
+                self.load()
+
+                # IMPORTANTE:
+                # o bloco já chega maior.
+                # Não quebramos novamente em cada frase.
+                generator = self.pipeline(
+                    text,
+                    voice=self.voice,
+                    speed=self.speed,
+
+                    # Só quebra se houver newline explícito.
+                    split_pattern=r"\n+",
+                )
+
+                for item in generator:
+
+                    audio = (
+                        item[-1]
+                    )
+
+                    audio = trim_silence(
+                        audio
+                    )
+
+                    if (
+                        audio is None
+                        or len(audio) == 0
+                    ):
+                        continue
+
+                    sd.play(
+                        audio,
+                        samplerate=
+                            KOKORO_SAMPLE_RATE,
+                    )
+
+                    sd.wait()
+
+            except Exception as exc:
+
+                print()
+                print(
+                    "⚠️ TTS:",
+                    repr(exc),
+                )
+
+            finally:
+
+                self.queue.task_done()
+
+
+    def wait(
+        self,
+    ):
+
+        self.queue.join()
+
+
+class SentenceTTSBuffer:
+
+    """
+    O nome foi mantido por compatibilidade,
+    mas agora funciona como BLOCK buffer.
+
+    Não envia cada frase individualmente.
+    Junta várias frases em um bloco maior.
+    """
+
+    def __init__(
+        self,
+        engine: FastTTS,
+    ):
+
+        self.engine = engine
+        self.buffer = ""
+
+
+    def reset(
+        self,
+    ):
+
+        self.buffer = ""
+
+
+    def feed(
+        self,
+        token: str,
+    ):
+
+        self.buffer += token
+
+        self._maybe_emit()
+
+
+    def _maybe_emit(
+        self,
+    ):
+
+        # ----------------------------------------------------
+        # Só começa a pensar em emitir quando já há texto
+        # suficiente.
+        # ----------------------------------------------------
+
+        if (
+            len(self.buffer)
+            < 140
+        ):
+            return
+
+        # ----------------------------------------------------
+        # Se chegou perto do tamanho máximo, procura
+        # o ÚLTIMO fim de frase disponível.
+        # ----------------------------------------------------
+
+        if (
+            len(self.buffer)
+            >= MAX_BLOCK_CHARS
+        ):
+
+            window = self.buffer[
+                :MAX_BLOCK_CHARS
+            ]
+
+            positions = [
+                window.rfind(". "),
+                window.rfind("? "),
+                window.rfind("! "),
+            ]
+
+            cut = max(
+                positions
+            )
+
+            # Se não há ponto bom, tenta vírgula,
+            # mas só depois de bastante texto.
+            if cut < 100:
+
+                cut = window.rfind(
+                    ", "
+                )
+
+            # Último fallback:
+            # espaço.
+            if cut < 100:
+
+                cut = window.rfind(
+                    " "
+                )
+
+            if cut > 0:
+
+                block = (
+                    self.buffer[
+                        :cut + 1
+                    ]
+                    .strip()
+                )
+
+                self.buffer = (
+                    self.buffer[
+                        cut + 1:
+                    ]
+                )
+
+                if block:
+
+                    self.engine.say(
+                        block
+                    )
+
+
+    def flush(
+        self,
+    ):
+
+        remaining = (
+            self.buffer
+            .strip()
+        )
+
+        self.buffer = ""
+
+        if remaining:
+
+            self.engine.say(
+                remaining
+            )
+
+
+    def flush_and_wait(
+        self,
+    ):
+
+        self.flush()
+
+        self.engine.wait()

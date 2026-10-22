@@ -1,0 +1,350 @@
+#!/usr/bin/env bash
+
+set -u
+
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+
+cd "$ROOT"
+
+mkdir -p health_results
+
+STAMP="$(date +%Y-%m-%d_%H-%M-%S)"
+LOG="health_results/arka_check_${STAMP}.log"
+
+FULL=0
+
+if [ "${1:-}" = "--full" ]; then
+    FULL=1
+fi
+
+
+run_check() {
+
+    echo
+    echo "============================================================"
+    echo " ARKA SYSTEM CHECK"
+    echo "============================================================"
+    echo
+
+    echo "[1/10] Python / sintaxe"
+
+    python -m py_compile \
+        app/config.py \
+        app/core/router.py \
+        app/core/assistant.py \
+        app/core/voice_bridge.py \
+        app/core/voice_sanity.py \
+        app/agents/expert.py \
+        app/knowledge/embedder.py \
+        app/knowledge/vector_store.py \
+        arka_chat.py \
+        ask.py \
+        test_router.py \
+        test_voice_bridge.py \
+        test_voice_sanity.py \
+        test_rag.py
+
+    if [ $? -ne 0 ]; then
+        echo "❌ Sintaxe"
+        return 1
+    fi
+
+    echo "✅ Sintaxe"
+
+
+    echo
+    echo "[2/10] Ollama"
+
+    if ! curl -sf \
+        http://127.0.0.1:11434/api/tags \
+        >/dev/null
+    then
+        echo "❌ Ollama indisponível"
+        return 1
+    fi
+
+    echo "✅ Ollama"
+
+
+    echo
+    echo "[3/10] Modelos"
+
+    MODELS="$(
+        curl -s \
+        http://127.0.0.1:11434/api/tags
+    )"
+
+    python - <<PY
+import json
+import sys
+
+data = json.loads('''$MODELS''')
+
+models = {
+    item.get("name", "")
+    for item in data.get(
+        "models",
+        []
+    )
+}
+
+required = [
+    "qwen3:8b",
+    "qwen3:0.6b",
+    "qwen3-embedding:0.6b",
+]
+
+missing = []
+
+for wanted in required:
+
+    if not any(
+        name.startswith(wanted)
+        for name in models
+    ):
+        missing.append(wanted)
+
+print("Modelos encontrados:")
+
+for name in sorted(models):
+    print(" -", name)
+
+if missing:
+    print(
+        "Faltando:",
+        ", ".join(missing)
+    )
+    sys.exit(1)
+PY
+
+    if [ $? -ne 0 ]; then
+        echo "❌ Modelos"
+        return 1
+    fi
+
+    echo "✅ Modelos"
+
+
+    echo
+    echo "[4/10] Qdrant"
+
+    if ! curl -sf \
+        http://127.0.0.1:6333 \
+        >/dev/null
+    then
+
+        echo \
+        "Qdrant parado; tentando iniciar arka-qdrant..."
+
+        sudo -n docker start arka-qdrant \
+            >/dev/null 2>&1 || true
+
+        sleep 2
+    fi
+
+    if ! curl -sf \
+        http://127.0.0.1:6333 \
+        >/dev/null
+    then
+        echo "❌ Qdrant indisponível"
+        return 1
+    fi
+
+    echo "✅ Qdrant"
+
+
+    echo
+    echo "[5/10] Base vetorial"
+
+    python - <<'PY'
+import requests
+
+data = requests.get(
+    "http://127.0.0.1:6333/"
+    "collections/arka_knowledge",
+    timeout=5,
+).json()
+
+result = data.get(
+    "result",
+    {}
+)
+
+points = result.get(
+    "points_count",
+    0,
+)
+
+print(
+    "Collection:",
+    "arka_knowledge"
+)
+
+print(
+    "Points:",
+    points
+)
+
+if not points:
+    raise SystemExit(1)
+PY
+
+    if [ $? -ne 0 ]; then
+        echo "❌ Base vetorial"
+        return 1
+    fi
+
+    echo "✅ Base vetorial"
+
+
+    echo
+    echo "[6/10] Router"
+
+    python test_router.py
+
+    if [ $? -ne 0 ]; then
+        echo "❌ Router"
+        return 1
+    fi
+
+    echo "✅ Router"
+
+
+    echo
+    echo "[7/10] RAG"
+
+    if [ "$FULL" -eq 1 ]; then
+
+        python test_rag.py
+
+    else
+
+        python test_rag.py \
+            --tag critical
+
+    fi
+
+    if [ $? -ne 0 ]; then
+        echo "❌ RAG"
+        return 1
+    fi
+
+    echo "✅ RAG"
+
+
+    echo
+    echo "[8/10] Voz / dependências"
+
+    python - <<'PY'
+modules = [
+    "sounddevice",
+    "soundfile",
+    "faster_whisper",
+    "kokoro",
+]
+
+failed = []
+
+for module in modules:
+
+    try:
+        __import__(module)
+
+        print(
+            "✅",
+            module
+        )
+
+    except Exception as exc:
+
+        print(
+            "❌",
+            module,
+            exc
+        )
+
+        failed.append(module)
+
+if failed:
+    raise SystemExit(1)
+PY
+
+    VOICE="$(
+        find .. \
+        -maxdepth 4 \
+        -type f \
+        -name "voice.py" \
+        -print \
+        -quit
+    )"
+
+    if [ -n "$VOICE" ]; then
+
+        echo
+        echo "voice.py:"
+        echo "$VOICE"
+
+        python -m py_compile \
+            "$VOICE" || return 1
+
+        echo \
+        "✅ voice.py sintaticamente válido"
+
+    else
+
+        echo
+        echo \
+        "⚠️ voice.py não encontrado até profundidade 4"
+
+    fi
+
+
+    echo
+    echo "[9/10] Voice → Router → Expert"
+
+    python test_voice_bridge.py
+
+    if [ $? -ne 0 ]; then
+        echo "❌ Integração Voice/RAG"
+        return 1
+    fi
+
+    echo "✅ Integração Voice/RAG"
+
+
+    echo
+    echo "[10/10] Voice sanity / Whisper"
+
+    python test_voice_sanity.py
+
+    if [ $? -ne 0 ]; then
+        echo "❌ Voice sanity"
+        return 1
+    fi
+
+    echo "✅ Voice sanity"
+
+
+    echo
+    echo "============================================================"
+    echo " ARKA CHECK: PASS"
+    echo "============================================================"
+    echo
+
+    return 0
+}
+
+
+run_check 2>&1 | tee "$LOG"
+
+STATUS=${PIPESTATUS[0]}
+
+ln -sfn \
+    "$(basename "$LOG")" \
+    health_results/latest.log
+
+echo
+echo "Log salvo em:"
+echo "$LOG"
+
+exit "$STATUS"

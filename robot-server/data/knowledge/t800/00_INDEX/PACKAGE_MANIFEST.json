@@ -1,0 +1,2233 @@
+{
+  "project": "t800",
+  "purpose": "Arka RAG knowledge package",
+  "source": "/home/guilerme-andrade/Área de trabalho/T800_KNOWLEDGE",
+  "file_count": 247,
+  "missing_count": 0,
+  "files": [
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Downloads/Arcanjo_Dashboard_Guia_Tecnico.docx",
+      "package_path": "02_ARCHITECTURE/Arcanjo_Dashboard_Guia_Tecnico.docx",
+      "category": "ARCHITECTURE",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "74b35d089641f5d60fac064fcc15a9cd946d6cb2c393a95ddca206b13b5ed640",
+      "size": 42672
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Downloads/Proposta_Arquitetura_T800_Dashboard_IPK.pdf",
+      "package_path": "02_ARCHITECTURE/Proposta_Arquitetura_T800_Dashboard_IPK.pdf",
+      "category": "ARCHITECTURE",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "091b3423e4246107c1a1c555cfbb7b09c312769ae8d763d8d82f65655a705749",
+      "size": 347070
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Downloads/T800 Face Follow - Guia completo.pdf",
+      "package_path": "05_VISION_AUDIO/T800 Face Follow - Guia completo.pdf",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "e8d51fae72e54a5e9636fb714444c47523332f57203bda49ca22feb420bbb1d6",
+      "size": 127504
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Downloads/T800 Shopping Mall Deployment Transcrição.txt",
+      "package_path": "02_ARCHITECTURE/T800 Shopping Mall Deployment Transcrição.txt",
+      "category": "ARCHITECTURE",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "321ae7130c31879a9243ba813b2030ed5a314a8f300a2995776385e41f15f638",
+      "size": 20956
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Downloads/cleanup_t800_project.sh",
+      "package_path": "03_SOFTWARE/sdk/cleanup_t800_project.sh",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "905526966fd9c9a11d20b5138f60c0b1498d10fb4ba16f20e94b2cea734cbd29",
+      "size": 609
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Downloads/neck_controller_CORRIGIDO.py",
+      "package_path": "07_ISSUES_SOLUTIONS/neck_controller_CORRIGIDO.py",
+      "category": "ISSUES_SOLUTIONS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "b84a0769f0a204ea7344e8d88d58a7b26845572a14a1fdd028ab01c82558bc36",
+      "size": 30281
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "601de4663d88bf1d6adeb5d3f64cdd0ac4c46f116b60130ecea09aa9f6e2aff6",
+      "size": 3683
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/README.md",
+      "package_path": "03_SOFTWARE/sdk/README.md",
+      "category": "SOFTWARE_SDK",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "972f945b7beb50bc1a0a08238b844622f6a598cc9daf2401402f178155e4f404",
+      "size": 12138
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/README_CN.md",
+      "package_path": "03_SOFTWARE/sdk/README_CN.md",
+      "category": "SOFTWARE_SDK",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "8593afab424f74235aeac8765362f9b4b4bc4fde90d76512eb8b668c242726de",
+      "size": 12506
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/google_logger/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__16.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "c997533c32058f135731f7c9998981318c0cdd8df3b550e1474daa8fbd7eca71",
+      "size": 858
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/model/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__21.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "8ece4afc08f77086666afa4f5b3ef1f59e37d30e380cc6e6843044f2a7c4f5a9",
+      "size": 2173
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/motor/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__20.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "64c9616773f9ffa4730dede808a01a609c6dd8e53c50b50c7fa1f32bd906cc5e",
+      "size": 701
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/parallel_ankle/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__24.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "08bfacd58fa933b19546f8b161012034d1c76a8a4773a1f4eccc9e5720eb0d8e",
+      "size": 4283
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/passive/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__17.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "a1c7a6a85d49eb7676ab60cb7001694a6515499be36270e50029bd971c03989e",
+      "size": 111
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/pd_stand/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__19.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "522ec86a2d58969539fe43a063cdfefb0f92bc8ee2560b56f195e8ea5a61c929",
+      "size": 429
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/rl_dance_example/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__25.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "00185e9846535e7eea9d4f5e9b89708851ed4c78e0bc80cce9e47010b4a72e51",
+      "size": 3011
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/rl_lab/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__23.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "cc44d1694b0b0c014d4b4fab9b70cbcd8e10f4c8634257791ad7bde64b969ff3",
+      "size": 1729
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/rl_walking_example/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__18.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "4a90c9f4607722f926dcd1163a94b7b12548ddb62ce278ec9022dddb20f188f5",
+      "size": 1856
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/pm01_edu/task_motion/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__22.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "3eec7e5aa052c7f3c7cd90a35c6ac9ef14ce2545523d5d4811fb63b46f6f4952",
+      "size": 1379
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/backflip/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__11.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "5a5e19660647c668c893a60285e37526da72c681aff72d358a1fa2c4b2c37af0",
+      "size": 159
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/base_state_estimator/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__5.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "a59ae34a9367c01b8249b55f50d9330c142c55256992813cb902dd66357e927b",
+      "size": 425
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/global_options/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__14.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "7006a9890f1abd8941f0933842ae9f5b5bede4f9ed813e57d46fd75d901b796a",
+      "size": 27
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/global_options/release.yaml",
+      "package_path": "04_ROBOT_CONFIG/assets/config/t800/global_options/release.yaml",
+      "category": "ROBOT_CONFIG",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "2dab5162fef81ed40d27e5379e7c972f81f3a4a98172894c8598a2d714b7ec03",
+      "size": 26
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/google_logger/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__2.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "d6b9474e58cc144f9e9866501eacce778c2b7f07b864ca5f2fbc397eda71ffeb",
+      "size": 839
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/joint_torque_test/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__8.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "d1b762e31318ea89e4857e043b906ec483e4e15b0e11b5597ef8ea4fea3309dc",
+      "size": 59
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/lcm/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__3.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "69c4ba6b1efca47857c058fe399214ec4a8a35994837f3f57d942ef7a8710e18",
+      "size": 544
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/lcm/robot.yaml",
+      "package_path": "04_ROBOT_CONFIG/assets/config/t800/lcm/robot.yaml",
+      "category": "ROBOT_CONFIG",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "cd9888c92c32953c5e1ab1bcc7dff59022c919968be5ced13d870f3ee06a0297",
+      "size": 543
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/mode.yaml",
+      "package_path": "04_ROBOT_CONFIG/assets/config/t800/mode.yaml",
+      "category": "ROBOT_CONFIG",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "eb504cab5d48a7da9c7e47506277bea735faf7d0f4a9b06627d4f876d0efb90c",
+      "size": 2780
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/motion_state_estimator/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "7571b37be4daafaebbeac69b51df214204da54801fc3ae140d9beda528d4ac2a",
+      "size": 1069
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/motor/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__10.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "19393bcd933b15f9f7cd300f63dc6b231e7acf9011f9bee705f5febea2c1f4fe",
+      "size": 716
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/parallel_ankle/asymmetry.yaml",
+      "package_path": "04_ROBOT_CONFIG/assets/config/t800/parallel_ankle/asymmetry.yaml",
+      "category": "ROBOT_CONFIG",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "9fa86e878e60901b6179bdc2bd5e7717169b3f98417d42916c689ffe8b6b62d6",
+      "size": 3923
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/parallel_ankle/symmetry.yaml",
+      "package_path": "04_ROBOT_CONFIG/assets/config/t800/parallel_ankle/symmetry.yaml",
+      "category": "ROBOT_CONFIG",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "74708a68e466369474f6db414b20e9923f98bc88e144cdebd140256084c3769e",
+      "size": 3869
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/passive/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__6.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "a5346d2acd392b5aa3be475d8f8efcef04d58b9246e73d67bec23d6f6bc1fd79",
+      "size": 114
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/pd_stand/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__9.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "ed524e302ff92958930c9fd5f14e5fe77e525f29bea66489d1bbc316556c8da1",
+      "size": 508
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/pd_stand/robot.yaml",
+      "package_path": "04_ROBOT_CONFIG/assets/config/t800/pd_stand/robot.yaml",
+      "category": "ROBOT_CONFIG",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "87d77b65a626835f5d529de0641036eee57500f053c8fe00f09ba1285476aab6",
+      "size": 552
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/rl_dance_example/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__15.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "28e1674d786f7407ccf7954e51cda61efb57e24c67e904f3a62744f3c025bf1e",
+      "size": 1991
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/rl_stance_to_supine/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__13.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "c09b075baad86c78b6cee009c8506123575c06d5146cd54706b11933a66e91b1",
+      "size": 4643
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/rl_stance_to_supine/trajectory/T800_stand_to_supine.csv",
+      "package_path": "04_ROBOT_CONFIG/config/t800/rl_stance_to_supine/trajectory/T800_stand_to_supine.csv",
+      "category": "ROBOT_CONFIG",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "b5bc19eb2b9155a5e280b7885d0bb6e042d5140cc658a5c7713a2d65da1e4bcd",
+      "size": 871875
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/rl_supine_to_stance/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__4.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "79bb14d61eda6f2df692a8070b4f9cf6344e9b11780a2735d8c967a84f56d6d1",
+      "size": 4137
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/rl_walking_example/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__7.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "5492d7877215c9253d8e35ca8732383d8a7fbdb5046ba4ee86b54df4b6ef9f2d",
+      "size": 2030
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/task_motion/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__12.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "ac1b9c444d6b6e76896d0c774d80eddc1c2cf4d06cfccd0cf6989d8255be49cc",
+      "size": 1713
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/task_resident/robot.yaml",
+      "package_path": "04_ROBOT_CONFIG/assets/config/t800/task_resident/robot.yaml",
+      "category": "ROBOT_CONFIG",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "15df76ce60b743cf0d1a11c2500f5dcbb1e2345801222569ee94b10f8052389c",
+      "size": 826
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/assets/config/t800/task_resident/sim.yaml",
+      "package_path": "04_ROBOT_CONFIG/assets/config/t800/task_resident/sim.yaml",
+      "category": "ROBOT_CONFIG",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "ee1635ef8ebdb806bcb4dbd7affc761c8a56ce71a0d8a06fd6078530a5dec055",
+      "size": 793
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/build.sh",
+      "package_path": "03_SOFTWARE/sdk/build.sh",
+      "category": "SOFTWARE_SDK",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "3fa98702f758c9a1251530f3f776d963e9ddcfb531142f180d74f8afc3079456",
+      "size": 2921
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/core/include/data/motor_debug/motor_debug.h",
+      "package_path": "06_DIAGNOSTICS/motor_debug.h",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "a1d3fc098984568b5fe423f7bdc907aee91b60839b66d0973c770534fa6cfbc9",
+      "size": 1574
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/docker/dockerfiles/docker-compose.gpu.yml",
+      "package_path": "03_SOFTWARE/sdk/docker/dockerfiles/docker-compose.gpu.yml",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "822d5f871cbec4d37f5f8f5d2960e2c7ee51aef64e290201cd068417d6a84308",
+      "size": 199
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/docker/dockerfiles/entrypoint.sh",
+      "package_path": "03_SOFTWARE/sdk/docker/dockerfiles/entrypoint.sh",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "e3f2b05e2b512a71a0e6e0a9f2c77f70084eea86c632c3e6858e423392799ffb",
+      "size": 80
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/docker/dockerfiles/env.sh",
+      "package_path": "03_SOFTWARE/sdk/docker/dockerfiles/env.sh",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "ff82890ba1cb6b8ff229d85ca68f20509ec68ea85f9ad5f7dbcba371878aeb47",
+      "size": 2568
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/docker/dockers/engineai_robotics_env/Dockerfile",
+      "package_path": "03_SOFTWARE/sdk/docker/dockers/engineai_robotics_env/Dockerfile",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "ff19e671c5501321b6d17da679953c87c1a8786f88e061f1826209994f84c0a8",
+      "size": 752
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/docker/dockers/engineai_robotics_env/docker-compose.yml",
+      "package_path": "03_SOFTWARE/sdk/docker/dockers/engineai_robotics_env/docker-compose.yml",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "21eb35d2344655453a48781a13cbc516127f7c288b1066edd678cc0a2e0e30a1",
+      "size": 1342
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/docker/generate.sh",
+      "package_path": "03_SOFTWARE/sdk/docker/generate.sh",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "e490b8954505322fb59679315e7a83e3b20dfd7fe5a3c7cbe632e3f46c742ca9",
+      "size": 2680
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/env.sh",
+      "package_path": "03_SOFTWARE/sdk/env.sh",
+      "category": "SOFTWARE_SDK",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "be00d3526afbead635e5b5727726f47c242259fd923f2f4ec328df5015bd6eb2",
+      "size": 920
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/install.sh",
+      "package_path": "03_SOFTWARE/sdk/install.sh",
+      "category": "SOFTWARE_SDK",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "2d7968d003725590542115e69a5e66dcffeb0c73e2f3a1787f3e47b2803da70a",
+      "size": 3954
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/run.sh",
+      "package_path": "03_SOFTWARE/sdk/run.sh",
+      "category": "SOFTWARE_SDK",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "cb49cddfe7fd9fc40764cf82921773bd8c8d8a684cae68a667cc9fc5393a760f",
+      "size": 1625
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "252d05dd60d598be1d24ad11d85aaa34640d48c4d71a9345ec774d6ab09b05b7",
+      "size": 1428
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/data/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "2335c34afc3d95a1f761a3934d015a4266a250975509d5c6f04efe2a7cd1fec0",
+      "size": 2656
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/backflip_param/backflip_param.h",
+      "package_path": "03_SOFTWARE/sdk/src/data/_param/backflip_param/backflip_param.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "bbcc287437e715224bdc28c560f9162b5f52689a4108afd07a3b73e82ba52b1b",
+      "size": 578
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/passive_param/passive_param.h",
+      "package_path": "03_SOFTWARE/sdk/src/data/_param/passive_param/passive_param.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "0aeca4911d71750f797a7fc2cdb4da14e8e714d85a911d546966f4a6bca8a498",
+      "size": 363
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/pd_stand_param/pd_stand_param.cc",
+      "package_path": "03_SOFTWARE/sdk/src/data/_param/pd_stand_param/pd_stand_param.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "3671821894c74cc2635edc3447b6d3b8de18d46cfb5c8e20ad6f7e0bc7a092da",
+      "size": 938
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/pd_stand_param/pd_stand_param.h",
+      "package_path": "03_SOFTWARE/sdk/src/data/_param/pd_stand_param/pd_stand_param.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "2e5397a1a69847e7d49a2e87f6d8808ac02feb37a1810946fd6724a50307bed7",
+      "size": 990
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/rl_dance_example_param/rl_dance_example_param.h",
+      "package_path": "03_SOFTWARE/sdk/src/data/_param/rl_dance_example_param/rl_dance_example_param.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "8a8dbf4f79ae0687f68c3bcda26542c3acc6ba965747e6b4daad93e70295d878",
+      "size": 884
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/rl_lab_param/rl_lab_param.h",
+      "package_path": "03_SOFTWARE/sdk/src/data/_param/rl_lab_param/rl_lab_param.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "bf32ad41888f58d47cb3307fe36817a4fb0db18f3a9af7e3d4406595484f2386",
+      "size": 1918
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/rl_mimic_trajectory_example_param/rl_mimic_trajectory_example_param.cc",
+      "package_path": "03_SOFTWARE/sdk/src/data/_param/rl_mimic_trajectory_example_param/rl_mimic_trajectory_example_param.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "641059e00b1ae48bad8527ae539fb46318f0c5d0b5a8d58130fb33dea3442758",
+      "size": 3058
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/rl_mimic_trajectory_example_param/rl_mimic_trajectory_example_param.h",
+      "package_path": "03_SOFTWARE/sdk/src/data/_param/rl_mimic_trajectory_example_param/rl_mimic_trajectory_example_param.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "b0f9378b17a1f6e288729b564211376f0f7144080f867da170d1d83f338c1582",
+      "size": 8807
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/rl_walking_example_param/rl_walking_example_param.h",
+      "package_path": "03_SOFTWARE/sdk/src/data/_param/rl_walking_example_param/rl_walking_example_param.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "17fc593d27965a24d7a26cd7e5cf3f3f75ab88957224648d33c497c9027e3ce7",
+      "size": 2956
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/data/_param/ros2_bridge_param/ros2_bridge_param.h",
+      "package_path": "03_SOFTWARE/bridge/src/data/_param/ros2_bridge_param/ros2_bridge_param.h",
+      "category": "SOFTWARE_BRIDGE",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "ecf28a987d764bb1fe76cfcf74956e5c1d1f31c7797ec5d605a949f70a7848cf",
+      "size": 1237
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/executor/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/executor/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "905828c73ed91169754776101e552c15f7337f200d480e37f3ae9ae8fe7cb21e",
+      "size": 1988
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/executor/main.cc",
+      "package_path": "03_SOFTWARE/sdk/src/executor/main.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "d7182b3785606ea4a386d3fb9f065fcd966bf755269e832b51ee3957d656d21a",
+      "size": 1452
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/hardware/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "49230b0263160fde513f595456a05e4f0b2072f654f1f67cf8a79fa36c484dd8",
+      "size": 1182
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/common/include/serial/serial.h",
+      "package_path": "03_SOFTWARE/sdk/hardware/common/include/serial/serial.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "dfed9e96221905fdfeda809621eab8adaef9a932b65d8937d3b44f1632e272dd",
+      "size": 7856
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/common/include/serial/unix.h",
+      "package_path": "03_SOFTWARE/sdk/hardware/common/include/serial/unix.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "cfa35570764c31428ca3f595e0c764d368fbd405bde5afa0b7e4254dcec5d597",
+      "size": 4138
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/common/include/serial/v8stdint.h",
+      "package_path": "03_SOFTWARE/sdk/hardware/common/include/serial/v8stdint.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "02849a34e3bac598400b2763bbee36d24505f463c552575ef7eb4ba91a65848a",
+      "size": 2269
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/common/src/serial/list_ports_linux.cpp",
+      "package_path": "03_SOFTWARE/sdk/hardware/common/src/serial/list_ports_linux.cpp",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "22a5dbf763602ce35c751f06d9e74c5618dd84dc79108468e127aef53a7922c1",
+      "size": 6650
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/common/src/serial/serial.cpp",
+      "package_path": "03_SOFTWARE/sdk/hardware/common/src/serial/serial.cpp",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "b859d9b1217aa9095668c7a4da94aa6c830f5b611fee45ac514fa28b98270313",
+      "size": 8069
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/common/src/serial/unix.cpp",
+      "package_path": "03_SOFTWARE/sdk/hardware/common/src/serial/unix.cpp",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "0a6fe53a135ec040375951f39bc566ba173e08a8bb1f9acc305ad05f29625977",
+      "size": 27136
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/gamepad/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/hardware/gamepad/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "41388b7752e9932d5a22636598588917d22687991fb53b0acb13d1a71e9d2c08",
+      "size": 1718
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/gamepad/include/gamepad/gamepad_driver.h",
+      "package_path": "03_SOFTWARE/sdk/hardware/gamepad/include/gamepad/gamepad_driver.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "2270a3a8bfddc8eda964c2f8bea2a7c6454dcd577277993f4fddad1f2418dd0d",
+      "size": 1534
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/gamepad/src/gamepad_driver.cc",
+      "package_path": "03_SOFTWARE/sdk/src/hardware/gamepad/src/gamepad_driver.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "f2f6269871aa95d934e073a358396aa21f6ff664c75e5b01e71fa2f66d152404",
+      "size": 8322
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/rc02/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/hardware/rc02/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "c62e72a54a0416c1be6f722b78118013e5b30d3736a235ed14f096edc2504538",
+      "size": 1786
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/rc02/include/rc02/analysis_data.h",
+      "package_path": "03_SOFTWARE/sdk/hardware/rc02/include/rc02/analysis_data.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "3f9517ee05959156273dc117cb1c0d411f1c5ab87b53de17a05ddb0fb033afb3",
+      "size": 6042
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/rc02/include/rc02/rc02_driver.h",
+      "package_path": "03_SOFTWARE/sdk/hardware/rc02/include/rc02/rc02_driver.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "073239c9e91e805b276d27e3a9c487551fbd7645bbda1b8af79a7d31862eb9a5",
+      "size": 4303
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/rc02/src/analysis_data.cpp",
+      "package_path": "03_SOFTWARE/sdk/src/hardware/rc02/src/analysis_data.cpp",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "4b9de22661c81a7ed33e1f10dc8e6085e4ac15e17af43980d94964e2debd4441",
+      "size": 11506
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/hardware/rc02/src/rc02_driver.cc",
+      "package_path": "03_SOFTWARE/sdk/src/hardware/rc02/src/rc02_driver.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "d7f854a1e89e0d104202fa1379c0d34fefe16796df98303aa9ae8ba5f85edae8",
+      "size": 18193
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/protocol/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/protocol/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "07acd8671e9ba7721299a98e350aa837b115d15046e2dfd9071674863b9f87e5",
+      "size": 1265
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/protocol/interface_protocol/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/protocol/interface_protocol/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "a0daa98450de30fcf757a6de0d0c11cbbcd8a78d1c7ad8b8f6c2f2d54c9c4f25",
+      "size": 1591
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/protocol/interface_protocol/README.md",
+      "package_path": "03_SOFTWARE/sdk/src/protocol/interface_protocol/README.md",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "b90f03d4eeafda9cf0fcf9a1a6b00b5d16250eb0ca208a959f150c4a302bfc23",
+      "size": 768
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/protocol/interface_protocol/msg/MotorDebug.msg",
+      "package_path": "06_DIAGNOSTICS/MotorDebug.msg",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "351586d2e2fd9d42753939c258dfc8bd9ae1947f00c3cda0dc63c2998da30157",
+      "size": 140
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/protocol/interface_protocol/package.xml",
+      "package_path": "03_SOFTWARE/sdk/src/protocol/interface_protocol/package.xml",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "1afa381a708809108b2b556a9e834a5c786ac8cc06010e336b01c208640423d1",
+      "size": 959
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/protocol/interface_protocol/scripts/pm_user_control_data_display.xml",
+      "package_path": "03_SOFTWARE/sdk/src/protocol/interface_protocol/scripts/pm_user_control_data_display.xml",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "0c300e52069697636ae7c3ab479833102e4d957312d04fd78ca1cbcbb6834685",
+      "size": 26331
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/runner/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "eeb849044babecb8a86dd082308a00a16e56c1979aeb35c5022aec7dc90a91bd",
+      "size": 3090
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/backflip/include/backflip/backflip_runner.h",
+      "package_path": "03_SOFTWARE/sdk/runner/backflip/include/backflip/backflip_runner.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "4f0783cb17d18366340bcda3116108006f1887eb575df21c2b0698b2d86ddf63",
+      "size": 846
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/backflip/src/backflip_runner.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/backflip/src/backflip_runner.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "eca21e40fe04195b8c4d9475a3f88227f8ac90cc0a9c57dfcb507b96ecbdb6fd",
+      "size": 1515
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/runner/input_command_arbiter/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "c229ae25420e641cedd46c23ca2844ce9e9499e6200e24d43175d37be66c6cb8",
+      "size": 1814
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/include/input_command_arbiter/base_input_adapter.h",
+      "package_path": "03_SOFTWARE/sdk/runner/input_command_arbiter/include/input_command_arbiter/base_input_adapter.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "374777a5d5792863c1c37f1f0ff5c70721242b844756ad88942526e09eeed2b9",
+      "size": 1426
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/include/input_command_arbiter/gamepad_input_adapter.h",
+      "package_path": "03_SOFTWARE/sdk/runner/input_command_arbiter/include/input_command_arbiter/gamepad_input_adapter.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "6a0996b92b44642cb1d945f3ba43a7ee9be57ec3f145bfcd87ed7d7843779530",
+      "size": 1075
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/include/input_command_arbiter/input_command_arbiter_runner.h",
+      "package_path": "03_SOFTWARE/sdk/runner/input_command_arbiter/include/input_command_arbiter/input_command_arbiter_runner.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "35fc8319885d64cf555293d92bd162c9f17bb1eeca71ab78eb2d8c8f44bae681",
+      "size": 1250
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/include/input_command_arbiter/rc02_input_adapter.h",
+      "package_path": "03_SOFTWARE/sdk/runner/input_command_arbiter/include/input_command_arbiter/rc02_input_adapter.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "53da0fa67ba9cb2a1f0e02bbb4f24bf49ad0187eb735db9f17c89c8d147a32d1",
+      "size": 2180
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/include/input_command_arbiter/virtual_gamepad_input_adapter.h",
+      "package_path": "03_SOFTWARE/sdk/runner/input_command_arbiter/include/input_command_arbiter/virtual_gamepad_input_adapter.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "4d4e9def8e6af3360f18378cc95ebb0a04f125e5b525783745afcf58e4595e28",
+      "size": 1860
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/src/base_input_adapter.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/input_command_arbiter/src/base_input_adapter.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "0368cc5d607c9b56724e8193a74c2e13ac30442d50685f94c3f15738657d30da",
+      "size": 1253
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/src/gamepad_input_adapter.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/input_command_arbiter/src/gamepad_input_adapter.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "a5c0e0881d7064100a518260ee01a1581b315b686e543f91a4526026a325a191",
+      "size": 5230
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/src/input_command_arbiter_runner.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/input_command_arbiter/src/input_command_arbiter_runner.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "f049d65a06b481243e57ba6202931314660d14bb469da10c99fd7d9f1a4d64cb",
+      "size": 3105
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/src/rc02_input_adapter.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/input_command_arbiter/src/rc02_input_adapter.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "2924598a689a71d6970beb4b551fd03e52233cd31fa2e2f1aa730dc902e5f250",
+      "size": 5200
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/input_command_arbiter/src/virtual_gamepad_input_adapter.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/input_command_arbiter/src/virtual_gamepad_input_adapter.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "e471d0fd6ea3964e1ffefc9275862905a3cf6ea39bf566edf6b94c2fefb85749",
+      "size": 6034
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/passive/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/runner/passive/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "b6fe1ad463235b5a60e3c6aae841d39496e024885c9eb76a6250399d8626841e",
+      "size": 1741
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/passive/include/passive/passive_runner.h",
+      "package_path": "03_SOFTWARE/sdk/runner/passive/include/passive/passive_runner.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "8368916e605a52546ec94852c910ae63afa6c1397d3d01987c4b3e37bd32f123",
+      "size": 837
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/passive/src/passive_runner.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/passive/src/passive_runner.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "c5e1c68c90b78ac6e1db6ec1ed2e73aa464b5bb37e5c6c692a2c8a92fd22957a",
+      "size": 4541
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/pd_stand/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/runner/pd_stand/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "ff4c956b6f50411be4947b7eb3c2b3ed699f4c695efdc9c3602da0d59f10d2af",
+      "size": 1742
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/pd_stand/include/pd_stand/pd_stand_runner.h",
+      "package_path": "03_SOFTWARE/sdk/runner/pd_stand/include/pd_stand/pd_stand_runner.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "424a3a4880fdb9d6f4b29a94db61b6e923d96a2bf605280962cae04d6371c623",
+      "size": 1321
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/pd_stand/src/pd_stand_runner.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/pd_stand/src/pd_stand_runner.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "806e00ce136e001f30eaedda5846c13c72fd1af9e475d016aa018b8e01860448",
+      "size": 9388
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/runner/rl_dance_example/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "0ca732429845878a5cc22f5fddc3b51c1cf72239382b14adcd9031557171b465",
+      "size": 1961
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/cnpy/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/runner/rl_dance_example/include/cnpy/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "99d38ddf9ed97154f69e58d351ba59f31661cac9797dc3da3584e7b58b1aa293",
+      "size": 1053
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/cnpy/README.md",
+      "package_path": "03_SOFTWARE/sdk/runner/rl_dance_example/include/cnpy/README.md",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "37b385c333ff1aa44f2e169e983db91bc96fa1e5abd8e6aa244cc178209e7c9f",
+      "size": 2103
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/cnpy/cnpy.cpp",
+      "package_path": "03_SOFTWARE/sdk/runner/rl_dance_example/include/cnpy/cnpy.cpp",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "0a8487e389f6797f451c5d914ca56647023adce45323e9482d8aea43e4dcaf09",
+      "size": 10945
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/cnpy/cnpy.h",
+      "package_path": "03_SOFTWARE/sdk/runner/rl_dance_example/include/cnpy/cnpy.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "47d7199b21039e42db83563e5cc4fc1654d517da3bcf29b6bb17fbdf009b7ce9",
+      "size": 10274
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/cnpy/example1.cpp",
+      "package_path": "03_SOFTWARE/sdk/runner/rl_dance_example/include/cnpy/example1.cpp",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "9ff4ff1d7e657c3f0648850f9f76a28a4d4498ff4bf5877777bcd36e921014ae",
+      "size": 1967
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/rl_dance_example/rl_dance_example_runner.h",
+      "package_path": "03_SOFTWARE/sdk/runner/rl_dance_example/include/rl_dance_example/rl_dance_example_runner.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "ad165efe89132f8451ac99e152a13f879e43266a0b2ac0e5e47c68c8446880e9",
+      "size": 2516
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/include/rl_dance_example/wbt_obs_registry.h",
+      "package_path": "03_SOFTWARE/sdk/runner/rl_dance_example/include/rl_dance_example/wbt_obs_registry.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "7b59020d1f403602990c9181253a5e9286cdef416973fb164935856c88d8b0e4",
+      "size": 1778
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/src/rl_dance_example_runner.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/rl_dance_example/src/rl_dance_example_runner.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "9c896c085c943478d45ac6633dc3091181fc53b4003b6ad1b74b38a61457b8cd",
+      "size": 20721
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_dance_example/src/wbt_obs_registry.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/rl_dance_example/src/wbt_obs_registry.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "0e3e28943a8ac76d501f59a6fd40b7ceb5f4dd4a3a7cba8a08024192f915b667",
+      "size": 8087
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_lab/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/runner/rl_lab/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "420c0bdda6c6830f88a5fbe19a23b8de9f0eecdd8249b0da208aef0a6f0680ce",
+      "size": 1808
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_lab/include/rl_lab/rl_lab_runner.h",
+      "package_path": "03_SOFTWARE/sdk/runner/rl_lab/include/rl_lab/rl_lab_runner.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "d57188bce6dc629f1863fd8608a5798708de947975adca20334b7255d44e0e98",
+      "size": 2727
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_lab/src/rl_lab_runner.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/rl_lab/src/rl_lab_runner.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "38c2df81451658faea5cd64eb49b3e57c186cb2533e13e2f2823e1d0d7f361aa",
+      "size": 11437
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/runner/rl_mimic_trajectory_example/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "4aebf71483b2abc0434c53b55605778ffa8b5c8abd6a672c3f986c9517d33fca",
+      "size": 1751
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/include/rl_mimic_trajectory_example/csv_loader.h",
+      "package_path": "03_SOFTWARE/sdk/runner/rl_mimic_trajectory_example/include/rl_mimic_trajectory_example/csv_loader.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "763f5951e0a59148705ac6aad231ccfb9c1fdfbd335de502a92552c265dfc0f3",
+      "size": 829
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/include/rl_mimic_trajectory_example/npy_loader.h",
+      "package_path": "03_SOFTWARE/sdk/runner/rl_mimic_trajectory_example/include/rl_mimic_trajectory_example/npy_loader.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "a49ac8031f6acb3e722871d059ae98d232b1bcc88934138e1cac8aad478df141",
+      "size": 847
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/include/rl_mimic_trajectory_example/observation_manager.h",
+      "package_path": "03_SOFTWARE/sdk/runner/rl_mimic_trajectory_example/include/rl_mimic_trajectory_example/observation_manager.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "200c849d5ed59499b1bcb7de67a0544f2ec3b858c684ddae2a4bd8cca8bf870c",
+      "size": 4441
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/include/rl_mimic_trajectory_example/rl_mimic_trajectory_example_runner.h",
+      "package_path": "03_SOFTWARE/sdk/runner/rl_mimic_trajectory_example/include/rl_mimic_trajectory_example/rl_mimic_trajectory_example_runner.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "a0eafd2a333c516e0e4b6b30269f0733cd8caa80dd668cc3cdc3978e46395066",
+      "size": 2845
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/src/csv_loader.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/rl_mimic_trajectory_example/src/csv_loader.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "a62ecc1d4a0347ba6c5040b7b7a9430f844d7adecf3b9823ccd1e567eb4074c2",
+      "size": 6775
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/src/npy_loader.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/rl_mimic_trajectory_example/src/npy_loader.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "753ffea66883b9ba0fc0a284137f80f0b3e0747e355c54f8c2dd3bd3fcc5894e",
+      "size": 12278
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/src/observation_manager.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/rl_mimic_trajectory_example/src/observation_manager.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "39cd4d8b7ed3074ba2ff0cedb88827089574ad422bd0baee66e8a4162406af85",
+      "size": 22936
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_mimic_trajectory_example/src/rl_mimic_trajectory_example_runner.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/rl_mimic_trajectory_example/src/rl_mimic_trajectory_example_runner.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "ed89041577b7922d415d85d48d77aec71f6fe451452ca5c1126b0dd5e434e44a",
+      "size": 13997
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_walking_example/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/sdk/src/runner/rl_walking_example/CMakeLists.txt",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "72fc9e32ad4dc737aa602d9f6e12e662ec492f8a4d089e846aa7b8f2ba416bb5",
+      "size": 1784
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_walking_example/include/rl_walking_example/rl_walking_example_runner.h",
+      "package_path": "03_SOFTWARE/sdk/runner/rl_walking_example/include/rl_walking_example/rl_walking_example_runner.h",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "1f2ed84d5e590400df8e815af0a4822c6a5f1f8a9661585c73885e3fd5ec8bd6",
+      "size": 2049
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/rl_walking_example/src/rl_walking_example_runner.cc",
+      "package_path": "03_SOFTWARE/sdk/src/runner/rl_walking_example/src/rl_walking_example_runner.cc",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "3030d572239fa95e7a00a165e43703e22005fee225d51adae7c20b09c1576a5c",
+      "size": 23708
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/ros2_bridge/CMakeLists.txt",
+      "package_path": "03_SOFTWARE/bridge/src/runner/ros2_bridge/CMakeLists.txt",
+      "category": "SOFTWARE_BRIDGE",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "5a975456362a38317cbff17c29b76e38c8ab668bcde5a4569a25b3dc09ff137d",
+      "size": 1912
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/ros2_bridge/include/ros2_bridge/ros2_bridge_runner.h",
+      "package_path": "03_SOFTWARE/bridge/runner/ros2_bridge/include/ros2_bridge/ros2_bridge_runner.h",
+      "category": "SOFTWARE_BRIDGE",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "436489e558969493565585081c5cc653264528c624dbc2eaf1e6a17207f29bcf",
+      "size": 879
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/engineai_robotics_native_sdk/src/runner/ros2_bridge/src/ros2_bridge_runner.cc",
+      "package_path": "03_SOFTWARE/bridge/src/runner/ros2_bridge/src/ros2_bridge_runner.cc",
+      "category": "SOFTWARE_BRIDGE",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "e844f7bf2b47f92b762feaa8b63e952ae64642cda800e10295c7fa240fbd308d",
+      "size": 864
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/t800_bridge.py",
+      "package_path": "03_SOFTWARE/bridge/t800_bridge.py",
+      "category": "SOFTWARE_BRIDGE",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "d70f850724f46e744190561113b803993ce2a5549534cd1eed4153437b020b83",
+      "size": 1727
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/Dockerfile",
+      "package_path": "03_SOFTWARE/gateway/Dockerfile__2",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "4afcfd70fa41723d344e0e71243a3f4e95a3c9783dd3f9b41bfb7394ff3ad01f",
+      "size": 604
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/gateway_direto_ros2.py",
+      "package_path": "03_SOFTWARE/gateway/gateway_direto_ros2.py",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "bc516742c77426c3774696123c79c1636e2d9a27b076ef72a88490e2cf174f75",
+      "size": 2815
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/gateway_ros2_rtsp.py",
+      "package_path": "03_SOFTWARE/gateway/gateway_ros2_rtsp.py",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "ddf223b6b0a995e2190c57ab127537573017f70e8cecf61c317602e42a0192a1",
+      "size": 2130
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/reconhecimento_ros2.py",
+      "package_path": "03_SOFTWARE/gateway/reconhecimento_ros2.py",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "cff2409cf5dc391645ff7974d78d0b4f35c5c7e937eaee6ee230f67342057104",
+      "size": 4593
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/ros2_rtsp_gateway.py",
+      "package_path": "03_SOFTWARE/gateway/ros2_rtsp_gateway__2.py",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "193339ae58edddfac191bffd8f4e7964488a325b6cc90faac02d5c8a57fa5ef1",
+      "size": 2098
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/simulador_t800_ros2.py",
+      "package_path": "03_SOFTWARE/gateway/simulador_t800_ros2.py",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "e2eb02aa86c6cbd68489820c4e47a8ebbd1856367c4eaec84835a1551d7980a2",
+      "size": 2400
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/DockerGateway/t800_pub.py",
+      "package_path": "03_SOFTWARE/gateway/t800_pub.py",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "c14cdaa4e6c6dd53211163b579784c55425fd88ebe0a78ccf75a2f6555df31dd",
+      "size": 2210
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/Guia de Integração de Vídeo e Áudio - T800 V3 - Guia de Integração de Vídeo e Áudio - T800 V3.pdf",
+      "package_path": "05_VISION_AUDIO/Guia de Integração de Vídeo e Áudio - T800 V3 - Guia de Integração de Vídeo e Áudio - T800 V3.pdf",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "82124ee9e73af2c2d47b1e915e507f90512a834ede0ac32f6f1f9ad1fda70fd5",
+      "size": 102494
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Bridge_project/docker-compose.yml",
+      "package_path": "03_SOFTWARE/sdk/docker-compose.yml",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "fd3fbfcc21ad81898daf87713e709d18fa2aafe6336809c66f7df4824f3acc83",
+      "size": 970
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Bridge_project/servidor_voz_t800.py",
+      "package_path": "03_SOFTWARE/sdk/servidor_voz_t800.py",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "b24ccb58f203df15feeb9b64be31927de040d4b1d87ecf4e2e77cac107268ac3",
+      "size": 2266
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Bridge_project/t800_bridge.py",
+      "package_path": "03_SOFTWARE/bridge/t800_bridge__2.py",
+      "category": "SOFTWARE_BRIDGE",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "9c39f3854b0f118e69fed94e52e8f9c9125aa933425504fadf54cdede089e2c7",
+      "size": 1464
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Bridge_project/t800_simulator.py",
+      "package_path": "03_SOFTWARE/sdk/t800_simulator.py",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "c856db5b468d13fec50f2779891d3b6743be36a1e5874133d3043a5439dc0082",
+      "size": 2068
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Gatewat/Dockerfile",
+      "package_path": "03_SOFTWARE/gateway/Dockerfile",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "e6fd5cae6c6af070dd6931fa4d0e794365281d507d2711dbda461ea2bed46b8d",
+      "size": 623
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Gatewat/main.py",
+      "package_path": "03_SOFTWARE/gateway/main.py",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "dfc31835c0454c385b134a16c45d8d1dabc295285c7e4018654ba09632cdfa11",
+      "size": 528
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Gatewat/mediamtx.yml",
+      "package_path": "03_SOFTWARE/gateway/mediamtx.yml",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "978ed23fbb4f25eeac83446888bf7b283cad23f70407abcd70f12f041343ab2b",
+      "size": 28112
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/T800Gatewat/t800_bridge.py",
+      "package_path": "03_SOFTWARE/gateway/t800_bridge.py",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "67b87287f81cf8f544e25bf078ed62d2e5a4e9e160e24b9eaa163cc1dc1f2b87",
+      "size": 1575
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/Video pra debug-2026-07-28_11.22.39.mp4",
+      "package_path": "06_DIAGNOSTICS/Video pra debug-2026-07-28_11.22.39.mp4",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "7fe5af9c9b1c7bfae03eb628f4397b0b9d43b07083f9a16f52e823cbaa89dca6",
+      "size": 8809744
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/README.md",
+      "package_path": "05_VISION_AUDIO/README__2.md",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "6fe9656eb40a03afdc44a0a1b0137f676fb13bf2ab4d966670c38757c96c422d",
+      "size": 6308
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/RELATORIO.md",
+      "package_path": "05_VISION_AUDIO/RELATORIO.md",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "81d57b7481dfcd8c5509e0789995b22c1b2d2059900de6221807fd59a649bd3e",
+      "size": 9960
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/app.py",
+      "package_path": "05_VISION_AUDIO/app__2.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "d25f97cd08da54c29fa7fabc7d3484a30aa8bc01cde84cd2cca2c0c9f8206ad6",
+      "size": 5896
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/core.py",
+      "package_path": "05_VISION_AUDIO/core.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "1ecc959e8b5e85c9b4f49c7c7cbba402c0539f13c36af20790c4d7793b5680bd",
+      "size": 6921
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/engineai_oficial/upper_joint_override_example.py",
+      "package_path": "05_VISION_AUDIO/upper_joint_override_example.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "0bb84632f142e8030aa4f7b95db6c900b5befc13f45256075a02386dc46ac374",
+      "size": 9660
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Aplicações de visualização.docx",
+      "package_path": "05_VISION_AUDIO/Aplicações de visualização.docx",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "faed3f36c9e4ac5362ee5fac605309dbd5e2598d8b036078b1878b9ce4cf5a6f",
+      "size": 14135
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Desenvolvimento de SDK nativo.docx",
+      "package_path": "01_OFFICIAL_DOCS/Desenvolvimento de SDK nativo.docx",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "21947e11456b9be7218141e435a64f6452187d657568775c75867d5997a3269d",
+      "size": 2732126
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Documentacao_Gateway_Visao_T800.pdf",
+      "package_path": "05_VISION_AUDIO/Documentacao_Gateway_Visao_T800.pdf",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "3743192f32033a871961b5e1911fea0c0b9a008260d60325766f0d595dfad5bb",
+      "size": 38487
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/EngineAI T800 MuJoCo Simulation Diagnostic Report V2 - Google 文档.pdf",
+      "package_path": "01_OFFICIAL_DOCS/EngineAI T800 MuJoCo Simulation Diagnostic Report V2 - Google 文档.pdf",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "5b36b32c9522f38dce7586f6af84ba44ce9373fdc5690fb59a8a3a7ced8b2c3c",
+      "size": 740684
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/EngineAI_T800_Technical_Support_Response_EN_v2.pdf",
+      "package_path": "01_OFFICIAL_DOCS/EngineAI_T800_Technical_Support_Response_EN_v2.pdf",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "3aac2ca3c82292d7e99e50f9890f846548d783a5b6f9e3ee5fd3108b5bc2a841",
+      "size": 57071
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Guia de Desenvolvimento T800 (Versão para Desenvolvedores).docx",
+      "package_path": "01_OFFICIAL_DOCS/Guia de Desenvolvimento T800 (Versão para Desenvolvedores).docx",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "d7381692f701d4654b8e0d932d32b4c87f0fcff8251dd118cd270b93ed4f7343",
+      "size": 758832
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Manual do T800 - Versão de Desenvolvimento.docx",
+      "package_path": "01_OFFICIAL_DOCS/Manual do T800 - Versão de Desenvolvimento.docx",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "4d1444b7951ff831731d04892591c49491e18f09bd4256f1efd5a6cafb0de2f6",
+      "size": 6100251
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Native SDK 开发.docx",
+      "package_path": "01_OFFICIAL_DOCS/Native SDK 开发.docx",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "bdfe06988d284f7dcdbea59e391664f8bea010d55082f09af2dac40cf8fc0b43",
+      "size": 2354194
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Questionamentos_pt.pdf",
+      "package_path": "05_VISION_AUDIO/Questionamentos_pt.pdf",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "c4f78365a82c407bc2249a44d8bb21700e62bbb2ec6306cbf11c62ea4d3c5da1",
+      "size": 36218
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Relatorio_Status_Projeto_T800_Atualizado.pdf",
+      "package_path": "06_DIAGNOSTICS/Relatorio_Status_Projeto_T800_Atualizado.pdf",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "f36269919a2d725be2ab49a6e04b75042c156c1179cab2a0dc4087c484f09547",
+      "size": 27188
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/Reply for the technical inquiries.docx",
+      "package_path": "01_OFFICIAL_DOCS/Reply for the technical inquiries.docx",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "617f9c8ce51cd648bfedf684072b2f1f39113eb6f9af8d93295ebcab7eb8b647",
+      "size": 14931
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/T800_Integration_Diagnostic_Report_v3.pdf",
+      "package_path": "06_DIAGNOSTICS/T800_Integration_Diagnostic_Report_v3.pdf",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "c3631c28fcd40c3e60dba8bd90afb90f79374a189ebe5fe8e4a8f9bea61ff2b0",
+      "size": 33015
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/T800_Issue_Report.pdf",
+      "package_path": "06_DIAGNOSTICS/T800_Issue_Report.pdf",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "38a6f92a807511c568fa60cb6d7531e0364304d5837ab8eff9df323520ef94cb",
+      "size": 25213
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/t800_technical_inquiries_engineai.pdf",
+      "package_path": "01_OFFICIAL_DOCS/t800_technical_inquiries_engineai.pdf",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "6facdbfd3b350e65d78275e0af8e21282806b651dc3be868958324e71c6ada3d",
+      "size": 16451
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/originais/示例 - T800-Odin2激光雷达相机.pdf",
+      "package_path": "01_OFFICIAL_DOCS/示例 - T800-Odin2激光雷达相机.pdf",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "f79389c2df73a61ab616af801e621a963b612126547258929b6bcd54a018f6b1",
+      "size": 1182208
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/sdk_local/assets/config/t800/joint_motor_transform_runner/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__27.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "5392901182bf0efbf8ae1d835a407bc014ceac49dec428f3fee2395499a33cb4",
+      "size": 703
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/sdk_local/assets/config/t800/model/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__26.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "76b607212aa4d2abd791ca020f9c011be752068660faeeaa97eec3c9adab057f",
+      "size": 2483
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/sdk_local/assets/config/t800/ros2_bridge/default.yaml",
+      "package_path": "06_DIAGNOSTICS/default__28.yaml",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "fcee91877e82599f49377b384db1535c1417693b9fd25902dbabc618d34805b0",
+      "size": 692
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Aplicações de visualização.txt",
+      "package_path": "05_VISION_AUDIO/Aplicações de visualização.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "d27de85d5faf9fbc27be17558f508522ff0b522fce6d47df10c59fbc25d5522e",
+      "size": 772
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Desenvolvimento de SDK nativo.txt",
+      "package_path": "01_OFFICIAL_DOCS/Desenvolvimento de SDK nativo.txt",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "da9dd46aa3a7734fabfc9682299737f57df785ecf34e3cff3a24579a390677b0",
+      "size": 42945
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Documentacao_Gateway_Visao_T800.txt",
+      "package_path": "05_VISION_AUDIO/Documentacao_Gateway_Visao_T800.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "f6b1bd6de971b5e9dd8cadfcbbf8e7c32722a2c7e5ac22fbef48f9caa5554f44",
+      "size": 10035
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/EngineAI T800 MuJoCo Simulation Diagnostic Report V2 - Google 文档.txt",
+      "package_path": "01_OFFICIAL_DOCS/EngineAI T800 MuJoCo Simulation Diagnostic Report V2 - Google 文档.txt",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "7060584c3e59f0b2f12f34aa0b40faadf4aa5790a0459f3319852bcd63262cbb",
+      "size": 2
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/EngineAI_T800_Technical_Support_Response_EN_v2.txt",
+      "package_path": "01_OFFICIAL_DOCS/EngineAI_T800_Technical_Support_Response_EN_v2.txt",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "15c4ac34d2e4c4bd25d79908a40d466d1b51a13124c321a488519b29d1e992b0",
+      "size": 13579
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Guia de Desenvolvimento T800 (Versão para Desenvolvedores).txt",
+      "package_path": "01_OFFICIAL_DOCS/Guia de Desenvolvimento T800 (Versão para Desenvolvedores).txt",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "4b5541923753d1cb9d18bf25af7f61f0931f1d424820ee5a8e26503ec501a1f7",
+      "size": 19880
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Manual do T800 - Versão de Desenvolvimento.txt",
+      "package_path": "01_OFFICIAL_DOCS/Manual do T800 - Versão de Desenvolvimento.txt",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "6c5c347cf87f87ef4dbc66a891075e29f02d3631ad91c4ad582289d1124cb159",
+      "size": 44568
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Native SDK 开发.txt",
+      "package_path": "01_OFFICIAL_DOCS/Native SDK 开发.txt",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "add1c678f019c07db2cede1c4b947742326d446fc292d78a0a962e49e19b60fb",
+      "size": 29532
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Questionamentos_pt.txt",
+      "package_path": "05_VISION_AUDIO/Questionamentos_pt.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "077882b681a7d9aba52513a1971d5402549f52802e302d406114a9777e585051",
+      "size": 10657
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Relatorio_Status_Projeto_T800_Atualizado.txt",
+      "package_path": "06_DIAGNOSTICS/Relatorio_Status_Projeto_T800_Atualizado.txt",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "23eaa9a0c0c8cb70ba8fb4f34e36240c814df7faaab29a59fd2a4ad00da77bec",
+      "size": 4159
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/Reply for the technical inquiries.txt",
+      "package_path": "01_OFFICIAL_DOCS/Reply for the technical inquiries.txt",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "389eab9dc24a7ec8412db233f120378552f4ea931a42bff4635c077ae4566aab",
+      "size": 2319
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/T800_Integration_Diagnostic_Report_v3.txt",
+      "package_path": "06_DIAGNOSTICS/T800_Integration_Diagnostic_Report_v3.txt",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "e9120c04614cc8018f1b7703f327bd92ec834e2f5c969e2570e26304808f2745",
+      "size": 5035
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/T800_Issue_Report.txt",
+      "package_path": "06_DIAGNOSTICS/T800_Issue_Report.txt",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "3b6bfb422a8c5e4557acdd5b6015243c7b908b49c9d26d631f99e3c63dc5b9ff",
+      "size": 2833
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/t800_technical_inquiries_engineai.txt",
+      "package_path": "01_OFFICIAL_DOCS/t800_technical_inquiries_engineai.txt",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "ddf6d5c3806e082834b4f3c14b61962c143721e3f274ba2bc51736a5ae381a0a",
+      "size": 2364
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/docs/textos/示例 - T800-Odin2激光雷达相机.txt",
+      "package_path": "01_OFFICIAL_DOCS/示例 - T800-Odin2激光雷达相机.txt",
+      "category": "OFFICIAL_DOCS",
+      "importance": "CRITICAL",
+      "state": "REFERENCE",
+      "sha256": "3b109da0e9e3dfe6baddeaa2ea89b9cb451b28f7b751efbc6e25e7776a6ccb85",
+      "size": 59886
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/controlador_existente.txt",
+      "package_path": "05_VISION_AUDIO/controlador_existente.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "58147d958af2cb9efe968b87f22c66f6c8639f34e0b555f144c89d7c9476d712",
+      "size": 28428
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/instalacao_exclusividade.txt",
+      "package_path": "05_VISION_AUDIO/instalacao_exclusividade.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "73da79923771e718f238622213dde67887712dad8fc7481f360d8515a56f8712",
+      "size": 406
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/original_neck_controller.py",
+      "package_path": "05_VISION_AUDIO/original_neck_controller.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "75d78358b14f1d90f4c121310bda9efb0b4194caf16ba7b8c682ec49b2c4dcee",
+      "size": 19674
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/pre_transferencia.txt",
+      "package_path": "05_VISION_AUDIO/pre_transferencia.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "f67694047d2be1093a05b0b06fc4bda0d181f5dc1e786bc671e710d97cf747c6",
+      "size": 7087
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/rede_e_status.txt",
+      "package_path": "05_VISION_AUDIO/rede_e_status.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "c5be79f708fa62ae34cb6a90493289ba2b03d52cb39b7875f5dc2b7e8240fa1e",
+      "size": 1067
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/resultado_teste_fisico.txt",
+      "package_path": "05_VISION_AUDIO/resultado_teste_fisico.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "aad6b48507d423c7917a8c15a3604875690ecb7c56935adb1c9c30c4ca345c6e",
+      "size": 991
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/robot_diagnostico.txt",
+      "package_path": "06_DIAGNOSTICS/robot_diagnostico.txt",
+      "category": "DIAGNOSTICS",
+      "importance": "HIGH",
+      "state": "REFERENCE",
+      "sha256": "44a001d92d007ebb12f8db75c2cbccc904bec54741985208021cb43f22f68463",
+      "size": 12342
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/robot_neck_existente.txt",
+      "package_path": "05_VISION_AUDIO/robot_neck_existente.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "fe1705458b2ccc5de68b1c72c4d20f04e0528b065648d6cb4ef4d0e78570eba8",
+      "size": 8039
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/sdk_commit.txt",
+      "package_path": "05_VISION_AUDIO/sdk_commit.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "9aee3c0497a542396ed689e81c6b4d93e49c6562fcb475ef5759e414e611c9b3",
+      "size": 41
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/telemetria_dds_eth1.txt",
+      "package_path": "05_VISION_AUDIO/telemetria_dds_eth1.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "96c4a601c593f37902afab44e2e52129538ba0337e134a66aa1b0e97ba34ff48",
+      "size": 1015
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/testes.txt",
+      "package_path": "05_VISION_AUDIO/testes.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "7e25f8c2983f688af4fe51acc211dcb36a31bb661aa9d827d4fb5c7eb8df27be",
+      "size": 1861
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/evidencias/testes_ativacao.txt",
+      "package_path": "05_VISION_AUDIO/testes_ativacao.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "7aa767283ab63968582f1cb3c22eb8c78d08f09eb50e5315969ef2ce67c99347",
+      "size": 1861
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/instalar_controle.py",
+      "package_path": "05_VISION_AUDIO/instalar_controle.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "31a31248d8bd2b3b3ff33bde46639e48e2ec626647d6cdd5e678f39411a16dd7",
+      "size": 2073
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/restaurar_legado.py",
+      "package_path": "05_VISION_AUDIO/restaurar_legado.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "d586575312e77e03129591dc7238c76ef2e920d3c494f98211c6eb64e517b3d2",
+      "size": 1314
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/ros_backend.py",
+      "package_path": "05_VISION_AUDIO/ros_backend.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "9ed1348d087488cdf58d957a376a51cd68cbd48823cf6f65d60b5c4684d40809",
+      "size": 2825
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/sla.txt",
+      "package_path": "05_VISION_AUDIO/sla.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "9023ccc89317a4ce6c91887f0614f5af69e2d9e9b765a0f319c74f35b1be947a",
+      "size": 2233
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/headFollow/standby_legacy.py",
+      "package_path": "05_VISION_AUDIO/standby_legacy.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "f19eba059bfcd2e7d0651fb1ed04bd101f770ef31b16cf088db59884765270bb",
+      "size": 2324
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/projeto_T800_rtsp/mediamtx.yml",
+      "package_path": "03_SOFTWARE/sdk/mediamtx.yml",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "fe2f4d6e673213eb2033ecba1c6f0e394b97588b8af0e52857162c4c39c47195",
+      "size": 139
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/projeto_T800_rtsp/ros2_rtsp_gateway.py",
+      "package_path": "03_SOFTWARE/gateway/ros2_rtsp_gateway.py",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "f6dc2348137cbebbafaf80d19e7e7891a65468c14f571dc40704aa1570502fee",
+      "size": 3026
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/projeto_T800_rtsp/t800_pub.py",
+      "package_path": "03_SOFTWARE/sdk/t800_pub.py",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "e03ae6a5b32f31511bc628debde245c3da66f742b21d76567a131055868e7d11",
+      "size": 2051
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/t800Bridge.py",
+      "package_path": "03_SOFTWARE/sdk/t800Bridge.py",
+      "category": "SOFTWARE_SDK",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "04a4d3f7f4ebf512065941942aac7db5c01e1d6df47ccc43857254d318bd2439",
+      "size": 4096
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/visao_comp_arcan/README.MD",
+      "package_path": "05_VISION_AUDIO/README.MD",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "05e561e478c5e0a8d275f80de6161de8d9b73f4ce5de488f961ee64e3b6a16a3",
+      "size": 2741
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/visao_comp_arcan/README.md",
+      "package_path": "05_VISION_AUDIO/README__3.md",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "9bfbf4343891104411ca88eedf24a8f2879d286b7c8ed3b3e62480c36224e438",
+      "size": 354
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/fds/visao_comp_arcan/requirements.txt",
+      "package_path": "05_VISION_AUDIO/requirements__2.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "176362be01b93a5cfc200a5644ffc7693c4996f2aeffe1a10ece647e4aa1d650",
+      "size": 61
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/README.md",
+      "package_path": "03_SOFTWARE/dashboard/README.md",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "23a0870565c2f5237ae0fb24741eec385a5229e457c07842bb507d4db77d3b27",
+      "size": 903
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/dashgroup-arcanjo/modules_dashboard/camera/camera_service.py",
+      "package_path": "05_VISION_AUDIO/camera_service__3.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "1f931542d6e0f17410ea2848f6b2009020ae4118a58f310564e3b9ea119eee47",
+      "size": 25281
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/dashgroup-arcanjo/platform_runtime/gateway.py",
+      "package_path": "03_SOFTWARE/gateway/platform_runtime/gateway.py",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "e68d26473fe5e8832cbd148772aa6467c6f4af8af62a506b8fc43da6269efeeb",
+      "size": 9937
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/dashgroup-arcanjo/ros2_websocket_bridge.py",
+      "package_path": "03_SOFTWARE/dashboard/ros2_websocket_bridge.py",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "52b5c16f2adb5c5aa2e2a7f88848d5aea41432d1a29a01b2a3aec9e1a66dfaea",
+      "size": 61716
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/modules_dashboard/camera/camera_service.py",
+      "package_path": "05_VISION_AUDIO/camera_service__2.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "9e7981c6e010ebe1ebc682d205925a1f7f2a1160e40233a81c78ec5a5f12be9f",
+      "size": 25034
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/modules_dashboard/camera/video_recorder.py",
+      "package_path": "05_VISION_AUDIO/video_recorder__2.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "ef2fd5ce09fc48b1d0ca1243c6790b2cfe2881cb43e5284b46ea42072c4ceaaa",
+      "size": 15486
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/modules_dashboard/speech/speech_manager.py",
+      "package_path": "05_VISION_AUDIO/speech_manager__2.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "7fef61a1855eeedc98ab029011581e2fd7bc7dcb362214cfe0cebd3a9eccf546",
+      "size": 9023
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/modules_dashboard/speech/speech_server.py",
+      "package_path": "05_VISION_AUDIO/speech_server__2.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "eadde5d66dd73fafa713ce09e1b0caf925236eadaf404e1855396f8a03b786a1",
+      "size": 19446
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/platform_runtime/gateway.py",
+      "package_path": "03_SOFTWARE/gateway/robot-current/platform_runtime/gateway.py",
+      "category": "SOFTWARE_GATEWAY",
+      "importance": "CRITICAL",
+      "state": "CURRENT",
+      "sha256": "3ced054e3802f1d6eb4469250d07715ce764a5fcbc310b0387bac816dc6dbfdb",
+      "size": 10564
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/ros2_websocket_bridge.py",
+      "package_path": "03_SOFTWARE/dashboard/robot-current/ros2_websocket_bridge.py",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "e581ed921d2901072f15b986d898f06e9cab9ce4320fc13990e698a83aff2e33",
+      "size": 65176
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/src/lib/telemetry/useOperator.ts",
+      "package_path": "03_SOFTWARE/dashboard/robot-current/src/lib/telemetry/useOperator.ts",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "603eaa115fbb56f696fc86758e60e8b803af8f1efe3b99f0736d38a47abe9c16",
+      "size": 4682
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800NewDash/robot-current/src/lib/telemetry/useWebSocket.ts",
+      "package_path": "03_SOFTWARE/dashboard/robot-current/src/lib/telemetry/useWebSocket.ts",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "cbdb0d9df5ac51ffeb7c08881051c2fa32c6925dd5408533b3df9890e8b77196",
+      "size": 28286
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800_face_follow_package/README.md",
+      "package_path": "05_VISION_AUDIO/README.md",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "ee751104a19bd1158ab34a77962ae912dfd0e2aa9a0f47b1306b3465f988c310",
+      "size": 2083
+    },
+    {
+      "original_relpath": "Arquivos/home/guilerme-andrade/Área de trabalho/t800_face_follow_package/requirements.txt",
+      "package_path": "05_VISION_AUDIO/requirements.txt",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "e162fad6611bce1cedbf4d93a3bcf15d40475405f55214444e4657ece3df9460",
+      "size": 122
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/.agents/rules/arquitetura.md",
+      "package_path": "03_SOFTWARE/dashboard/main/.agents/rules/arquitetura.md",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "5d8b6cc7095566b6da3145831a1a5f4e2150e1ebfb9e0b57ff3b41cf2d695340",
+      "size": 1714
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/ESTRUTURA_E_GUIA_IA.md",
+      "package_path": "03_SOFTWARE/dashboard/main/ESTRUTURA_E_GUIA_IA.md",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "8eebb13b2460050fd756051ecb3ce7461a1b284f155711f2ec7df22d4bdb84e2",
+      "size": 26795
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/INSTRUCOES.md",
+      "package_path": "03_SOFTWARE/dashboard/main/INSTRUCOES.md",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "00114166a7154490e55f4caaec4682902939446b85201afd29225af85dacfea6",
+      "size": 8099
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/README.md",
+      "package_path": "03_SOFTWARE/dashboard/main/README.md",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "473931743c407b795f630551d75b611a15b2566ec5142804e35c22857d9f2380",
+      "size": 45674
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/audio/audio_service.py",
+      "package_path": "05_VISION_AUDIO/audio_service.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "48a6986bd8de6b42695ce30a1aaf9a28d2379036e68b90147fdf9f4c55ca4209",
+      "size": 6486
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/camera/camera_service.py",
+      "package_path": "05_VISION_AUDIO/camera_service.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "00e57650e4ac7b76beb3a9721b22ac89ce805794c668f3f9d487aa6fc094909e",
+      "size": 34578
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/camera/video_recorder.py",
+      "package_path": "05_VISION_AUDIO/video_recorder.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "eaaad34eb22a638726893ce4fbd748df68dd3b3b8e93506fd52891a21f0547aa",
+      "size": 18029
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/map3d/websocket/map_messages.py",
+      "package_path": "03_SOFTWARE/dashboard/main/modules_dashboard/map3d/websocket/map_messages.py",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "f9fceed85144c34e9c166938c7c8b2f1ffec4f63a0354e485a18ec2078ade81b",
+      "size": 1178
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/speech/speech_manager.py",
+      "package_path": "05_VISION_AUDIO/speech_manager.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "8cf663b43101c182364a4cb68cc4934b682ddba566a29c7fdd2f332f9343a303",
+      "size": 8855
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/speech/speech_server.py",
+      "package_path": "05_VISION_AUDIO/speech_server.py",
+      "category": "VISION_AUDIO",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "ce66356ec23be96226c8d4a0a7507072664143800c7eff18c40c0727a9275f58",
+      "size": 19336
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/modules_dashboard/telemetry/telemetry_service.py",
+      "package_path": "03_SOFTWARE/dashboard/main/modules_dashboard/telemetry/telemetry_service.py",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "cb49e44ac5a634ce90b4e2b83e01e509dd248477ddf9e14235724a949040b0a1",
+      "size": 11979
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/ros2_websocket_bridge.py",
+      "package_path": "03_SOFTWARE/dashboard/main/ros2_websocket_bridge.py",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "aaea40e659ce41b80b3faf218490a2e76eced416200e93aa8398c256eb24635b",
+      "size": 38799
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/src/config/tabs.ts",
+      "package_path": "03_SOFTWARE/dashboard/main/src/config/tabs.ts",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "f575d77edbcc6fa468ae744f27ce50f22c7bd03692435f874ffa5a4f6c218870",
+      "size": 1012
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/src/config/version.ts",
+      "package_path": "03_SOFTWARE/dashboard/main/src/config/version.ts",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "de82dc3ea7f01c2703750bd00707a8c0190a6d0b227a026fd5efa3f104870f4b",
+      "size": 321
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/src/lib/telemetry/types.ts",
+      "package_path": "03_SOFTWARE/dashboard/main/src/lib/telemetry/types.ts",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "828897e5df540d45eededde5b620ace5f4f4274862d8735ddfe38495747d7e2a",
+      "size": 8763
+    },
+    {
+      "original_relpath": "GitHub/beniprado/dashgroup-arcanjo/main/src/lib/telemetry/useWebSocket.ts",
+      "package_path": "03_SOFTWARE/dashboard/main/src/lib/telemetry/useWebSocket.ts",
+      "category": "SOFTWARE_DASHBOARD",
+      "importance": "HIGH",
+      "state": "CURRENT",
+      "sha256": "e250e6fc093c78cd443031968ddaa897944359a610d8a702218f214d310984c3",
+      "size": 41684
+    }
+  ],
+  "missing": []
+}

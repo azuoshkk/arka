@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # 1. O Servidor RTSP leve
+  rtsp_server:
+    image: bluenviron/mediamtx:latest
+    container_name: servidor_rtsp
+    network_mode: "host" 
+    restart: unless-stopped
+
+  # 2. A Ponte ROS2 -> RTSP
+  ros2_bridge:
+    build: .
+    container_name: ponte_ros2_rtsp
+    network_mode: "host"
+    depends_on:
+      - rtsp_server
+    restart: unless-stopped
+    # Força a execução do script da ponte
+    command: ["/bin/bash", "-c", "source /opt/ros/humble/setup.bash && python3 t800_bridge.py"]
+
+  # 3. O Simulador do T800 (A sua Webcam)
+  t800_simulador:
+    build: .
+    container_name: simulador_webcam_t800
+    network_mode: "host"
+    # Dá permissão para o Docker acessar a webcam física do seu notebook
+    devices:
+      - "/dev/video0:/dev/video0"
+    restart: unless-stopped
+    # Usa a mesma imagem, mas executa o script do simulador!
+    command: ["/bin/bash", "-c", "source /opt/ros/humble/setup.bash && python3 t800_simulator.py"]

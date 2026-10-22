@@ -1,0 +1,18 @@
+{"online": true, "is_moving": false, "current_pitch": 0.0, "current_yaw": -0.5236, "current_pitch_deg": 0.0, "current_yaw_deg": -30.0, "target_pitch": 0.0, "target_yaw": -0.5236, "target_pitch_deg": 0.0, "target_yaw_deg": -30.0, "actual_pitch": 0.511, "actual_yaw": -0.0722, "has_hardware_feedback": true, "limits": {"pitch_min": -0.523, "pitch_max": 0.523, "pitch_min_deg": -30.0, "pitch_max_deg": 30.0, "yaw_min": -1.222, "yaw_max": 1.222, "yaw_min_deg": -70.0, "yaw_max_deg": 70.0}, "gains": {"kp": 100.0, "kd": 3.0}, "balance_mode_requested": true, "ros_domain_id": 69, "rmw_implementation": "rmw_cyclonedds_cpp", "simulation": false}<CycloneDDS>
+  <Domain id="any">
+    <General>
+      <Interfaces>
+        <NetworkInterface name="eth1" />
+      </Interfaces>
+      <AllowMulticast>true</AllowMulticast>
+    </General>
+
+    <Discovery>
+      <Peers>
+        <Peer address="192.168.0.163" />
+      </Peers>
+    </Discovery>
+  </Domain>
+</CycloneDDS>
+drwxrwxr-x 3 ubuntu ubuntu 4096 Jan  1  1970 /app
+drwxrwxr-x 3 ubuntu ubuntu 4096 Jan  1  1970 /app/applications

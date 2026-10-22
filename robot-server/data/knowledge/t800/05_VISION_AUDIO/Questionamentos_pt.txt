@@ -1,0 +1,155 @@
+Questionamentos Técnicos – Robot T800
+CRONOGRAMA LÓGICO DE IMPLANTAÇÃO E HOMOLOGAÇÃO
+Data: Julho de 2026 | Referência: Engenharia & Pós-Venda Internacional
+
+
+Este documento apresenta a versão atualizada e consolidada dos questionamentos técnicos destinados ao fabricante
+do Robot T800. A estrutura segue o plano lógico de implantação: adequação do espaço físico, infraestrutura de TI,
+startup do hardware, parametrização lógica, cenários operacionais dinâmicos e levantamento de casos de sucesso
+(cases) de mercado.
+
+  FASE I: INFRAESTRUTURA E PREPARAÇÃO DO AMBIENTE FÍSICO
+
+1. Recomendações e Segurança do Ambiente de Desenvolvimento (Laboratório Local)
+ • 1.1. Recomendações sobre o ambiente físico de desenvolvimento do robô: espaço físico mínimo (em metros
+   quadrados) e recomendado, piso recomendado e suportes móveis ou fixos recomendados para manutenção/testes
+   estáticos.
+ • 1.2. Quais alertas e avisos visuais de segurança (placas de sinalização, faixas de isolamento) devem ser
+   obrigatoriamente implementados no laboratório para proteção das pessoas que atuam no ambiente e para
+   visitantes que acessem o local?
+ • 1.3. Caso a equipe de engenharia do fabricante queira acrescentar ou sugerir alguma boa prática ou requisito
+   adicional sobre o Ambiente de Desenvolvimento/Laboratório, estamos abertos a sugestões técnicas.
+
+2. Equipamentos e Infraestrutura de Hardware para a Equipe Técnica
+ • 2.1. Qual a configuração de hardware recomendada para os Notebooks utilizados no laboratório, em visitas de
+   demonstração e em clientes externos (especificações de placa de vídeo dedicada/GPU, memória RAM, modelo de
+   processador, armazenamento, etc.)?
+ • 2.2. Qual a configuração recomendada para o Desktop fixo de alto desempenho a ser utilizado no laboratório para
+   desenvolvimento local robusto, compilação de pacotes pesados e processamento de dados do robô?
+
+  FASE II: RECEBIMENTO DO EQUIPAMENTO E PRIMEIROS PASSOS (STARTUP)
+
+3. Guia de Startup e Comissionamento Inicial
+ • 3.1. Posicionamento do robô no primeiro acesso (deitado / em pé / sentado no chão) e posicionamento dos
+   membros (braço, perna, cabeça).
+    ◦ 3.1.1. É necessária alguma calibração manual ou zeramento dos encoders das juntas mecânicas antes da
+      primeira inicialização?
+ • 3.2. Comandos no Joystick para cada posição inicial (todos os métodos).
+    ◦ 3.2.1. Passo a passo de cada comando. Ex: (Robô sentado no chão) o que se pressiona primeiro no controle?
+    ◦ 3.2.2. Após executar os movimentos, precisamos retornar o robô para o correto desligamento sem quedas.
+      Quais seriam os passos para parada e desligamento (todos os métodos)?
+
+4. Segurança Operacional e Procedimentos de Emergência
+ • 4.1. O robô possui botão físico de parada de emergência (E-Stop) no corpo ou suporte a um controle remoto sem
+   fio de corte de energia para segurança durante os testes de movimento?
+ • 4.2. Quais outras formas para evitar danos estruturais no equipamento existem?
+
+
+
+
+Confidencial                                                                                                      1
+  FASE III: INTEGRAÇÃO DE SOFTWARE, HARDWARE E BACKUP
+
+5. Acesso a Dispositivos Internos e Customização
+ • 5.1. Verificar até onde podemos acessar e colocar mais funcionalidades no robô.
+    ◦ 5.1.1. Limites de inserção de Hardware (mesmo que externamente, preso ao robô. Ex: Sensor de GLP).
+        ▪ 5.1.1.1. Quais portas físicas de comunicação e saídas de alimentação elétrica estão expostas e disponíveis
+          para periféricos (Ex: USB-C, Ethernet, CAN bus, saídas de 5V, 12V ou 24V)?
+    ◦ 5.1.2. Limites de inserção de Software.
+        ▪ 5.1.2.1. O sistema operacional de controle é baseado em ROS / ROS2 sobre Ubuntu?
+        ▪ 5.1.2.2. Temos acesso com privilégios de administrador (root) para compilar nossos próprios nós e pacotes
+          de software?
+
+6. Ferramentas de Simulação, Backup e Recuperação (Troubleshooting)
+ • 6.1. Existência de ambiente de simulação para treinamento de novos usuários do Robot T800, em modo
+   "standalone" (ambiente fora de produção, com comandos e simulação de movimentos em tela simulada).
+ • 6.2. Procedimentos de BACKUP após o início da produção local do Robot T800.
+    ◦ 6.2.1. Listar procedimentos de Backup para execução desta atividade.
+    ◦ 6.2.2. Listar procedimentos de Restore desta atividade.
+ • 6.3. Procedimentos em caso de pane geral: "Robot T800 inoperante", "CRASH".
+    ◦ 6.3.1. Existe algum procedimento de Troubleshooting atualizado? Informar o processo.
+    ◦ 6.3.2. Procedimento de recuperação do Robot T800 atualizado, instalando todos os arquivos e colocando o robô
+      de volta em produção. Informar o procedimento.
+    ◦ 6.3.3. É fornecida uma imagem de fábrica (.iso ou .img) para restauração completa do sistema operacional e
+      firmware do zero, caso o SSD interno precise ser substituído?
+
+  FASE IV: OPERAÇÃO DINÂMICA E CASOS DE USO (RONDAS E VISITAS)
+
+7. Execução de Rondas em Ambientes Abertos e Fechados
+ • 7.1. Será necessário treinar o Robot T800 nos ambientes de forma virtual?
+    ◦ 7.1.1. Caso afirmativo, qual software vamos utilizar e quais são os pré-requisitos do Host necessários?
+    ◦ 7.1.2. Existe algum passo a passo de instalação do ambiente e posterior transferência do resultado para o robô?
+ • 7.2. O Robot T800 consegue fazer o mapeamento do local de forma presencial controlada com Joystick, sem a
+   necessidade de treinamento virtual?
+    ◦ 7.2.1. Existe algum procedimento para este treinamento? O que seria necessário?
+    ◦ 7.2.2. Qual a capacidade máxima de armazenamento de mapas na memória local do robô (em quantidade de
+      mapas ou área máxima em metros quadrados)?
+ • 7.3. Monitoramento ambiental e relocalização dinâmica: No ambiente podem existir características importantes
+   (posição de materiais, pessoas, placas de veículos, cercas físicas, objetos suspeitos, gases, temperatura, chuva).
+    ◦ 7.3.1. Existe a possibilidade de identificação nativa dessas variáveis? Caso afirmativo, como devemos proceder
+      para implementar esta função e ação?
+    ◦ 7.3.2. Em caso de mudanças dinâmicas no ambiente real (ex: novos objetos bloqueando caminhos mapeados),
+      qual é a tolerância do algoritmo de relocalização (SLAM) antes que o robô perca a orientação? E caso ele não
+      consiga sair ou contornar a barreira, qual é o comportamento padrão do robô?
+    ◦ 7.3.3. O software nativo já possui interface pronta para receber dados de sensores ambientais externos (gases/
+      GLP) ou toda a lógica de leitura e alarmes precisará ser desenvolvida do zero por nossa equipe?
+
+
+
+
+Confidencial                                                                                                        2
+8. Navegação de Acompanhamento Autônomo e Deslocamento Humano
+ • 8.1. O robô consegue adentrar em ambientes novos e sem levantamento prévio, subir escadas, acessar elevador e
+   sentar em uma cadeira de forma autônoma utilizando comando de voz (Ex: "T800, me siga") ou Joystick?
+    ◦ 8.1.1. Caso afirmativo, quais são os comandos de voz e se os mesmos podem ser traduzidos para o Português
+      do Brasil para que fiquem na linguagem local.
+        ▪ 8.1.1.1. Procedimentos para implementação desta função.
+    ◦ 8.1.2. O motor de reconhecimento de voz funciona de forma totalmente local (offline) no hardware do robô ou
+      depende de conexão com servidores na nuvem?
+    ◦ 8.1.3. Quais são os limites físicos para transposição de escadas (altura máxima do degrau/espelho e largura
+      mínima do piso) e quais tipos de solo são suportados com segurança (piso molhado, carpete, grama, brita)?
+      Caso ele encontre uma "barreira" que exceda esses limites físicos (Ex: uma escada com degrau de 22 cm), qual
+      é o comportamento do sistema? Ele tenta subir ou interrompe o movimento de forma segura?
+
+9. Monitoramento Remoto e Transmissão de Imagens
+ • 9.1. Acesso às câmeras internas do Robot T800 para streaming de vídeo direcionado à central de monitoramento.
+   Informar como seria a forma correta para a extração desta informação.
+    ◦ 9.1.1. Passo a passo para executar esta função, cuidados e observações.
+    ◦ 9.1.2. O streaming de vídeo das câmeras nativas suporta protocolos padrão de mercado (como RTSP, WebRTC
+      ou RTMP) para integração direta com centrais de monitoramento de terceiros?
+    ◦ 9.1.3. Qual é a latência média estimada do streaming operando via rede Wi-Fi, 4G ou 5G?
+
+  FASE V: EXIBIÇÃO COMERCIAL E PÓS-VENDA
+
+10. Planejamento para Demonstrações em Eventos Públicos e Feiras
+ • 10.1. Descrever as melhores práticas para a operação segura do robô no ambiente de feiras (considerando alta
+   densidade de público, ruído acústico e poluição de espectro de radiofrequência/Wi-Fi).
+ • 10.2. Quais funcionalidades, movimentos ou rotinas autônomas são consideradas "estáveis e seguras de fábrica"
+   para serem demonstradas publicamente em stand sem o risco de falhas imprevistas ou colisões?
+ • 10.3. Quais são as sugestões adicionais e recomendações específicas do fabricante para mitigar problemas em
+   exibições públicas ao vivo?
+
+11. Logística de Manutenção e Políticas de Garantia
+ • 11.1. Após constatar o defeito em algum componente, como se dará a troca de peça em garantia e fora da
+   garantia?
+    ◦ 11.1.1. A empresa possui centro de suporte ou distribuidor autorizado na América Latina? Em caso de
+      acionamento de garantia, quem arca com os custos de frete internacional e taxas alfandegárias?
+    ◦ 11.1.2. Vocês possuem uma lista recomendada de peças de reposição críticas (Spare Parts) que devemos
+      adquirir previamente para estoque local (Ex: baterias, motores de junta, cabos)?
+
+12. Cases de Sucesso e Aplicações de Mercado
+ • 12.1. Poderiam informar cases públicos realizados com o T800 nos escopos:
+    ◦ 12.1.1. Segurança Pública
+    ◦ 12.1.2. Trânsito
+    ◦ 12.1.3. Saúde
+    ◦ 12.1.4. Educação
+    ◦ 12.1.5. Entretenimento
+    ◦ 12.1.6. Outros setores não citados especificamente.
+ • 12.2. Explicar detalhadamente a atuação e o papel desempenhado pelo robô in loco em cada uma dessas
+   situações práticas apresentadas.
+
+
+
+
+Confidencial                                                                                                    3
+

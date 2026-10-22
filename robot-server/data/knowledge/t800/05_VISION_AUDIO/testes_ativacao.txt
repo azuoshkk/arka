@@ -1,0 +1,23 @@
+test_another_browser_cannot_move (test_core.SafetyTests.test_another_browser_cannot_move) ... ok
+test_idle_no_state_wrong_variant_and_competitor_block (test_core.SafetyTests.test_idle_no_state_wrong_variant_and_competitor_block) ... ok
+test_initialization_uses_measured_position (test_core.SafetyTests.test_initialization_uses_measured_position) ... ok
+test_late_pulse_cannot_revive_expired_session (test_core.SafetyTests.test_late_pulse_cannot_revive_expired_session) ... ok
+test_lease_expires_and_releases_only_five_frames (test_core.SafetyTests.test_lease_expires_and_releases_only_five_frames) ... ok
+test_motion_state_loss (test_core.SafetyTests.test_motion_state_loss) ... ok
+test_nan_inf_bool_and_range_rejected (test_core.SafetyTests.test_nan_inf_bool_and_range_rejected) ... ok
+test_no_publish_at_start (test_core.SafetyTests.test_no_publish_at_start) ... ok
+test_no_retarget_mid_trajectory (test_core.SafetyTests.test_no_retarget_mid_trajectory) ... ok
+test_only_neck_and_radians (test_core.SafetyTests.test_only_neck_and_radians) ... ok
+test_release_cancels_target (test_core.SafetyTests.test_release_cancels_target) ... ok
+test_telemetry_lost_during_motion (test_core.SafetyTests.test_telemetry_lost_during_motion) ... ok
+test_velocity_limit (test_core.SafetyTests.test_velocity_limit) ... ok
+test_arm_move_release (test_http.HttpTests.test_arm_move_release) ... ok
+test_assets_and_path_traversal (test_http.HttpTests.test_assets_and_path_traversal) ... ok
+test_host_rebinding_rejected (test_http.HttpTests.test_host_rebinding_rejected) ... ok
+test_invalid_command_is_not_success (test_http.HttpTests.test_invalid_command_is_not_success) ... ok
+test_unauthenticated_command_rejected (test_http.HttpTests.test_unauthenticated_command_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 2.685s
+
+OK

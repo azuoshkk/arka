@@ -1,0 +1,111 @@
+INTEGRATION & DIAGNOSTIC REPORT: T800
+From: Guilherme Andrade | To: EngineAI Technical Support
+
+
+
+
+       This document outlines the current state of the T800 robot integration project, providing a detailed, step-
+       by-step walkthrough of the simulation environment configuration. Furthermore, it formally reports critical
+       behavioral anomalies encountered while running and training the model within the MuJoCo physics
+       engine.
+
+
+
+     1. SYSTEM SPECIFICATIONS & ENVIRONMENT ARCHITECTURE
+
+
+       Operating System                          Linux Mint (File System: ext4)
+
+
+       Network Architecture                      IP Range: 192.168.0.0/24
+                                                 Robot IP: 192.168.0.162
+
+
+       Docker Environment                        Network Mode: host
+                                                 Dynamic setup via: t800_docker_setup.tar.gz
+
+
+       AI Stack (Python)                         Gymnasium (mujoco envs)
+                                                 Stable-Baselines3 (PPO - MlpPolicy)
+
+
+       EngineAI Workspaces                       Native SDK: ~/engineai_robotics_native_sdk/
+                                                 ROS2 Workspace: ~/source/engineai_workspace/
+                                                 Asset Context: assets/resource/t800.xml
+
+
+
+     2. COMPREHENSIVE SETUP & EXECUTION GUIDE
+
+     The following workflow has been consolidated to initialize the environment, compile the MuJoCo engine,
+     configure Reinforcement Learning (RL) dependencies, and establish telemetry streaming with PlotJuggler:
+
+
+         Step 1: Docker Environment Initialization
+         To prevent conflicts with the host operating system, the entire setup is isolated within the official container.
+         Navigating to the SDK's root directory, the environment is generated and accessed via the provided
+         shortcut, injecting base images and variables dynamically at runtime.
+Step 2: Native SDK and ROS2 Compilation
+Building the core system is mandatory to generate the ROS2 message ( msg ) interfaces. These interfaces
+are critical for parsing telemetry data later in PlotJuggler. The root build script is executed strictly within the
+container.
+
+
+
+
+Step 3: MuJoCo Compilation and Installation
+The simulator engine is built using EngineAI’s native scripts. Additionally, the required Python libraries are
+installed to bridge the RL framework (Gymnasium/Stable-Baselines3) with the simulator, enabling policy
+training.
+
+
+
+
+Step 4: Execution Configuration (Simulation Mode)
+Before launching, the control system must be explicitly notified that it is operating in a virtual environment
+rather than on physical hardware. This is achieved by ensuring the parameter in the first line of assets/
+config/t800/mode.yaml is correctly set to simulation.
+
+
+
+
+Step 5: Integrated Execution (Terminal 1 - MuJoCo)
+With ROS2 network environment variables strictly configured, the simulator is executed to initialize the
+physical simulation of the robot and begin exporting vital telemetry data.
+
+
+
+
+Step 6: Data Visualization (Terminal 2 - PlotJuggler)
+A secondary terminal is opened with the exact same environment parameters to launch PlotJuggler. The
+"ROS2 Topic Subscriber" is activated, and the default EngineAI layout ( scripts/plotjuggler/
+common_data_display.xml ) is loaded to monitor real-time torque and IMU data.
+
+
+
+
+Step 7: State Machine Control (Terminal 3 - Virtual Gamepad)
+The robot initializes in a safe idle state. A third terminal runs the virtual gamepad control. By activating
+the interface (F5) and executing keyboard commands (e.g., Q + J, mapping to LB + A), the robot transitions
+into the pd_stand state, generating graphical logs across the motors.
+3. MUJOCO SIMULATION ISSUE REPORT
+
+Despite the environment being perfectly configured as per the guide above, critical behavioral flaws
+have been identified in the T800 model within MuJoCo while developing the Reinforcement Learning
+policy:
+
+  • Stand-up & Stability Failure: The simulated T800 model exhibits severe structural difficulties in
+    standing up and maintaining basic upright stability. In most trials, the simulation triggers an early
+    termination due to the robot's center of mass dropping below acceptable thresholds.
+
+  • Missing Control Commands: The control interface provided for the simulation lacks specific joint
+    commands and balancing parameters. These missing actuations are essential for the controller to
+    effectively stabilize the torso and legs, creating a discrepancy between the simulation and physical
+    hardware expectations.
+
+Request to EngineAI Engineering:
+Please    review     the     attached    training   logs,    videos,    and     Docker     configuration
+( t800_docker_setup.tar.gz ). I am seeking guidance on whether there is an updated MuJoCo
+model, a software patch to map the missing commands, or specific PD gains and actuator limits within
+ t800.xml that must be adjusted to resolve these stabilization failures.
+

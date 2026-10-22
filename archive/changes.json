@@ -1,0 +1,163 @@
+{
+  "moved": [
+    {
+      "from": "robot-server/fix_credentials_rag.py",
+      "to": "archive/applied-patches/fix_credentials_rag.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/fix_expert_query_expansion.py",
+      "to": "archive/applied-patches/fix_expert_query_expansion.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/fix_ollama_chat_model.py",
+      "to": "archive/applied-patches/fix_ollama_chat_model.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/fix_physical_specs_guard.py",
+      "to": "archive/applied-patches/fix_physical_specs_guard.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/fix_voice_runtime_v2.py",
+      "to": "archive/applied-patches/fix_voice_runtime_v2.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/fix_whisper_quality.py",
+      "to": "archive/applied-patches/fix_whisper_quality.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/install_fast_tts_v5.py",
+      "to": "archive/applied-patches/install_fast_tts_v5.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/install_text_stt_mode.py",
+      "to": "archive/applied-patches/install_text_stt_mode.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/install_voice_rag.py",
+      "to": "archive/applied-patches/install_voice_rag.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/optimize_expert_v4.py",
+      "to": "archive/applied-patches/optimize_expert_v4.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/arka.py.before_tts_both_modes",
+      "to": "archive/source-snapshots/arka.py.before_tts_both_modes",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/app/agents/expert.py.before_speed_v6",
+      "to": "archive/source-snapshots/app/agents/expert.py.before_speed_v6",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/app/agents/expert_before_diag_fix.py",
+      "to": "archive/source-snapshots/app/agents/expert_before_diag_fix.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/app/core/voice_bridge.py.before_arcanjo_alias",
+      "to": "archive/source-snapshots/app/core/voice_bridge.py.before_arcanjo_alias",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/app/core/router_before_conservative_fix.py",
+      "to": "archive/source-snapshots/app/core/router_before_conservative_fix.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/app/knowledge/vector_store_before_diag_fix.py",
+      "to": "archive/source-snapshots/app/knowledge/vector_store_before_diag_fix.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/app/speech/tts_fast.py.before_natural_pause_v2",
+      "to": "archive/source-snapshots/app/speech/tts_fast.py.before_natural_pause_v2",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/app/speech/tts_fast.py.before_emoji_fix",
+      "to": "archive/source-snapshots/app/speech/tts_fast.py.before_emoji_fix",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/app/speech/tts_fast.py.before_number_speech",
+      "to": "archive/source-snapshots/app/speech/tts_fast.py.before_number_speech",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/app/speech/tts_fast.py.before_numbers",
+      "to": "archive/source-snapshots/app/speech/tts_fast.py.before_numbers",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/app/speech/tts_fast.py.before_pause_fix",
+      "to": "archive/source-snapshots/app/speech/tts_fast.py.before_pause_fix",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "server.py",
+      "to": "archive/legacy-server/server.py",
+      "compatibility_symlink": false
+    },
+    {
+      "from": "robot-server/session_logs",
+      "to": "logs/session_logs",
+      "compatibility_symlink": true
+    },
+    {
+      "from": "robot-server/voice_logs",
+      "to": "logs/voice_logs",
+      "compatibility_symlink": true
+    },
+    {
+      "from": "robot-server/test_results",
+      "to": "logs/test_results",
+      "compatibility_symlink": true
+    },
+    {
+      "from": "robot-server/health_results",
+      "to": "logs/health_results",
+      "compatibility_symlink": true
+    },
+    {
+      "from": "robot-server/audio_diagnostics",
+      "to": "logs/audio_diagnostics",
+      "compatibility_symlink": true
+    },
+    {
+      "from": "robot-server/benchmark_expert.py",
+      "to": "scripts/benchmark_expert.py",
+      "compatibility_symlink": true
+    },
+    {
+      "from": "robot-server/benchmark_ollama_runtime.py",
+      "to": "scripts/benchmark_ollama_runtime.py",
+      "compatibility_symlink": true
+    },
+    {
+      "from": "robot-server/arka_audio_diagnostic.py",
+      "to": "scripts/arka_audio_diagnostic.py",
+      "compatibility_symlink": true
+    },
+    {
+      "from": "robot-server/warmup_arka.py",
+      "to": "scripts/warmup_arka.py",
+      "compatibility_symlink": true
+    }
+  ],
+  "removed": [
+    "__pycache__",
+    "robot-server/__pycache__"
+  ]
+}

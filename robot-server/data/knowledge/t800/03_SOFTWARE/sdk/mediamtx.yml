@@ -1,0 +1,7 @@
+rtspAddress: :554
+paths:
+  all_others:
+    publishUser: admin
+    publishPass: "s3d31pqB@!"
+    readUser: admin
+    readPass: "s3d31pqB@!"

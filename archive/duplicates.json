@@ -1,0 +1,10 @@
+[
+  {
+    "sha256": "9dba8fb72ddb744eb08b947be6719fbde883d9a904e081f9c220f76ad8d4922e",
+    "files": [
+      "archive/source-snapshots/app/speech/tts_fast.py.before_number_speech",
+      "archive/source-snapshots/app/speech/tts_fast.py.before_numbers"
+    ],
+    "action": "preservado: pode haver referências distintas no RAG"
+  }
+]

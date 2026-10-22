@@ -1,0 +1,149 @@
+from qdrant_client import QdrantClient
+from qdrant_client import models
+
+from app.config import (
+    QDRANT_URL,
+    QDRANT_COLLECTION,
+)
+
+
+client = QdrantClient(
+    url=QDRANT_URL
+)
+
+
+def ensure_collection(
+    vector_size,
+    reset=False,
+):
+
+    exists = client.collection_exists(
+        QDRANT_COLLECTION
+    )
+
+    if reset and exists:
+
+        client.delete_collection(
+            QDRANT_COLLECTION
+        )
+
+        exists = False
+
+    if not exists:
+
+        client.create_collection(
+            collection_name=QDRANT_COLLECTION,
+
+            vectors_config=models.VectorParams(
+                size=vector_size,
+                distance=models.Distance.COSINE,
+            ),
+        )
+
+
+def upload_points(points):
+
+    client.upload_points(
+        collection_name=QDRANT_COLLECTION,
+        points=points,
+        wait=True,
+    )
+
+
+def search(
+    vector,
+    project,
+    limit=15,
+    allowed_access=(
+        "public",
+        "internal",
+        "restricted",
+    ),
+    categories=None,
+):
+
+    must = [
+        models.FieldCondition(
+            key="project",
+            match=models.MatchValue(
+                value=project
+            ),
+        )
+    ]
+
+    if allowed_access:
+
+        must.append(
+            models.FieldCondition(
+                key="access",
+                match=models.MatchAny(
+                    any=list(
+                        allowed_access
+                    )
+                ),
+            )
+        )
+
+    if categories:
+
+        must.append(
+            models.FieldCondition(
+                key="category",
+                match=models.MatchAny(
+                    any=list(
+                        categories
+                    )
+                ),
+            )
+        )
+
+    result = client.query_points(
+        collection_name=QDRANT_COLLECTION,
+
+        query=vector,
+
+        query_filter=models.Filter(
+            must=must
+        ),
+
+        limit=limit,
+
+        with_payload=True,
+    )
+
+    # Approved training PDFs share the same retrieval and Expert guards.
+    # A ContextVar scopes draft visibility to a single validation request.
+    from app.knowledge.training_pdf import COLLECTION, preview_document
+    extra = []
+    if client.collection_exists(COLLECTION):
+        draft = preview_document.get()
+        training_filter = [models.FieldCondition(key="project", match=models.MatchValue(value=project))]
+        training_filter.append(models.FieldCondition(
+            key="document_id" if draft else "approved",
+            match=models.MatchValue(value=draft if draft else True),
+        ))
+        if allowed_access:
+            training_filter.append(models.FieldCondition(key="access",match=models.MatchAny(any=list(allowed_access))))
+        extra = client.query_points(collection_name=COLLECTION,query=vector,
+            query_filter=models.Filter(must=training_filter),limit=limit,with_payload=True).points
+    combined = (
+        ([] if preview_document.get() else list(result.points))
+        + list(extra)
+    )
+
+    # Hierarquia de confiança:
+    # documentação oficial > PDFs corporativos > conversas aprendidas.
+    def effective_score(point):
+        payload = point.payload or {}
+        score = point.score
+
+        if payload.get("category") == "conversation":
+            score *= 0.72
+
+        return score
+
+    return sorted(
+        combined,
+        key=effective_score,
+        reverse=True,
+    )[:limit]

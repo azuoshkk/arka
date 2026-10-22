@@ -1,0 +1,7 @@
+.venv/
+.local/
+logs/
+backups/
+**/__pycache__/
+*.pyc
+robot-server/qdrant_storage/

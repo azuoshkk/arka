@@ -1,0 +1,70 @@
+               T800 Simulation & Control Issue Report
+
+
+   To: EngineAI Technical Support
+   From: Guilherme Andrade (Zush)
+   Subject: MuJoCo Simulation Issues: Missing Commands and Stand-up/Stability Failures
+
+
+Hello EngineAI team,
+
+I am reaching out to report a behavioral issue with the T800 robot within the MuJoCo simulation
+environment. While developing a Reinforcement Learning policy, I noticed that the simulated robot
+struggles significantly to stand up properly and maintain basic stability.
+
+Furthermore, it appears that several control commands/actuation parameters that should be
+available to correct this behavior are missing or not properly mapped in the provided MuJoCo
+environment compared to the physical hardware expectations.
+
+
+ 1. The Core Issue (MuJoCo Simulation)
+
+     • Stand-up Failure: The T800 model in MuJoCo exhibits structural difficulties in getting up
+      and sustaining a stable upright posture, often triggering early termination due to a low center
+      of mass.
+     • Missing Commands: The control interface provided for the simulation lacks specific joint
+      commands or balancing parameters that would normally allow the controller to stabilize the
+      torso and legs effectively.
+     • Attachments Provided for Review:
+           ◦ Simulation Videos: Showing the exact moments the robot fails to stand up.
+           ◦ Training Logs: TensorBoard statistics (PPO step data, reward, and value loss).
+           ◦ Datasheet & Statistics: Extracted metrics from my runs.
+
+
+ 2. Host System Specifications
+
+     • Operating System: Linux Mint
+     • File System: ext4
+     • Primary User Path: /home/guilerme-andrade/
+     • Network IP Range: 192.168.0.0/24 (Robot is at 192.168.0.162 )
+ 3. EngineAI SDKs & Workspaces
+
+     • EngineAI Robotics Native SDK: ~/engineai_robotics_native_sdk/ (Asset: assets/
+      resource/t800.xml )
+
+     • EngineAI ROS2 Workspace: ~/source/engineai_workspace/
+
+
+ 4. Reinforcement Learning Stack (Python)
+
+     • Gymnasium: gymnasium and gymnasium.envs.mujoco
+     • Stable-Baselines3: PPO algorithm ( MlpPolicy ).
+
+
+ 5. Docker Environment Configuration
+
+I am running the simulation and training inside a Docker container using a highly parameterized
+setup. I have compressed and attached my entire Docker configuration context for your review, as
+the base image and variables are injected dynamically at runtime.
+
+     • Network Mode: host
+     • Attached File: t800_docker_setup.tar.gz
+
+Could your engineering team review the attached videos and logs alongside the t800.xml
+configuration? I would appreciate any guidance on whether there is an updated MuJoCo model, a
+patch for the missing commands, or specific PD gains/actuator limits I need to adjust for the T800
+to stand up correctly.
+
+Thank you,
+Guilherme Andrade
+

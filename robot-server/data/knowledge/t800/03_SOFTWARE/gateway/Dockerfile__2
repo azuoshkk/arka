@@ -1,0 +1,19 @@
+# Usa a imagem oficial do ROS2 Humble
+FROM osrf/ros:humble-desktop
+
+# Instala o pip e as bibliotecas do sistema para interface gráfica do OpenCV
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Instala as bibliotecas de IA e Visão
+RUN pip3 install --no-cache-dir opencv-python numpy insightface onnxruntime
+
+RUN apt-get update && apt-get install -y ffmpeg
+
+WORKDIR /app
+
+# Inicia o ROS2 e roda o nosso gateway local
+CMD ["/bin/bash", "-c", "source /opt/ros/humble/setup.bash && python3 reconhecimento_ros2.py"]

@@ -1,0 +1,98 @@
+[
+  {
+    "text": "Bom dia, Arka",
+    "expected": "chat"
+  },
+  {
+    "text": "Como você está hoje?",
+    "expected": "chat"
+  },
+  {
+    "text": "Me explique recursão em Python",
+    "expected": "chat"
+  },
+  {
+    "text": "Quanto é 15 vezes 7?",
+    "expected": "chat"
+  },
+  {
+    "text": "Como funciona o ROS2 bridge do T800?",
+    "expected": "expert"
+  },
+  {
+    "text": "Quais arquivos configuram o SDK da EngineAI?",
+    "expected": "expert"
+  },
+  {
+    "text": "Qual é a senha do Wi-Fi interno da EngineAI?",
+    "expected": "expert"
+  },
+  {
+    "text": "Existe algum problema conhecido no T800?",
+    "expected": "expert"
+  },
+  {
+    "text": "Como funciona o Face Follow do T800?",
+    "expected": "expert"
+  },
+  {
+    "text": "Quais parâmetros YAML configuram o ros2_bridge?",
+    "expected": "expert"
+  },
+  {
+    "text": "O que existe no SDK relacionado ao driver RC02?",
+    "expected": "expert"
+  },
+  {
+    "text": "Como funciona a câmera e a telemetria do dashboard?",
+    "expected": "expert"
+  },
+  {
+    "text": "O que é uma API?",
+    "expected": "chat"
+  },
+  {
+    "text": "Escreva Hello World em Java",
+    "expected": "chat"
+  },
+  {
+    "text": "Me explique orientação a objetos",
+    "expected": "chat"
+  },
+  {
+    "text": "Qual é a capital da França?",
+    "expected": "chat"
+  },
+  {
+    "text": "Me explique gradient descent",
+    "expected": "chat"
+  },
+  {
+    "text": "Como funciona uma rede neural?",
+    "expected": "chat"
+  },
+  {
+    "text": "O que é Docker?",
+    "expected": "chat"
+  },
+  {
+    "text": "Como criar uma classe em Python?",
+    "expected": "chat"
+  },
+  {
+    "text": "Qual a senha da internet do 800?",
+    "expected": "expert"
+  },
+  {
+    "text": "Qual a configuração do T 800?",
+    "expected": "expert"
+  },
+  {
+    "text": "Quanto é 800 dividido por 2?",
+    "expected": "chat"
+  },
+  {
+    "text": "Tenho 800 reais, quanto sobra se gastar 200?",
+    "expected": "chat"
+  }
+]

@@ -1,0 +1,1323 @@
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import time
+from collections import deque
+
+import requests
+
+from app.core.voice_bridge import (
+    prepare_voice_route,
+    reset_voice_context,
+)
+
+from app.speech.tts_fast import (
+    FastTTS,
+    SentenceTTSBuffer,
+)
+
+from app.agents.expert import (
+    answer_stream,
+)
+
+from app.core.voice_sanity import (
+    analyze_transcription,
+)
+
+
+# ============================================================
+# CONFIG
+# ============================================================
+
+OLLAMA_URL = "http://127.0.0.1:11434/api/chat"
+
+CHAT_MODEL = os.getenv(
+    "ARKA_CHAT_MODEL",
+    "qwen3:8b",
+)
+
+PROJECT = os.getenv(
+    "ARKA_PROJECT",
+    "t800",
+)
+
+
+SYSTEM_PROMPT = """
+Você é Arka, a assistente virtual.
+
+REGRAS DE IDENTIDADE:
+- Seu nome é Arka.
+- Arka é a assistente virtual.
+- Arcanjo é o nome comercial do robô T800.
+- T800 é o identificador técnico interno do Arcanjo.
+- Nunca diga que seu nome é Arcanjo.
+- Quando falar de si mesma, diga Arka.
+- Quando o usuário disser Arcanjo, ele está falando do robô, não da assistente.
+
+IDENTIDADE DO ROBÔ:
+- T800 é apenas a identificação/modelo técnico interno.
+- Ao conversar com o usuário, chame o robô sempre de Arcanjo.
+- Não diga "T800" na resposta final, exceto se estiver citando literalmente um nome de arquivo, comando, caminho ou identificador técnico em que alterar o nome causaria erro.
+
+Responda sempre em português brasileiro.
+
+REGRAS:
+- Seja natural, objetiva e profissional.
+- Use o histórico da conversa.
+- Não invente informações internas.
+- Não diga que consultou documentação se não consultou.
+- Não repita perguntas já respondidas pelo usuário.
+- Perguntas gerais devem ser respondidas normalmente.
+- Perguntas técnicas internas são tratadas pelo ExpertAgent.
+"""
+
+
+history = [
+    {
+        "role": "system",
+        "content": SYSTEM_PROMPT,
+    }
+]
+
+
+
+# ============================================================
+# TTS
+# ============================================================
+
+tts_engine = None
+tts_buffer = None
+tts_enabled = False
+
+
+def set_tts_enabled(
+    enabled: bool,
+):
+
+    global tts_enabled
+
+    tts_enabled = enabled
+
+
+def ensure_tts():
+
+    global tts_engine
+    global tts_buffer
+
+    if tts_engine is None:
+
+        tts_engine = FastTTS(
+            voice=os.getenv(
+                "ARKA_TTS_VOICE",
+                "pf_dora",
+            ),
+
+            speed=float(
+                os.getenv(
+                    "ARKA_TTS_SPEED",
+                    "1.25",
+                )
+            ),
+        )
+
+        tts_buffer = SentenceTTSBuffer(
+            tts_engine
+        )
+
+        # Carrega já para a primeira resposta
+        # não pagar custo de inicialização.
+        tts_engine.load()
+
+
+def tts_begin():
+
+    if (
+        not tts_enabled
+        or tts_buffer is None
+    ):
+        return
+
+    tts_buffer.reset()
+
+
+def tts_feed(
+    token,
+):
+
+    if (
+        not tts_enabled
+        or tts_buffer is None
+    ):
+        return
+
+    tts_buffer.feed(
+        token
+    )
+
+
+def tts_finish():
+
+    if (
+        not tts_enabled
+        or tts_buffer is None
+    ):
+        return
+
+    tts_buffer.flush_and_wait()
+
+
+# ============================================================
+# CHAT NORMAL
+# ============================================================
+
+def responder_chat(texto: str):
+
+    tts_begin()
+
+    mensagens = history + [
+        {
+            "role": "user",
+            "content": texto,
+        }
+    ]
+
+    resposta = []
+
+    print()
+    print(
+        "Arcanjo> ",
+        end="",
+        flush=True,
+    )
+
+    with requests.post(
+        OLLAMA_URL,
+        json={
+            "model": CHAT_MODEL,
+            "messages": mensagens,
+            "stream": True,
+            "think": False,
+            "keep_alive": -1,
+            "options": {
+                "num_ctx": 4096,
+                "temperature": 0.3,
+                "num_predict": 500,
+            },
+        },
+        stream=True,
+        timeout=(5, 180),
+    ) as response:
+
+        if not response.ok:
+
+            print()
+            print(
+                f"❌ Ollama HTTP {response.status_code}"
+            )
+
+            print(
+                response.text
+            )
+
+            response.raise_for_status()
+
+        for line in response.iter_lines():
+
+            if not line:
+                continue
+
+            data = json.loads(
+                line
+            )
+
+            token = (
+                data
+                .get("message", {})
+                .get("content", "")
+            )
+
+            if not token:
+                continue
+
+            resposta.append(
+                token
+            )
+
+            print(
+                token,
+                end="",
+                flush=True,
+            )
+
+            tts_feed(
+                token
+            )
+
+    print()
+
+    resposta_final = "".join(
+        resposta
+    ).strip()
+
+    history.append(
+        {
+            "role": "user",
+            "content": texto,
+        }
+    )
+
+    history.append(
+        {
+            "role": "assistant",
+            "content": resposta_final,
+        }
+    )
+
+    if len(history) > 17:
+
+        history[:] = (
+            [history[0]]
+            + history[-16:]
+        )
+
+    tts_finish()
+
+    return resposta_final
+
+
+# ============================================================
+# ROUTER
+# ============================================================
+
+def processar(texto: str):
+
+    inicio_rota = (
+        time.perf_counter()
+    )
+
+    plano = prepare_voice_route(
+        texto,
+        project=PROJECT,
+    )
+
+    tempo_rota = (
+        time.perf_counter()
+        - inicio_rota
+    )
+
+    rota = plano[
+        "route"
+    ]
+
+    print()
+    print(
+        "─" * 64
+    )
+
+    print(
+        f"Rota: {rota.upper()} | "
+        f"{plano.get('reason')} | "
+        f"{tempo_rota:.3f}s"
+    )
+
+    print(
+        "─" * 64
+    )
+
+    # ========================================================
+    # CHAT
+    # ========================================================
+
+    if rota == "chat":
+
+        return responder_chat(
+            texto
+        )
+
+    # ========================================================
+    # EXPERT STREAMING
+    # ========================================================
+
+    print()
+    print(
+        "Arcanjo [EXPERT]> ",
+        end="",
+        flush=True,
+    )
+
+    tts_begin()
+
+    def mostrar_token(
+        token,
+    ):
+
+        print(
+            token,
+            end="",
+            flush=True,
+        )
+
+        tts_feed(
+            token
+        )
+
+    resultado = answer_stream(
+        question=
+            plano["question"],
+
+        project=
+            PROJECT,
+
+        on_token=
+            mostrar_token,
+    )
+
+    print()
+
+    # Espera terminar a fala antes de
+    # reabrir o microfone, evitando que
+    # a Arka escute a própria voz.
+    tts_finish()
+
+    resposta = (
+        resultado.get(
+            "answer",
+            ""
+        )
+    )
+
+    fontes = (
+        resultado.get(
+            "sources"
+        )
+        or []
+    )
+
+    metricas = (
+        resultado.get(
+            "metrics"
+        )
+        or {}
+    )
+
+    print()
+
+    retrieval = metricas.get(
+        "retrieval"
+    )
+
+    first_token = metricas.get(
+        "first_token"
+    )
+
+    total = metricas.get(
+        "total"
+    )
+
+    partes = []
+
+    if retrieval is not None:
+
+        partes.append(
+            f"retrieval={retrieval:.3f}s"
+        )
+
+    if first_token is not None:
+
+        partes.append(
+            f"1º token={first_token:.3f}s"
+        )
+
+    if total is not None:
+
+        partes.append(
+            f"total={total:.3f}s"
+        )
+
+    if partes:
+
+        print(
+            "⏱️ Expert: "
+            + " | ".join(
+                partes
+            )
+        )
+
+    if fontes:
+
+        print()
+        print(
+            "Fontes:"
+        )
+
+        vistos = set()
+
+        for fonte in fontes:
+
+            nome = (
+                fonte.get(
+                    "source"
+                )
+                or fonte.get(
+                    "path"
+                )
+                or "fonte desconhecida"
+            )
+
+            if nome in vistos:
+                continue
+
+            vistos.add(
+                nome
+            )
+
+            print(
+                " -",
+                nome,
+            )
+
+    # Histórico do chat normal.
+
+    history.append(
+        {
+            "role":
+                "user",
+
+            "content":
+                texto,
+        }
+    )
+
+    history.append(
+        {
+            "role":
+                "assistant",
+
+            "content":
+                resposta,
+        }
+    )
+
+    if len(history) > 17:
+
+        history[:] = (
+            [history[0]]
+            + history[-16:]
+        )
+
+    return resposta
+
+
+# ============================================================
+# TXT
+# ============================================================
+
+def modo_txt():
+
+    set_tts_enabled(True)
+
+    ensure_tts()
+
+    print()
+    print(
+        "=" * 64
+    )
+
+    print(
+        " ARKA — TXT"
+    )
+
+    print(
+        "=" * 64
+    )
+
+    print(
+        "Digite sua mensagem."
+    )
+
+    print()
+    print(
+        "Comandos:"
+    )
+
+    print(
+        " /modo    voltar ao menu"
+    )
+
+    print(
+        " /limpar  limpar contexto"
+    )
+
+    print(
+        " /sair    encerrar"
+    )
+
+    while True:
+
+        try:
+
+            texto = input(
+                "\nVocê> "
+            ).strip()
+
+        except (
+            KeyboardInterrupt,
+            EOFError,
+        ):
+
+            print()
+
+            return "menu"
+
+        if not texto:
+            continue
+
+        comando = (
+            texto
+            .lower()
+            .strip()
+        )
+
+        if comando in (
+            "/modo",
+            "/voltar",
+        ):
+
+            return "menu"
+
+        if comando in (
+            "/sair",
+            "/exit",
+            "/quit",
+        ):
+
+            return "exit"
+
+        if comando == "/limpar":
+
+            reset_voice_context()
+
+            history[:] = [
+                history[0]
+            ]
+
+            print(
+                "✅ Contexto limpo."
+            )
+
+            continue
+
+        try:
+
+            processar(
+                texto
+            )
+
+        except Exception as erro:
+
+            print()
+            print(
+                "❌ Erro:",
+                repr(erro),
+            )
+
+
+
+def normalize_stt_terms(
+    texto: str,
+):
+    """
+    Corrige apenas confusões fonéticas muito prováveis
+    do Whisper dentro do contexto técnico da Arka.
+
+    Não é usado no modo TXT.
+    """
+
+    original = texto
+
+    q = texto.lower()
+
+    technical_context = any(
+        term in q
+        for term in (
+            "wifi",
+            "wi-fi",
+            "senha",
+            "ros2",
+            "ros 2",
+            "sdk",
+            "engineai",
+            "robo",
+            "robô",
+            "firmware",
+            "dashboard",
+            "gateway",
+            "camera",
+            "câmera",
+            "motor",
+        )
+    )
+
+    if technical_context:
+
+        # T e D são facilmente confundidos no STT.
+        # Corrige somente no contexto técnico.
+        texto = re.sub(
+            r"\b[dD][\s-]*800\b",
+            "T800",
+            texto,
+        )
+
+    if texto != original:
+
+        print(
+            "🔧 Normalização STT:",
+            repr(original),
+            "→",
+            repr(texto),
+        )
+
+    return texto
+
+
+# ============================================================
+# STT
+# ============================================================
+
+SAMPLE_RATE = 16000
+VAD_CHUNK = 512
+
+VAD_THRESHOLD = float(
+    os.getenv(
+        "VAD_THRESHOLD",
+        "0.55",
+    )
+)
+
+SILENCE_TIME = float(
+    os.getenv(
+        "SILENCE_TIME",
+        "0.65",
+    )
+)
+
+MAX_RECORD_TIME = float(
+    os.getenv(
+        "MAX_RECORD_TIME",
+        "15",
+    )
+)
+
+WHISPER_MODEL = os.getenv(
+    "WHISPER_MODEL",
+    "small",
+)
+
+WHISPER_BEAM_SIZE = int(
+    os.getenv(
+        "WHISPER_BEAM_SIZE",
+        "5",
+    )
+)
+
+
+WHISPER_INITIAL_PROMPT = """
+Conversa em português brasileiro.
+
+Possíveis termos:
+Arka,
+Arcanjo,
+T800,
+EngineAI,
+Wi-Fi,
+ROS2,
+ros2_bridge,
+RC02,
+SDK,
+dashboard,
+MuJoCo,
+Odin2,
+Face Follow,
+Raspberry Pi.
+"""
+
+
+whisper = None
+whisper_device = None
+vad_model = None
+
+
+def carregar_stt():
+
+    global whisper
+    global whisper_device
+    global vad_model
+
+    if (
+        whisper is not None
+        and vad_model is not None
+    ):
+        return
+
+    print()
+    print(
+        "🎧 Carregando STT..."
+    )
+
+    import torch
+    import ctranslate2
+
+    from faster_whisper import (
+        WhisperModel,
+    )
+
+    from silero_vad import (
+        load_silero_vad,
+    )
+
+    quantidade_gpus = (
+        ctranslate2
+        .get_cuda_device_count()
+    )
+
+    if quantidade_gpus > 0:
+
+        try:
+
+            print(
+                f"Whisper: {WHISPER_MODEL}"
+                " | GPU NVIDIA"
+            )
+
+            whisper = WhisperModel(
+                WHISPER_MODEL,
+                device="cuda",
+                compute_type="float16",
+            )
+
+            whisper_device = (
+                "GPU NVIDIA"
+            )
+
+        except Exception as erro:
+
+            print(
+                "⚠️ GPU falhou:",
+                erro,
+            )
+
+            whisper = None
+
+    if whisper is None:
+
+        print(
+            f"Whisper: {WHISPER_MODEL}"
+            " | CPU"
+        )
+
+        whisper = WhisperModel(
+            WHISPER_MODEL,
+            device="cpu",
+            compute_type="int8",
+        )
+
+        whisper_device = "CPU"
+
+    torch.set_num_threads(
+        1
+    )
+
+    vad_model = load_silero_vad()
+
+    print(
+        f"✅ STT pronto "
+        f"({whisper_device}, beam "
+        f"{WHISPER_BEAM_SIZE})"
+    )
+
+
+def ouvir():
+
+    import numpy as np
+    import sounddevice as sd
+    import torch
+
+    inicio_fala = None
+    ultima_voz = None
+
+    pre_buffer = deque(
+        maxlen=12
+    )
+
+    gravacao = []
+
+    falando = False
+    silencio_frames = 0
+    frames_fala = 0
+
+    limite_silencio = int(
+        SILENCE_TIME
+        * SAMPLE_RATE
+        / VAD_CHUNK
+    )
+
+    limite_fala = int(
+        MAX_RECORD_TIME
+        * SAMPLE_RATE
+        / VAD_CHUNK
+    )
+
+    if hasattr(
+        vad_model,
+        "reset_states",
+    ):
+
+        vad_model.reset_states()
+
+    print()
+    print(
+        "🎤 Fale..."
+    )
+
+    with sd.InputStream(
+        samplerate=SAMPLE_RATE,
+        channels=1,
+        dtype="float32",
+        blocksize=VAD_CHUNK,
+    ) as stream:
+
+        while True:
+
+            data, _ = stream.read(
+                VAD_CHUNK
+            )
+
+            audio = (
+                data[:, 0]
+                .copy()
+            )
+
+            tensor = (
+                torch
+                .from_numpy(
+                    audio
+                )
+            )
+
+            probabilidade = (
+                vad_model(
+                    tensor,
+                    SAMPLE_RATE,
+                )
+                .item()
+            )
+
+            momento = (
+                time.perf_counter()
+            )
+
+            if not falando:
+
+                pre_buffer.append(
+                    audio
+                )
+
+                if (
+                    probabilidade
+                    >= VAD_THRESHOLD
+                ):
+
+                    falando = True
+
+                    inicio_fala = momento
+                    ultima_voz = momento
+
+                    print(
+                        "🟢 Fala detectada."
+                    )
+
+                    gravacao.extend(
+                        pre_buffer
+                    )
+
+                    pre_buffer.clear()
+
+            else:
+
+                gravacao.append(
+                    audio
+                )
+
+                frames_fala += 1
+
+                if (
+                    probabilidade
+                    >= VAD_THRESHOLD
+                ):
+
+                    silencio_frames = 0
+                    ultima_voz = momento
+
+                else:
+
+                    silencio_frames += 1
+
+                if (
+                    silencio_frames
+                    >= limite_silencio
+                ):
+
+                    break
+
+                if (
+                    frames_fala
+                    >= limite_fala
+                ):
+
+                    print(
+                        "⚠️ Limite de fala atingido."
+                    )
+
+                    break
+
+    if not gravacao:
+
+        return (
+            None,
+            None,
+        )
+
+    audio_final = np.concatenate(
+        gravacao
+    ).astype(
+        np.float32
+    )
+
+    if (
+        inicio_fala is not None
+        and ultima_voz is not None
+    ):
+
+        tempo_fala = (
+            ultima_voz
+            - inicio_fala
+        )
+
+    else:
+
+        tempo_fala = 0.0
+
+    metricas = {
+        "tempo_fala_ativa":
+            tempo_fala,
+
+        "duracao_audio":
+            len(audio_final)
+            / SAMPLE_RATE,
+    }
+
+    return (
+        audio_final,
+        metricas,
+    )
+
+
+def transcrever(audio):
+
+    segmentos, _ = (
+        whisper.transcribe(
+            audio,
+            language="pt",
+            beam_size=
+                WHISPER_BEAM_SIZE,
+            best_of=
+                WHISPER_BEAM_SIZE,
+            temperature=0,
+            condition_on_previous_text=
+                False,
+            initial_prompt=
+                WHISPER_INITIAL_PROMPT,
+            without_timestamps=True,
+            vad_filter=False,
+        )
+    )
+
+    texto = "".join(
+        segmento.text
+        for segmento
+        in segmentos
+    ).strip()
+
+    return texto
+
+
+def modo_stt():
+
+    set_tts_enabled(True)
+
+    carregar_stt()
+
+    ensure_tts()
+
+    print()
+    print(
+        "=" * 64
+    )
+
+    print(
+        " ARKA — STT"
+    )
+
+    print(
+        "=" * 64
+    )
+
+    print(
+        "Você fala pelo microfone."
+    )
+
+    print(
+        "A resposta do Arcanjo aparece "
+        "SOMENTE em texto."
+    )
+
+    print()
+    print(
+        "CTRL+C volta ao menu."
+    )
+
+    while True:
+
+        try:
+
+            audio, metricas = ouvir()
+
+            if audio is None:
+                continue
+
+            inicio = (
+                time.perf_counter()
+            )
+
+            texto = transcrever(
+                audio
+            )
+
+            texto = normalize_stt_terms(
+                texto
+            )
+
+            tempo = (
+                time.perf_counter()
+                - inicio
+            )
+
+            print()
+            print(
+                "Você [STT]>",
+                texto,
+            )
+
+            print(
+                f"STT: {tempo:.3f}s "
+                f"| {whisper_device}"
+            )
+
+            if not texto:
+                continue
+
+            sanity = (
+                analyze_transcription(
+                    texto,
+                    metricas,
+                )
+            )
+
+            if sanity[
+                "suspicious"
+            ]:
+
+                print(
+                    "⚠️ Transcrição descartada:",
+                    sanity["reason"],
+                )
+
+                continue
+
+            comando = (
+                texto
+                .lower()
+                .strip()
+            )
+
+            if comando in (
+                "voltar",
+                "voltar ao menu",
+                "trocar modo",
+                "mudar modo",
+            ):
+
+                return "menu"
+
+            if comando in (
+                "sair",
+                "encerrar",
+                "fechar arka",
+            ):
+
+                return "exit"
+
+            processar(
+                texto
+            )
+
+        except KeyboardInterrupt:
+
+            print()
+            print(
+                "↩️ Voltando ao menu..."
+            )
+
+            return "menu"
+
+        except Exception as erro:
+
+            print()
+            print(
+                "❌ Erro STT:",
+                repr(erro),
+            )
+
+
+# ============================================================
+# MENU
+# ============================================================
+
+def escolher_modo():
+
+    print()
+    print(
+        "=" * 64
+    )
+
+    print(
+        " ARKA"
+    )
+
+    print(
+        "=" * 64
+    )
+
+    print(
+        "[1] TXT  — digitar mensagem"
+    )
+
+    print(
+        "[2] STT  — falar no microfone"
+    )
+
+    print(
+        "[0] Sair"
+    )
+
+    while True:
+
+        opcao = input(
+            "\nEscolha: "
+        ).strip().lower()
+
+        if opcao in (
+            "1",
+            "txt",
+            "texto",
+        ):
+
+            return "txt"
+
+        if opcao in (
+            "2",
+            "stt",
+            "voz",
+            "microfone",
+        ):
+
+            return "stt"
+
+        if opcao in (
+            "0",
+            "sair",
+            "exit",
+        ):
+
+            return "exit"
+
+        print(
+            "Opção inválida."
+        )
+
+
+def main():
+
+    parser = (
+        argparse.ArgumentParser()
+    )
+
+    parser.add_argument(
+        "--mode",
+        choices=[
+            "txt",
+            "stt",
+        ],
+    )
+
+    args = parser.parse_args()
+
+    print()
+    print(
+        "🤖 Arcanjo online."
+    )
+
+    print(
+        "LLM:",
+        CHAT_MODEL,
+    )
+
+    modo = args.mode
+
+    while True:
+
+        if modo is None:
+
+            modo = escolher_modo()
+
+        if modo == "exit":
+            break
+
+        if modo == "txt":
+
+            resultado = modo_txt()
+
+        elif modo == "stt":
+
+            resultado = modo_stt()
+
+        else:
+
+            resultado = "menu"
+
+        if resultado == "exit":
+            break
+
+        modo = None
+
+    print()
+    print(
+        "👋 Arcanjo encerrado."
+    )
+
+
+if __name__ == "__main__":
+    main()

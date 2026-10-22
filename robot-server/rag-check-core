@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+set -u
+
+cd "$(dirname "$0")"
+
+if [ -f "../.venv/bin/activate" ]; then
+    source "../.venv/bin/activate"
+fi
+
+echo
+echo "============================================================"
+echo " ARKA RAG CHECK"
+echo "============================================================"
+echo
+
+echo "[1/3] Validando Python..."
+
+python -m py_compile \
+    app/config.py \
+    app/knowledge/loaders.py \
+    app/knowledge/chunker.py \
+    app/knowledge/embedder.py \
+    app/knowledge/vector_store.py \
+    app/knowledge/ingest.py \
+    app/agents/expert.py \
+    ask.py \
+    test_rag.py
+
+if [ $? -ne 0 ]; then
+    echo
+    echo "❌ Falha de sintaxe."
+    exit 1
+fi
+
+echo "✅ Sintaxe OK"
+
+echo
+echo "[2/3] Verificando Qdrant..."
+
+if ! curl -sf \
+    http://127.0.0.1:6333 \
+    >/dev/null
+then
+    echo "Qdrant não respondeu."
+    echo "Tentando iniciar container existente..."
+
+    docker start arka-qdrant \
+        >/dev/null 2>&1 || true
+
+    sleep 2
+fi
+
+echo
+echo "[3/3] Rodando bateria RAG..."
+
+python test_rag.py "$@"
+
+status=$?
+
+echo
+echo "------------------------------------------------------------"
+echo "ÚLTIMO RESULTADO"
+echo "------------------------------------------------------------"
+
+if [ -f test_results/latest_summary.txt ]; then
+    cat test_results/latest_summary.txt
+fi
+
+exit $status
