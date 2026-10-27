@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict'),vision=require('../web/assets/vision-intent.js');
+for(const text of ['o que é isso?','o que é esse objeto?','O que tenho na minha mão?','olhe para mim','o que você está vendo?'])assert.equal(vision(text),true,text);
+assert.equal(vision('qual é a capital do Brasil?'),false);
+const person={label:'pessoa',confidence:.99,box:[0,0,1,1]};
+const cup={label:'copo',confidence:.9,box:[.4,.4,.6,.6]};
+assert.equal(vision.target('o que é isso',[person,cup]),cup);
+assert.equal(vision.target('descreva o ambiente',[cup]),null);
+assert.equal(vision.target('isso',[person]),null);
+assert.equal(vision.target('isso',[{...cup,box:[0,0,.2,.2]}]),null);
+assert.equal(vision.target('isso',[{...cup,confidence:.4}]),null);
+console.log('Intenção visual e alvo central: OK');

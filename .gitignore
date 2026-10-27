@@ -5,3 +5,19 @@ backups/
 **/__pycache__/
 *.pyc
 robot-server/qdrant_storage/
+
+# Runtime, secrets and internal knowledge (never add new copies to Git)
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.sqlite3
+*.sqlite3-*
+*.db
+*.ses
+*.onnx
+*.gguf
+*.safetensors
+robot-server/data/
+robot-server/tmp*/

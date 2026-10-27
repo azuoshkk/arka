@@ -1,0 +1,5 @@
+# Optional CPU detector; keep separate from the existing ML environment.
+onnxruntime==1.30.0
+numpy==2.5.3
+Pillow==12.3.0
+requests>=2.32,<3

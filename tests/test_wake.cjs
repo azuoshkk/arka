@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict');
+const create=require('../web/assets/wake.js');
+let gate=create();
+for(const s of ['oi','marca de carro','barca','arcanjo'])assert.equal(gate.accept(s,10).accepted,false);
+assert.equal(gate.accept('Arka, o que você vê?',20).text,'o que você vê?');
+assert.equal(gate.accept('outra conversa',30).accepted,false);
+assert.equal(gate.accept('Arca',100).armedUntil,8100);
+assert.equal(gate.accept('qual a hora?',200).accepted,true);
+assert.equal(gate.accept('mais conversa',300).accepted,false);
+gate.accept('Arka',400);assert.equal(gate.accept('tarde',8500).accepted,false);
+console.log('Wake gate: OK');

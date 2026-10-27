@@ -130,5 +130,6 @@
     window.arkaSpectrum?.resume().catch(() => {});
     if (!document.fullscreenElement && document.fullscreenEnabled) document.documentElement.requestFullscreen().catch(() => {});
   });
+  window.arkaFace = {state, stop: () => stop(), player};
   window.addEventListener('pagehide', () => { disposed = true; clearTimeout(playTimer); stopExpression(); stop('unavailable'); channel?.close(); });
 })();

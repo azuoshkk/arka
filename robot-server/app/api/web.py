@@ -447,6 +447,22 @@ async def websocket_chat(ws:WebSocket):
     finally:
         if response is not None:await response.body_iterator.aclose()
 
+@app.post('/api/vision')
+async def describe_camera(request:Request):
+    session=session_for(request)
+    data=await bounded_body(request,3*1024*1024)
+    reserve(session)
+    def work():
+        from app.vision.describe import describe
+        try:
+            session.state='thinking'
+            return describe(data)
+        finally:
+            session.state='idle';release(session)
+    try:return {'description':await asyncio.shield(asyncio.to_thread(work))}
+    except ValueError as exc:raise HTTPException(422,str(exc))
+    except Exception:raise HTTPException(503,'Visão indisponível. Tente novamente em instantes.')
+
 @app.get('/health')
 async def health():
     return {'status':'ok','name':'Arka'}
