@@ -1,179 +1,178 @@
-import ollama
-import numpy as np
-import sounddevice as sd
-import queue
-import threading
-import subprocess
-import wave
-import cv2
+"""Arka: STT local, roteamento por embeddings, RAG, Piper e webcam.
 
+Dependências externas: ollama, numpy, sounddevice, faster-whisper,
+piper-tts, opencv-python. Requer ffplay instalado no Linux.
+"""
+
+import hashlib
+import queue
+import re
+import subprocess
+import threading
+import unicodedata
+import wave
 from collections import deque
+from pathlib import Path
+from time import perf_counter
+
+import cv2
+import numpy as np
+import ollama
+import sounddevice as sd
 from faster_whisper import WhisperModel
 from piper import PiperVoice
 
-# listas
-vetores=[]
-cosSim=[]
-ipq=[]
-gerais=[]
-messages = [{
-    'role':'system',
-    'content':"""
-    Você é Arka, assistente virtual da empresa IPQ.
-    Responda sempre em português brasileiro.
-    Seja objetiva e profissional.
-    Se não souber uma informação, admita.
-    Não responda de assuntos que tangenciem muito a empresa
-    """
-}]
+EMBED_MODEL = "bge-m3"
+CHAT_MODEL = "qwen3:1.7b"
+VOICE_FILE = "modelos/dii/dii_pt-BR.onnx"
+CACHE_DIR = Path(".cache/arka")
+DEBUG_TEMPO = False
 
-def call_ollama(messages,temperature,contexto):
-    resposta = ollama.chat(
-        think=False,
-        model='qwen3:1.7b',
-        messages=messages,
-        options={
-            'temperature':temperature,
-            'num_ctx':contexto,
-        }
-    )
-    return resposta['message']['content']
+SYSTEM_PROMPT = (
+    "Você é Arka, assistente virtual da IPQ Tecnologia. "
+    "Responda em português brasileiro de forma objetiva e profissional. "
+    "Use as informações do contexto quando forem fornecidas. "
+    "Se houver uma resposta explícita, dê-a diretamente; não a descarte "
+    "por ressalvas genéricas. Diferencie cargos como CEO e presidente. "
+    "Se realmente faltar informação, diga que não sabe. Não invente dados."
+)
 
-def data_clear(rawData, formato): # função para limpara o banco de dados em uma array. O banco de dados já deve estar formatado do jeito esperado
-    clean_data=[]
 
-    # Separa o tipo de dado entre Lista e faq e limpa com base formato
+def normalizar(texto):
+    texto = unicodedata.normalize("NFKD", texto.casefold())
+    texto = "".join(c for c in texto if not unicodedata.combining(c))
+    return " ".join(re.findall(r"\w+", texto))
+
+
+def retirar_chamado(frase):
+    return re.sub(
+        r"^\s*(?:arka|arca|arcan)\b[\s,.:!?-]*",
+        "", frase, flags=re.IGNORECASE
+    ).strip()
+
+
+def ler_dados(caminho, formato):
+    texto = Path(caminho).read_text(encoding="utf-8")
     if formato == "faq":
-        with open(rawData) as file:
-            data = file.read()
-            data = data.split("\n\n")
-        for bloco in data:
-            if bloco.startswith("PERGUNTA:"):
-                clean_data.append(bloco)
-                
+        blocos = re.split(r"\n\s*\n", texto)
+        dados = [b.strip() for b in blocos if b.strip().startswith("PERGUNTA:")
+                 and "RESPOSTA:" in b]
     elif formato == "lista":
-        with open(rawData) as file:
-            data = file.read()
-            data = data.split("\n")
-        for bloco in data:
-            clean_data.append(bloco)
+        dados = [linha.strip() for linha in texto.splitlines() if linha.strip()]
     else:
-        return "formato indisponivel"
+        raise ValueError(f"Formato inválido: {formato}")
+    if not dados:
+        raise ValueError(f"Nenhum dado válido em {caminho}")
+    return dados
 
-    return clean_data
 
-def embed_generator(data): # função para gerar os embeddings dos dados  
-    r=ollama.embed(model="bge-m3",input=data)
-    return np.array(r['embeddings'])
+def normalizar_vetores(vetores):
+    vetores = np.asarray(vetores, dtype=np.float32)
+    normas = np.linalg.norm(vetores, axis=-1, keepdims=True)
+    return vetores / np.maximum(normas, 1e-12)
 
-def find_similar(frase, embed, clean_data): # função para achar frase similar com base no input do user e nos dados
-    embedGerado=embed_generator(frase)[0]
 
-    scores = embed @ embedGerado
-    indices=np.argsort(scores)
-    melhor = indices[-1]
-    k3 = []
+def vetor_pergunta(frase):
+    vetor = ollama.embed(model=EMBED_MODEL, input=frase)["embeddings"][0]
+    return normalizar_vetores(vetor)
 
-    for i in indices[-3:][::-1]:
-        k3.append({
-            clean_data[i]:scores[i]*100
-        })
 
-    return scores[melhor]*100, k3
+def indice_embedding(dados, nome):
+    # Reaproveita os embeddings de inicializações anteriores; invalida
+    # automaticamente o cache quando o texto da base é alterado.
+    identificador = hashlib.sha256(
+        (EMBED_MODEL + "\0" + "\0".join(dados)).encode("utf-8")
+    ).hexdigest()[:16]
+    arquivo = CACHE_DIR / f"{nome}-{identificador}.npy"
+    if arquivo.is_file():
+        return np.load(arquivo, allow_pickle=False)
 
-def extrude_contexAnswer(resposta):
-    bloco = resposta.split("RESPOSTA:",1)[1]
-    bloco = bloco.split("FONTES:",1)[0]
-    return bloco.strip()
+    vetores = ollama.embed(model=EMBED_MODEL, input=dados)["embeddings"]
+    indice = normalizar_vetores(vetores)
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    np.save(arquivo, indice)
+    return indice
 
-def detect_routeType(frase):
-    palavras = frase.lower().replace(",", "").split()
-    if "nao" in palavras or "não" in palavras:
-        return None 
-    comandos = ["arka, liberar acesso","arca, liberar acesso"]
-    comandos_embed = embed_generator(comandos)
 
-    similaridade,_ = find_similar(frase, comandos_embed, comandos)
+def buscar_similares(vetor, indice, dados, quantidade=3):
+    scores = indice @ vetor
+    k = min(quantidade, len(scores))
+    posicoes = np.argpartition(scores, -k)[-k:]
+    posicoes = posicoes[np.argsort(scores[posicoes])[::-1]]
+    return [(dados[i], float(scores[i])) for i in posicoes]
 
-    if similaridade > 80:
-        return "COMANDO"
 
-def choose_route(frase, ipq_listaData, ipq_embed, gerais_listaData, gerais_embed): # função para decidir a rota entre o sistema rag e o ollama normal 
-    ipq_melhor,_ = find_similar(frase, ipq_embed, ipq_listaData)
-    gerais_melhor,_ = find_similar(frase, gerais_embed, gerais_listaData)
+def detectar_comando(frase):
+    """Para tirar foto, exige uma ordem clara; similaridade sozinha é insegura."""
+    texto = normalizar(frase)
+    palavras = set(texto.split())
+    if not re.match(r"^(?:arka|arca|arcan)\b", texto):
+        return None
+    if "acesso" in palavras and palavras & {"nao", "nunca", "jamais"}:
+        return "CANCELADO"
+    if re.fullmatch(
+        r"(?:arka|arca|arcan) (?:liberar|libera|libere) (?:o )?acesso",
+        texto,
+    ):
+        return "FOTO"
+    return None
 
-    # print(f"IPQ: {ipq_melhor:.4f}")
-    # print(f"GERAL: {gerais_melhor:.4f}")
-
-    if ipq_melhor > gerais_melhor:
-        return "IPQ"
-    else:
-        return "GERAL"
 
 def hear():
-    SAMPLE_RATE = 16000
-    BLOCK_DURATION = 0.2
-    SILENCE_THRESHOLD = 0.015
+    taxa = 16000
+    duracao_bloco = 0.2
+    limite_voz = 0.015
+    blocos_silencio = int(1.0 / duracao_bloco)
 
-    pausado = threading.Event()
     fila = queue.Queue()
+    pausado = threading.Event()
     pre_buffer = deque(maxlen=2)
-    audio_buffer = []
-    silence_blocks = 0
+    buffer = []
+    silencio = 0
 
     print("Carregando STT...")
-    model = WhisperModel("small", device="cpu", compute_type="int8")
-
-    # Localiza o microfone USB
-    device = next(
+    whisper = WhisperModel("small", device="cpu", compute_type="int8")
+    dispositivo = next(
         (i for i, d in enumerate(sd.query_devices())
-         if "Solid_State_System" in d["name"]
-         and d["max_input_channels"] > 0),
-        None
+         if "Solid_State_System" in d["name"] and d["max_input_channels"] > 0),
+        None,
     )
+    if dispositivo is None:
+        raise RuntimeError("Microfone USB não encontrado")
 
-    if device is None:
-        raise RuntimeError("Microfone USB não encontrado.")
-
-    def callback(indata, frames, time, status):
+    def callback(indata, frames, time_info, status):
         if not pausado.is_set():
             fila.put(indata.copy())
 
     with sd.InputStream(
-        device=device,
-        samplerate=SAMPLE_RATE,
+        device=dispositivo,
+        samplerate=taxa,
         channels=1,
         dtype="float32",
-        blocksize=int(SAMPLE_RATE * BLOCK_DURATION),
-        callback=callback
+        blocksize=int(taxa * duracao_bloco),
+        callback=callback,
     ):
         print("Pode falar!")
-
         while True:
-            block = fila.get()
-            volume = np.sqrt(np.mean(block ** 2))
+            bloco = fila.get()
+            volume = float(np.sqrt(np.mean(bloco ** 2)))
 
-            if volume > SILENCE_THRESHOLD:
-                if not audio_buffer:
-                    audio_buffer.extend(pre_buffer)
+            if volume > limite_voz:
+                if not buffer:
+                    buffer.extend(pre_buffer)
                     pre_buffer.clear()
-
-                audio_buffer.append(block)
-                silence_blocks = 0
-
-            elif audio_buffer:
-                audio_buffer.append(block)
-                silence_blocks += 1
-
-                if silence_blocks >= 5:
-                    audio = np.concatenate(audio_buffer).flatten()
-                    audio_buffer.clear()
-                    silence_blocks = 0
-
+                buffer.append(bloco)
+                silencio = 0
+            elif buffer:
+                buffer.append(bloco)
+                silencio += 1
+                if silencio >= blocos_silencio:
+                    audio = np.concatenate(buffer).ravel()
+                    buffer.clear()
+                    silencio = 0
                     pausado.set()
-
                     try:
-                        segments, _ = model.transcribe(
+                        trechos, _ = whisper.transcribe(
                             audio,
                             initial_prompt=(
                                 "Esta conversa é sobre a IPQ Tecnologia. "
@@ -182,125 +181,138 @@ def hear():
                             beam_size=5,
                             task="transcribe",
                             language="pt",
-                            vad_filter=True
+                            vad_filter=True,
                         )
-
-                        texto = " ".join(
-                            s.text.strip()
-                            for s in segments
-                            if s.text.strip()
-                        )
-
-                        if texto:
-                            yield texto
-
+                        frase = " ".join(t.text.strip() for t in trechos if t.text.strip())
+                        if frase:
+                            yield frase
                     finally:
-                        # Limpa áudios antigos antes de voltar a escutar
+                        # Não processa o som da própria Arka nem da geração do LLM.
                         while True:
                             try:
                                 fila.get_nowait()
                             except queue.Empty:
                                 break
-
                         pre_buffer.clear()
                         pausado.clear()
-
             else:
-                pre_buffer.append(block)
+                pre_buffer.append(bloco)
 
-def carregar_dii():
-    return PiperVoice.load("modelos/dii/dii_pt-BR.onnx")
 
 def speak(texto, voz):
-    with wave.open("speech.wav", "wb") as audio:
-        voz.synthesize_wav(texto, audio)
+    texto = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", texto)
+    texto = re.sub(r"[*_`#]", "", texto).strip()
+    if not texto:
+        return
+    with wave.open("speech.wav", "wb") as saida:
+        voz.synthesize_wav(texto, saida)
+    subprocess.run(
+        ["ffplay", "-nodisp", "-autoexit", "-loglevel", "error", "speech.wav"],
+        check=True,
+    )
 
-    subprocess.run([
-        "ffplay", "-nodisp", "-autoexit",
-        "-loglevel", "error",
-        "speech.wav"
-    ], check=True)
 
-def take_photo(): # melhorar função
+def take_photo(caminho="foto.jpg"):
     camera = cv2.VideoCapture(0)
+    try:
+        if not camera.isOpened():
+            raise RuntimeError("Câmera não encontrada")
+        ok, frame = camera.read()
+        if not ok or frame is None or not cv2.imwrite(caminho, frame):
+            raise RuntimeError("Falha ao capturar ou salvar a foto")
+        return caminho
+    finally:
+        camera.release()
 
-    if camera.isOpened():
-        print("camera aberta")
-        sucesso, frame = camera.read()
-        if sucesso:
-            cv2.imwrite("foto.jpg",frame)
-            camera.release()
-        else:
-            print("n foi possivel abrir a camera")
-    else: 
-        print("camera n foi aberta")
 
 def main():
-    clean_data = data_clear("conhecimentos.txt", "faq")
-    embed = embed_generator(clean_data)
+    base = ler_dados("conhecimentos.txt", "faq")
+    perguntas_ipq = ler_dados("perguntas_IPQ.txt", "lista")
+    perguntas_gerais = ler_dados("Perguntas_gerais.txt", "lista")
 
-    ipq_listaData = data_clear("perguntas_IPQ.txt", "lista")
-    gerais_listaData = data_clear("Perguntas_gerais.txt", "lista")
-
-    ipq_embed = embed_generator(ipq_listaData)
-    gerais_embed = embed_generator(gerais_listaData)
-
-    voice = carregar_dii()
+    indice_base = indice_embedding(base, "faq")
+    indice_ipq = indice_embedding(perguntas_ipq, "ipq")
+    indice_geral = indice_embedding(perguntas_gerais, "geral")
+    voz = PiperVoice.load(VOICE_FILE)
+    historico = []
 
     for frase in hear():
         frase = frase.strip()
         if not frase:
             continue
-
         print(f"\nVocê: {frase}")
+        inicio = perf_counter()
 
-        if detect_routeType(frase) == "COMANDO":
-            take_photo()
-        else: 
-            rota = choose_route(
-                frase,
-                ipq_listaData, ipq_embed,
-                gerais_listaData, gerais_embed
+        comando = detectar_comando(frase)
+        if comando == "CANCELADO":
+            print("Arka: Comando não executado.")
+            continue
+        if comando == "FOTO":
+            try:
+                print(f"Foto salva: {take_photo()}")
+            except Exception as erro:
+                print(f"Erro na câmera: {erro}")
+            continue
+
+        busca = retirar_chamado(frase)
+        if not busca:
+            continue
+        vetor = vetor_pergunta(busca)  # Só UMA chamada ao bge-m3 por fala.
+
+        score_ipq = float((indice_ipq @ vetor).max())
+        score_geral = float((indice_geral @ vetor).max())
+        if score_ipq > score_geral:
+            resultados = buscar_similares(vetor, indice_base, base)
+
+            # Para pergunta igual à de uma FAQ, exclui distratores do Top-3.
+            pergunta_top1 = resultados[0][0].split("RESPOSTA:", 1)[0]
+            pergunta_top1 = pergunta_top1.removeprefix("PERGUNTA:").strip()
+            if normalizar(busca) == normalizar(pergunta_top1):
+                resultados = resultados[:1]
+
+            contexto = "\n\n".join(bloco for bloco, _ in resultados)
+            if DEBUG_TEMPO:
+                print("TOP recuperado:")
+                for bloco, score in resultados:
+                    print(f"{bloco.splitlines()[0]} | {score * 100:.2f}")
+
+            mensagem = (
+                "Responda diretamente à pergunta com base no contexto abaixo. "
+                "Se a resposta estiver explícita, não diga que não há dados. "
+                "Se não estiver disponível, admita que não sabe.\n\n"
+                f"Contexto:\n{contexto}\n\nPergunta:\n{busca}"
             )
+        else:
+            mensagem = busca
 
-            if rota == "IPQ":
-                _, top3 = find_similar(frase, embed, clean_data)
-                print("TOP-3 RECUPERADO:")
+        mensagens = (
+            [{"role": "system", "content": SYSTEM_PROMPT}]
+            + historico[-4:]
+            + [{"role": "user", "content": mensagem}]
+        )
+        resposta = ollama.chat(
+            model=CHAT_MODEL,
+            messages=mensagens,
+            think=False,
+            options={"temperature": 0.2, "num_ctx": 2048},
+        )["message"]["content"].strip()
+        print(f"Arka: {resposta}")
+        if DEBUG_TEMPO:
+            print(f"Até a resposta: {perf_counter() - inicio:.2f}s")
 
-                for item in top3:
-                    for bloco, score in item.items():
-                        print(f"{bloco.splitlines()[0]} | {score:.2f}")
+        speak(resposta, voz)
+        if DEBUG_TEMPO:
+            print(f"Total com TTS: {perf_counter() - inicio:.2f}s")
 
-                respostas = [
-                    extrude_contexAnswer(bloco)
-                    for item in top3
-                    for bloco in item
-                ]
+        historico.extend([
+            {"role": "user", "content": busca},
+            {"role": "assistant", "content": resposta},
+        ])
+        historico = historico[-4:]
 
-                contexto = "\n\n".join(respostas)
-
-                mensagem_atual = (
-                    "Responda usando apenas as informações fornecidas. "
-                    "Se não souber, admita.\n\n"
-                    f"Contexto:\n{contexto}\n\n"
-                    f"Pergunta:\n{frase}"
-                )
-            else:
-                mensagem_atual = frase
-
-            messages_call = messages + [{
-                "role": "user",
-                "content": mensagem_atual
-            }]
-
-            resposta = call_ollama(messages_call, 0.2, 2048)
-
-            print(f"Arka: {resposta}")
-
-            speak(resposta, voice)
-
-            messages.append({"role": "user", "content": frase})
-            messages.append({"role": "assistant", "content": resposta})
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nArka encerrada.")

@@ -553,6 +553,66 @@ PERGUNTA: Quais são as informações ainda não confirmadas?
 RESPOSTA: Esta base não confirma preços, planos de licenciamento, lista completa de clientes, versões de software, autonomia real do robô, arquitetura interna, procedimentos técnicos, contratos, taxas de precisão ou andamento exato de projetos após as publicações citadas.
 FONTES: F01, F02, F04, F11.
 
+PERGUNTA: O que é a Arka?
+RESPOSTA: A Arka é uma assistente virtual desenvolvida no contexto dos projetos tecnológicos da IPQ. Ela utiliza inteligência artificial para compreender comandos de voz, responder perguntas, consultar informações da empresa e executar determinadas funções integradas ao sistema.
+FONTES: Código-fonte do projeto Arka.
+
+PERGUNTA: Quem desenvolveu a Arka?
+RESPOSTA: A Arka é um projeto de desenvolvimento tecnológico realizado no âmbito da IPQ, utilizando inteligência artificial, processamento de linguagem natural, reconhecimento de fala e integração com dispositivos.
+FONTES: Código-fonte do projeto Arka.
+
+PERGUNTA: Quais são as principais funções da Arka?
+RESPOSTA: A Arka consegue ouvir comandos por meio de um microfone, transformar fala em texto, responder perguntas gerais, consultar uma base de conhecimentos sobre a IPQ, produzir respostas por voz e acionar uma câmera para capturar fotografias mediante comandos reconhecidos.
+FONTES: Código-fonte do projeto Arka.
+
+PERGUNTA: Como posso conversar com a Arka?
+RESPOSTA: Basta falar normalmente próximo ao microfone. A Arka identifica a fala, converte o áudio em texto e processa a solicitação. É possível iniciar perguntas chamando a assistente pelo nome, como em "Arka, quem é o CEO da IPQ?".
+FONTES: Implementação de STT e processamento de mensagens da Arka.
+
+PERGUNTA: Quais comandos de voz a Arka reconhece?
+RESPOSTA: A Arka reconhece perguntas gerais, perguntas relacionadas à IPQ e comandos específicos. Um comando implementado é "Arka, liberar acesso", que aciona a captura de uma fotografia pela câmera conectada. O reconhecimento de outros comandos depende das funcionalidades cadastradas no sistema.
+FONTES: Implementação de roteamento de comandos da Arka.
+
+PERGUNTA: O que acontece quando digo "Arka, liberar acesso"?
+RESPOSTA: A Arka identifica o comando e aciona sua câmera para capturar e salvar uma fotografia. Na implementação atual, essa operação não significa que a identidade de uma pessoa foi verificada nem que uma porta foi efetivamente destravada.
+FONTES: Implementação da função de captura de imagem da Arka.
+
+PERGUNTA: A Arka consegue tirar fotografias?
+RESPOSTA: Sim. A Arka possui integração com câmera por meio da biblioteca OpenCV. Quando recebe um comando reconhecido de captura, ela acessa o dispositivo, registra uma imagem e salva o arquivo no sistema.
+FONTES: Implementação de visão computacional da Arka.
+
+PERGUNTA: A Arka consegue reconhecer rostos?
+RESPOSTA: O reconhecimento facial é uma possibilidade de evolução do projeto. A implementação atual possui captura de fotografias, mas não há confirmação de um sistema completo de identificação facial integrado ao fluxo principal.
+FONTES: Implementação atual da Arka.
+
+PERGUNTA: A Arka consegue liberar o acesso de uma pessoa automaticamente?
+RESPOSTA: Atualmente, a Arka reconhece um comando de liberação de acesso para iniciar a captura de imagem. A autorização efetiva de entrada, a verificação de identidade e o acionamento de mecanismos físicos de controle de acesso exigem integrações adicionais.
+FONTES: Implementação atual de comandos da Arka.
+
+PERGUNTA: Como a Arka entende o que as pessoas falam?
+RESPOSTA: A Arka utiliza o Faster-Whisper para reconhecimento automático de fala em português. O sistema recebe o áudio do microfone, identifica períodos de fala e silêncio e transforma o conteúdo reconhecido em texto para processamento.
+FONTES: Implementação de STT da Arka.
+
+PERGUNTA: Como a Arka consegue responder falando?
+RESPOSTA: A Arka utiliza síntese de voz para transformar respostas escritas em áudio. A implementação atual utiliza o Piper TTS, com uma voz feminina em português brasileiro, permitindo reproduzir as respostas pelas caixas de som conectadas.
+FONTES: Implementação de TTS da Arka.
+
+PERGUNTA: Qual inteligência artificial a Arka utiliza?
+RESPOSTA: A Arka utiliza o modelo Qwen3 de 1,7 bilhão de parâmetros para gerar respostas por meio do Ollama. Para pesquisar informações semanticamente relacionadas, utiliza embeddings produzidos pelo modelo BGE-M3.
+FONTES: Implementação dos modelos de IA da Arka.
+
+PERGUNTA: Como a Arka sabe informações sobre a IPQ?
+RESPOSTA: A Arka utiliza uma base de conhecimentos organizada em perguntas e respostas. Quando recebe uma pergunta relacionada à empresa, pesquisa os trechos mais relevantes por similaridade semântica e fornece essas informações ao modelo de linguagem para elaborar uma resposta. Essa técnica é conhecida como RAG.
+FONTES: Implementação do sistema RAG da Arka.
+
+PERGUNTA: A Arka consegue responder perguntas que não são sobre a IPQ?
+RESPOSTA: Sim. A Arka possui um sistema de classificação que distingue perguntas relacionadas à IPQ de perguntas gerais. Para assuntos gerais, utiliza diretamente seu modelo de linguagem, enquanto perguntas sobre a empresa podem consultar a base de conhecimentos.
+FONTES: Implementação do roteamento de perguntas da Arka.
+
+PERGUNTA: A Arka funciona sem conexão com a internet?
+RESPOSTA: Os principais componentes da Arka, incluindo reconhecimento de fala, modelo de linguagem, busca por embeddings e síntese de voz, podem funcionar localmente após a instalação dos modelos necessários. Funções que dependam de serviços externos ou informações atualizadas podem exigir conectividade.
+FONTES: Arquitetura e implementação local da Arka.
+
 ======================================================================
 FONTES PÚBLICAS — CATÁLOGO PARA AUDITORIA E ATUALIZAÇÃO
 ======================================================================
