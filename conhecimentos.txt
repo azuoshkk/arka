@@ -1,0 +1,586 @@
+Arka BASE DE CONHECIMENTO — IPQ TECNOLOGIA
+Versão: 1.0
+Atualização das fontes: 10/11/2026
+Idioma: português brasileiro (pt-BR)
+Finalidade: consulta por RAG de uma assistente virtual sobre a IPQ Tecnologia.
+Escopo: informações públicas verificáveis, não documentação interna ou especificações confidenciais.
+
+COMO INTERPRETAR ESTE ARQUIVO
+- Cada bloco contém uma pergunta possível, uma resposta curta e códigos das fontes.
+- As respostas descrevem o que foi publicado até 10/11/2026; disponibilidade de recursos depende do projeto e da implantação.
+- Não apresentar capacidades anunciadas ou em teste como se estivessem necessariamente operacionais em toda instalação.
+- Se perguntarem sobre preços, contratos, versões, APIs, credenciais, IPs, processos internos ou dados pessoais, informar que não há informação pública suficiente e encaminhar aos canais oficiais.
+- É importante distinguir três coisas: Programa Arcanjo (ecossistema), Estação Arcanjo (estrutura de monitoramento) e robô Arcanjo (humanoide). Também distinguir a plataforma Tático de seus módulos.
+- Fontes F01 a F19 estão listadas no fim, com URLs.
+
+======================================================================
+1. IDENTIDADE, HISTÓRIA E NEGÓCIO
+======================================================================
+
+PERGUNTA: O que é a IPQ Tecnologia?
+RESPOSTA: A IPQ Tecnologia é uma empresa brasileira de tecnologia da informação e comunicação que desenvolve e integra soluções de software, infraestrutura e inteligência artificial, especialmente para segurança pública, segurança privada e operações de missão crítica.
+FONTES: F01, F02.
+
+PERGUNTA: Quem somos nós na IPQ?
+RESPOSTA: A IPQ é uma empresa de tecnologia sediada em Salvador, na Bahia, que combina desenvolvimento de software, integração de sistemas, redes, videomonitoramento e análise de dados para atender órgãos públicos e empresas privadas.
+FONTES: F01, F02, F03.
+
+PERGUNTA: O que a IPQ faz na prática?
+RESPOSTA: A IPQ planeja, implanta e integra soluções como plataformas de segurança, centrais de monitoramento, sistemas de emergência e despacho, câmeras inteligentes, infraestrutura de redes e armazenamento de dados. Os serviços variam conforme a necessidade de cada cliente.
+FONTES: F01, F04, F05, F06.
+
+PERGUNTA: Qual é a missão da IPQ?
+RESPOSTA: Segundo o site institucional, a missão da IPQ é oferecer soluções tecnológicas que agreguem valor aos negócios de clientes e parceiros, contribuindo também para inclusão social e desenvolvimento sustentável.
+FONTES: F01.
+
+PERGUNTA: Quando a IPQ foi fundada?
+RESPOSTA: O perfil institucional da IPQ no LinkedIn informa fundação em 1999. O site da empresa afirma ter mais de 25 anos de atuação. Esses dados se referem à história da organização e não devem ser confundidos com a data de abertura de uma pessoa jurídica específica.
+FONTES: F01, F03.
+
+PERGUNTA: Onde fica a sede da IPQ?
+RESPOSTA: A sede divulgada pela IPQ fica em Salvador, Bahia, no Edifício Metropolis Empresarial, Rua Dr. José Peroba, 275, sala 602, STIEP, CEP 41770-235. Em setembro de 2026 foi anunciado um projeto de nova sede, a IPQ Tower; não é seguro presumir que a mudança já foi concluída.
+FONTES: F02, F17.
+
+PERGUNTA: A IPQ atua fora da Bahia?
+RESPOSTA: Sim. A IPQ divulga presença e endereços em Salvador, Fortaleza, Recife, Rio de Janeiro, Porto Alegre, Brasília e Vila Velha, além de atuação em projetos no Brasil e no exterior.
+FONTES: F01, F02.
+
+PERGUNTA: A IPQ trabalha internacionalmente?
+RESPOSTA: Sim. A IPQ relata projetos internacionais, incluindo infraestrutura de redes, comunicação e segurança em empreendimentos residenciais e comerciais em Angola.
+FONTES: F01, F15.
+
+PERGUNTA: A IPQ atende somente governos?
+RESPOSTA: Não. A empresa atende o poder público e clientes privados, como condomínios, empresas, hospitais, centros logísticos, indústrias e grandes empreendimentos.
+FONTES: F01, F02, F04.
+
+PERGUNTA: Qual é o foco principal da IPQ?
+RESPOSTA: A IPQ concentra grande parte de suas soluções em segurança pública e privada, integração de dados, monitoramento, inteligência artificial e infraestrutura tecnológica para ambientes críticos.
+FONTES: F01, F04.
+
+PERGUNTA: A IPQ é uma empresa de software ou de infraestrutura?
+RESPOSTA: As duas coisas. A IPQ desenvolve plataformas e aplicações e também entrega redes, comunicação, câmeras, armazenamento, equipamentos e integração entre sistemas.
+FONTES: F01, F04, F05, F06.
+
+PERGUNTA: Que tecnologias a IPQ utiliza?
+RESPOSTA: Entre as tecnologias divulgadas estão inteligência artificial, analytics, big data, análise de vídeo, leitura automática de placas, reconhecimento facial, georreferenciamento, redes ópticas, sistemas de armazenamento e automação.
+FONTES: F01, F07, F08, F09, F05, F06.
+
+PERGUNTA: O que é TIC?
+RESPOSTA: TIC é a sigla para Tecnologias da Informação e Comunicação. Na IPQ, envolve software, redes, dispositivos, comunicação e processamento de dados integrados a soluções de negócio.
+FONTES: F01.
+
+PERGUNTA: O que é um sistema integrado?
+RESPOSTA: É um sistema que reúne tecnologias antes separadas, como câmeras, bancos de dados, controle de acesso, alertas e centros de operação, para facilitar o acompanhamento e a resposta a eventos.
+FONTES: F04, F07, F10.
+
+PERGUNTA: Qual é o site oficial da IPQ?
+RESPOSTA: O site oficial é https://www.ipq.com.br/.
+FONTES: F02.
+
+PERGUNTA: Como entrar em contato com a IPQ?
+RESPOSTA: O site oficial publica o número 0800 333 3200 e apresenta endereços das unidades. Para contato comercial ou institucional, consulte também https://www.ipq.com.br/.
+FONTES: F02.
+
+PERGUNTA: Quem é o CEO da IPQ?
+RESPOSTA: Em publicação da Federação das Indústrias do Estado da Bahia de 30 de outubro de 2026, Heitor Galvão é apresentado como CEO da IPQ Tecnologia. Outros textos o descrevem como diretor de operações. Como cargos podem mudar, é importante indicar a data da fonte.
+FONTES: F18, F16.
+
+PERGUNTA: Quem é Antônio Galvão?
+RESPOSTA: Reportagem de 17 de setembro de 2026 apresenta Antônio Galvão como presidente do grupo IPQ. Esta é uma referência pública datada, não uma confirmação permanente da estrutura de liderança.
+FONTES: F17.
+
+PERGUNTA: A IPQ tem programas para colaboradores?
+RESPOSTA: O site institucional menciona o Programa Viver Melhor, voltado ao bem-estar físico, mental e social, além de ações de capacitação, estágio, cursos e certificações para colaboradores.
+FONTES: F01.
+
+PERGUNTA: A IPQ possui políticas de ética e compliance?
+RESPOSTA: Sim. O site da IPQ divulga um programa de compliance com política anticorrupção, prevenção ao assédio, política de denúncias, política de privacidade e código de conduta e ética.
+FONTES: F19.
+
+======================================================================
+2. PROGRAMA ARCANJO, ESTAÇÃO ARCANJO E ROBÔ HUMANOIDE
+======================================================================
+
+PERGUNTA: O que é o Arcanjo?
+RESPOSTA: Arcanjo pode significar o Programa Arcanjo da IPQ, que integra soluções tecnológicas de segurança e monitoramento, ou o robô humanoide Arcanjo, apresentado como parte dessa iniciativa. É importante pedir contexto quando a pergunta não deixa claro qual deles se trata.
+FONTES: F11, F12, F16.
+
+PERGUNTA: O que é o Programa Arcanjo?
+RESPOSTA: O Programa Arcanjo é uma iniciativa da IPQ voltada a integrar segurança pública e privada por meio de estações de monitoramento, totens com câmeras, inteligência artificial, integração de dados e outras tecnologias de vigilância e apoio à decisão.
+FONTES: F11, F16.
+
+PERGUNTA: O Arcanjo é só um robô?
+RESPOSTA: Não. O robô humanoide é um dos elementos mais visíveis do projeto, mas o Programa Arcanjo também inclui estações de monitoramento, totens, câmeras e sistemas que integram informações de segurança.
+FONTES: F11, F16.
+
+PERGUNTA: O que é uma Estação Arcanjo?
+RESPOSTA: É uma estrutura de videomonitoramento associada ao Programa Arcanjo. As unidades divulgadas pela IPQ podem utilizar câmeras, inteligência artificial e reconhecimento facial para ampliar o monitoramento e apoiar a integração entre segurança privada e órgãos públicos.
+FONTES: F16, F20.
+
+PERGUNTA: O que são os totens do Arcanjo?
+RESPOSTA: São estruturas físicas de monitoramento com câmeras integradas que fazem parte do Programa Arcanjo, usadas para observar áreas estratégicas e gerar dados e alertas para operações de segurança.
+FONTES: F16.
+
+PERGUNTA: O que é o robô Arcanjo?
+RESPOSTA: O Arcanjo é um robô humanoide associado à IPQ Tecnologia, concebido para apoiar monitoramento e operações de segurança. Seu objetivo anunciado é coletar informações com sensores e visão computacional e enviá-las aos operadores, especialmente em contextos de risco.
+FONTES: F11, F12, F13.
+
+PERGUNTA: O robô Arcanjo também se chama T800?
+RESPOSTA: Sim. A reportagem do Conexão Ásia de setembro de 2026 identifica o robô humanoide Arcanjo como T800. T800 se refere ao modelo/plataforma de hardware citado; Arcanjo é o nome dado ao equipamento no projeto da IPQ.
+FONTES: F11.
+
+PERGUNTA: Quem fabricou o robô Arcanjo?
+RESPOSTA: O hardware do humanoide é de origem chinesa; a IPQ desenvolve ou integra software e inteligência para aplicações brasileiras. A colaboração tecnológica foi divulgada como parceria com a empresa chinesa EngineAI.
+FONTES: F11, F13, F18.
+
+PERGUNTA: A IPQ criou o robô do zero?
+RESPOSTA: Não é correto afirmar que todo o hardware do robô foi criado no Brasil. Fontes públicas descrevem uma plataforma física fabricada na China, combinada com software, inteligência e integrações desenvolvidos ou adaptados pela IPQ no Brasil.
+FONTES: F11, F13.
+
+PERGUNTA: Qual é a finalidade do robô Arcanjo?
+RESPOSTA: O propósito divulgado é apoiar equipes de segurança na observação de ambientes, patrulhamento e avaliação de áreas arriscadas, transmitindo dados que ajudem os profissionais a tomar decisões e a reduzir a própria exposição ao perigo.
+FONTES: F11, F12, F13.
+
+PERGUNTA: O Arcanjo pode reconhecer rostos?
+RESPOSTA: Reconhecimento facial é uma das capacidades anunciadas para a solução Arcanjo. Seu funcionamento efetivo depende das câmeras, softwares, integrações e condições de cada implantação.
+FONTES: F12, F13.
+
+PERGUNTA: O robô Arcanjo lê placas de veículos?
+RESPOSTA: A leitura de placas é uma das aplicações descritas publicamente para a solução robótica integrada às plataformas de monitoramento da IPQ. Não há informação pública suficiente para garantir a disponibilidade em toda configuração do equipamento.
+FONTES: F12, F13.
+
+PERGUNTA: O robô Arcanjo identifica armas?
+RESPOSTA: A identificação de objetos como armas foi apresentada como objetivo ou capacidade em desenvolvimento para apoiar a avaliação de riscos. Isso não significa que a detecção seja infalível ou que esteja homologada para qualquer cenário.
+FONTES: F11, F13.
+
+PERGUNTA: O robô Arcanjo substitui policiais ou vigilantes?
+RESPOSTA: Não é esse o objetivo anunciado. Ele é apresentado como ferramenta de apoio que pode coletar informações, transmitir imagens e ajudar equipes humanas em atividades potencialmente perigosas.
+FONTES: F13.
+
+PERGUNTA: O robô Arcanjo já atua autonomamente em todas as ruas?
+RESPOSTA: Não há evidência pública suficiente para afirmar isso. Em setembro de 2026, o projeto humanoide foi descrito como em fase de testes; demonstrações públicas não significam operação autônoma permanente.
+FONTES: F11.
+
+PERGUNTA: O Arcanjo pode ajudar em incêndios ou vazamentos de gás?
+RESPOSTA: Uma entrevista de setembro de 2026 mencionou essas situações como possibilidades futuras, sujeitas a adaptações tecnológicas. Não se deve tratá-las como capacidades operacionais já comprovadas.
+FONTES: F11.
+
+PERGUNTA: O Arcanjo é controlado por uma pessoa?
+RESPOSTA: As fontes descrevem transmissão de informações a operadores e centrais de monitoramento. Não há especificação pública suficiente para explicar os modos de controle, o grau de autonomia ou os procedimentos de operação de cada versão.
+FONTES: F11, F13.
+
+PERGUNTA: O Arcanjo utiliza inteligência artificial?
+RESPOSTA: Sim. O projeto Arcanjo é divulgado com integração de inteligência artificial, análise de imagens e dados para apoiar vigilância, reconhecimento e identificação de eventos.
+FONTES: F11, F16.
+
+PERGUNTA: Onde o Arcanjo foi apresentado publicamente?
+RESPOSTA: Em 2026 o humanoide apareceu em eventos em Salvador, incluindo a Corrida das Forças, e na 10ª ExpoJud, em Brasília, com demonstrações de aplicações relacionadas à segurança.
+FONTES: F12, F14.
+
+PERGUNTA: O Arcanjo se relaciona com o programa Câmera Interativa da Bahia?
+RESPOSTA: Sim. Publicações relatam a implantação de estações Arcanjo em empreendimentos participantes do programa Câmera Interativa da SSP-BA, que permite integrar câmeras privadas ao videomonitoramento estadual. A IPQ foi divulgada como participante Selo Ouro.
+FONTES: F16, F20.
+
+PERGUNTA: Onde existem Estações Arcanjo divulgadas publicamente?
+RESPOSTA: Uma implantação noticiada em setembro de 2026 envolveu unidades da Estação Arcanjo no Alphaville 1 e no Alphaville 2, em Salvador, como parte da integração com o programa Câmera Interativa.
+FONTES: F20.
+
+PERGUNTA: O que é a IPQ Tower e sua ligação com o Arcanjo?
+RESPOSTA: Em setembro de 2026 foi anunciada a IPQ Tower, nova sede planejada em Salvador, com áreas de pesquisa, robótica, inteligência artificial e engenharia de software. O projeto prevê receber um centro de monitoramento do Programa Arcanjo; a reportagem não confirma a conclusão da mudança.
+FONTES: F17.
+
+PERGUNTA: Como contratar o Arcanjo ou solicitar uma demonstração?
+RESPOSTA: Não há tabela pública consolidada de preços ou procedimento único de contratação nas fontes consultadas. O caminho adequado é buscar o atendimento comercial da IPQ pelo site oficial ou pelo telefone publicado.
+FONTES: F02.
+
+======================================================================
+3. PLATAFORMA TÁTICO — VISÃO GERAL
+======================================================================
+
+PERGUNTA: O que é o Tático?
+RESPOSTA: O Tático é uma plataforma de software da IPQ para apoio à segurança, monitoramento, inteligência e gestão de ocorrências. A empresa divulga módulos como Tático Inteligência, Tático Despacho e Tático Emergência, usados em diferentes contextos de segurança pública e institucional.
+FONTES: F04, F07, F08, F09, F14.
+
+PERGUNTA: O Tático é um robô?
+RESPOSTA: Não. Tático é uma plataforma de software e integração de informações. O Arcanjo é o nome de um programa de monitoramento e também de um robô humanoide apresentado pela IPQ.
+FONTES: F04, F11.
+
+PERGUNTA: Quais são os módulos do Tático?
+RESPOSTA: O site oficial destaca Tático Inteligência, para integração e análise de dados; Tático Despacho, para registro e gestão de ocorrências e viaturas; e Tático Emergência, para alertas, comunicação e acionamento em situações de risco.
+FONTES: F07, F08, F09.
+
+PERGUNTA: Como a plataforma Tático ajuda a segurança pública?
+RESPOSTA: Dependendo da implantação, o Tático pode reunir dados, receber alertas, apoiar investigações, registrar ocorrências, orientar o despacho de equipes e facilitar a comunicação entre centrais e viaturas.
+FONTES: F07, F08, F09.
+
+PERGUNTA: A plataforma Tático usa IA?
+RESPOSTA: A IPQ divulga uso de IA e análise de dados em soluções Tático, principalmente para cruzamento de informações, monitoramento e identificação de situações que mereçam atenção das equipes.
+FONTES: F07, F14, F21.
+
+PERGUNTA: O Tático serve apenas para a polícia?
+RESPOSTA: Não. Além de aplicações policiais, o Tático é divulgado para segurança de escolas, instituições do Judiciário, prédios, funcionários e outros ambientes que necessitam de monitoramento, resposta a emergências e integração de acessos.
+FONTES: F14, F21.
+
+PERGUNTA: Qual é a diferença entre Tático e Arcanjo?
+RESPOSTA: O Tático é uma plataforma de software para informação, inteligência, emergência e despacho. O Programa Arcanjo integra estruturas de monitoramento e recursos tecnológicos, incluindo o robô humanoide. As iniciativas podem ser complementares, mas não são sinônimos.
+FONTES: F04, F11, F16.
+
+PERGUNTA: O Tático integra câmeras com outros sistemas?
+RESPOSTA: Em casos de uso publicados, a plataforma Tático combina câmeras, reconhecimento facial, leitura de placas, controle de acesso, alertas e dados operacionais. A composição exata depende da instalação.
+FONTES: F07, F14, F21.
+
+PERGUNTA: O Tático oferece reconhecimento facial?
+RESPOSTA: O reconhecimento facial aparece entre as tecnologias integradas ao Tático e às soluções de segurança da IPQ. A disponibilidade e as regras de uso dependem do projeto e da legislação aplicável.
+FONTES: F07, F14, F21.
+
+PERGUNTA: O Tático funciona em escolas?
+RESPOSTA: Sim. O programa Candeias Escola Segura 360, divulgado em 2026, utilizou a plataforma Tático para integrar videomonitoramento, controle de acessos e funcionalidades de resposta a emergências em escolas municipais.
+FONTES: F21.
+
+PERGUNTA: O Tático funciona sem internet?
+RESPOSTA: As fontes públicas consultadas não apresentam uma especificação geral de funcionamento offline. Essa informação deve ser confirmada com a equipe técnica conforme versão, arquitetura e implantação.
+FONTES: F07, F08, F09.
+
+PERGUNTA: O Tático tem API para integração?
+RESPOSTA: Existem integrações divulgadas entre a plataforma e outros sistemas, mas documentação pública de APIs, endpoints, autenticação e condições de acesso não foi localizada nas fontes consultadas.
+FONTES: F07, F08, F09, F14.
+
+PERGUNTA: Quanto custa o Tático?
+RESPOSTA: Não foi localizada uma tabela oficial pública de preços. O valor depende de licenças, módulos, integrações, infraestrutura e contratação; a consulta deve ser feita diretamente à IPQ.
+FONTES: F02, F04.
+
+======================================================================
+4. TÁTICO INTELIGÊNCIA
+======================================================================
+
+PERGUNTA: O que é o Tático Inteligência?
+RESPOSTA: É o módulo da IPQ dedicado a cruzamento de dados, monitoramento e geração de alertas em tempo real, oferecendo suporte às equipes de inteligência e investigação.
+FONTES: F07.
+
+PERGUNTA: Que tipo de dados o Tático Inteligência cruza?
+RESPOSTA: A IPQ descreve integração de bases de dados, capturas de câmeras e informações relevantes para investigações e segurança pública. A disponibilidade de cada base depende das autorizações e integrações do cliente.
+FONTES: F07.
+
+PERGUNTA: O Tático Inteligência reconhece placas?
+RESPOSTA: O módulo divulga alertas sobre veículos roubados, furtados, investigados ou associados a pessoas procuradas e o uso de câmeras para leitura de placas, inclusive em viaturas.
+FONTES: F07.
+
+PERGUNTA: O que são alertas em tempo real no Tático Inteligência?
+RESPOSTA: São notificações geradas quando informações captadas ou cruzadas pelo sistema indicam uma ocorrência ou correspondência relevante, permitindo que operadores avaliem a situação.
+FONTES: F07.
+
+PERGUNTA: O Tático Inteligência ajuda em investigações?
+RESPOSTA: Sim. O site oficial descreve recursos de investigação como mapa de vínculos, cruzamento de dados e ferramentas para analisar relacionamentos entre pessoas, veículos e outras informações disponíveis legalmente.
+FONTES: F07.
+
+PERGUNTA: O que é mapa de vínculos?
+RESPOSTA: É uma representação de relações entre dados e entidades, útil para examinar conexões em atividades de análise e investigação. A IPQ lista esse recurso no Tático Inteligência.
+FONTES: F07.
+
+PERGUNTA: O Tático Inteligência usa reconhecimento facial?
+RESPOSTA: Sim. Reconhecimento facial e cruzamento com cadastros autorizados de pessoas procuradas são recursos publicamente descritos para o módulo.
+FONTES: F07.
+
+PERGUNTA: O Tático Inteligência pode prever crimes?
+RESPOSTA: O site oficial menciona análises de dados e padrões para apoiar antecipação de riscos. Isso deve ser entendido como apoio analítico à avaliação humana, não como certeza de que um crime acontecerá.
+FONTES: F07.
+
+PERGUNTA: O Tático Inteligência faz monitoramento de veículos em movimento?
+RESPOSTA: O material institucional cita câmeras veiculares que podem capturar placas enquanto a viatura se desloca, além de alertas relacionados a veículos com restrições ou interesse investigativo.
+FONTES: F07.
+
+======================================================================
+5. TÁTICO DESPACHO
+======================================================================
+
+PERGUNTA: O que é o Tático Despacho?
+RESPOSTA: É uma plataforma CAD (Computer-Aided Dispatch, ou despacho assistido por computador) da IPQ para registro, gerenciamento e despacho de ocorrências, com apoio a centrais de atendimento e viaturas.
+FONTES: F08.
+
+PERGUNTA: Como o Tático Despacho funciona?
+RESPOSTA: O operador registra uma ocorrência; o sistema ajuda a direcioná-la ao grupo de despacho, que acompanha localização, equipes e andamento do atendimento. Viaturas podem receber alertas e atualizar o status por aplicativo.
+FONTES: F08.
+
+PERGUNTA: O Tático Despacho atende chamadas de emergência?
+RESPOSTA: Foi projetado para apoiar fluxos de teleatendimento em centrais como 190 e 193, com cadastro de ocorrências e encaminhamento às equipes responsáveis. Não é correto afirmar que toda central utiliza esse produto.
+FONTES: F08.
+
+PERGUNTA: O Tático Despacho mostra viaturas no mapa?
+RESPOSTA: Sim. O site oficial descreve mapas com georreferenciamento de ocorrências, viaturas e câmeras, além de indicadores visuais de status.
+FONTES: F08.
+
+PERGUNTA: O que é despacho de viaturas?
+RESPOSTA: É o processo de designar uma ou mais viaturas ou equipes para responder a uma ocorrência. No Tático Despacho, o envio pode gerar alerta no dispositivo da viatura.
+FONTES: F08.
+
+PERGUNTA: Os policiais podem atualizar ocorrências pelo celular?
+RESPOSTA: O Tático Despacho divulga aplicativo móvel para viaturas, com atualização do status do atendimento e comunicação em tempo real com a central.
+FONTES: F08.
+
+PERGUNTA: O Tático Despacho registra o histórico das ocorrências?
+RESPOSTA: Sim. O site descreve uma cronologia do tratamento da ocorrência e atualizações de status durante o atendimento.
+FONTES: F08.
+
+PERGUNTA: O Tático Despacho produz estatísticas?
+RESPOSTA: A IPQ divulga visualizações em mapas, gráficos e estatísticas para apoiar a gestão operacional e o direcionamento de recursos.
+FONTES: F08.
+
+======================================================================
+6. TÁTICO EMERGÊNCIA
+======================================================================
+
+PERGUNTA: O que é o Tático Emergência?
+RESPOSTA: É uma solução de aplicativo da IPQ que permite acionar atendimento em situações de risco, compartilhar localização e manter comunicação com uma central por vídeo, áudio e mensagens, conforme a implantação.
+FONTES: F09.
+
+PERGUNTA: Para que serve o botão de pânico do Tático Emergência?
+RESPOSTA: Serve para iniciar um alerta que informa à central uma situação de emergência. O sistema pode compartilhar a localização e permitir comunicação direta com o atendente.
+FONTES: F09.
+
+PERGUNTA: O Tático Emergência envia vídeo ao vivo?
+RESPOSTA: Sim. O site oficial descreve videochamadas ou transmissão ao vivo entre o usuário e a central, além do armazenamento de registros para consulta posterior, quando configurado.
+FONTES: F09.
+
+PERGUNTA: O Tático Emergência tem chat?
+RESPOSTA: Sim. O aplicativo prevê mensagens de texto, áudio e vídeo, para permitir comunicação entre quem acionou o alerta e o atendente.
+FONTES: F09.
+
+PERGUNTA: Como o Tático Emergência ajuda mulheres com medida protetiva?
+RESPOSTA: A IPQ apresenta um caso de uso com acionamento rápido de ajuda, localização e comunicação com atendentes. Também descreve uma interface disfarçada que pode reduzir a visibilidade do acionamento para terceiros.
+FONTES: F09.
+
+PERGUNTA: O Tático Emergência pode ser utilizado em escolas?
+RESPOSTA: Sim. A IPQ cita escolas entre os cenários de uso e há divulgação de implantação associada ao projeto Candeias Escola Segura 360.
+FONTES: F09, F21.
+
+PERGUNTA: O Tático Emergência serve para outros ambientes?
+RESPOSTA: A empresa menciona usos potenciais em postos de saúde, ônibus, pontos de ônibus, viaturas, serviços de entrega e transporte por aplicativo, entre outros.
+FONTES: F09.
+
+PERGUNTA: O aplicativo Tático Emergência substitui ligar para a polícia?
+RESPOSTA: Não se deve presumir isso. Trata-se de um canal adicional dentro de implantações contratadas e integradas às centrais competentes. Em perigo imediato, utilize os canais oficiais de emergência disponíveis na sua localidade.
+FONTES: F09.
+
+PERGUNTA: Qual é a diferença entre Tático Emergência e Tático Despacho?
+RESPOSTA: O Tático Emergência é voltado ao pedido de ajuda e comunicação da pessoa com a central. O Tático Despacho é voltado ao registro, coordenação e encaminhamento operacional da ocorrência para as equipes de atendimento.
+FONTES: F08, F09.
+
+======================================================================
+7. VIDEOMONITORAMENTO, INFRAESTRUTURA E SETORES
+======================================================================
+
+PERGUNTA: A IPQ trabalha com videomonitoramento?
+RESPOSTA: Sim. A empresa projeta e integra sistemas de câmeras, monitoramento de áreas, centros de operação e análise de imagens para segurança pública e privada.
+FONTES: F06.
+
+PERGUNTA: O que é uma câmera LPR ou OCR de placas?
+RESPOSTA: É uma câmera com software capaz de captar e interpretar caracteres da placa de veículos para apoiar monitoramento e identificação. A IPQ divulga soluções de leitura de placas veiculares.
+FONTES: F06.
+
+PERGUNTA: O que é uma câmera PTZ?
+RESPOSTA: É uma câmera que permite controlar a orientação horizontal, vertical e zoom, ajudando a monitorar áreas extensas. A IPQ cita câmeras PTZ em suas soluções de segurança.
+FONTES: F06.
+
+PERGUNTA: O que é DAI no videomonitoramento?
+RESPOSTA: DAI significa Detecção Automática de Incidentes. A IPQ descreve o uso de análise de imagem para sinalizar eventos de interesse à equipe de monitoramento.
+FONTES: F06.
+
+PERGUNTA: O que é uma central de monitoramento?
+RESPOSTA: É um ambiente no qual operadores acompanham câmeras, alertas e eventos e coordenam respostas. Projetos divulgados pela IPQ utilizam videowalls, estações de operação e comunicação com equipes de campo.
+FONTES: F06, F22, F23.
+
+PERGUNTA: O que é videowall?
+RESPOSTA: É um conjunto de telas organizado para exibir vários fluxos de vídeo, mapas e informações operacionais em uma central de comando e controle.
+FONTES: F22, F23.
+
+PERGUNTA: A IPQ instala redes de fibra óptica?
+RESPOSTA: Sim. A empresa apresenta projetos de cabeamento estruturado, redes ópticas corporativas e de longa distância, incluindo implantações em rodovias e grandes empreendimentos.
+FONTES: F05, F15, F24.
+
+PERGUNTA: O que é GPON?
+RESPOSTA: GPON é uma tecnologia de rede óptica passiva usada para distribuir conectividade de alta capacidade por fibra. A IPQ a inclui entre as tecnologias que pode empregar em projetos de infraestrutura.
+FONTES: F05.
+
+PERGUNTA: O que é DWDM?
+RESPOSTA: DWDM é uma tecnologia que permite transmitir múltiplos canais de dados por fibra óptica, aumentando a capacidade de transporte de informações. A IPQ a cita em seus projetos de redes de longo alcance.
+FONTES: F05.
+
+PERGUNTA: A IPQ trabalha com data centers?
+RESPOSTA: Sim. O portfólio inclui redes, armazenamento, servidores, conectividade, redundância, energia de contingência, segurança e virtualização para ambientes de processamento de dados.
+FONTES: F10.
+
+PERGUNTA: A IPQ trabalha com segurança cibernética?
+RESPOSTA: O portfólio de infraestrutura da IPQ menciona firewalls, segmentação de redes, proteção de dados e preocupações com segurança cibernética; o escopo de cada serviço deve ser consultado oficialmente.
+FONTES: F10.
+
+PERGUNTA: A IPQ atua em hospitais?
+RESPOSTA: Sim. O site lista saúde digital, hospitais e ambientes conectados entre os setores atendidos, com serviços de conectividade e infraestrutura tecnológica.
+FONTES: F04, F05.
+
+PERGUNTA: A IPQ atua em condomínios?
+RESPOSTA: Sim. A empresa divulga segurança integrada, controle de acesso, videomonitoramento e redes de comunicação para condomínios e empreendimentos inteligentes.
+FONTES: F04, F15, F20.
+
+PERGUNTA: A IPQ atua em portos e aeroportos?
+RESPOSTA: O site apresenta portos, aeroportos e logística entre os setores de atuação. Há um case publicado de monitoramento portuário com câmeras, análise em tempo real e central de comando.
+FONTES: F04, F22.
+
+PERGUNTA: A IPQ atua em escolas e universidades?
+RESPOSTA: Sim. A IPQ publica aplicações de conectividade e segurança em instituições de ensino, incluindo iniciativas com controle de acesso, monitoramento e alertas em ambientes escolares.
+FONTES: F04, F23, F21.
+
+PERGUNTA: A IPQ faz automação predial?
+RESPOSTA: O portfólio inclui integração de controle de acesso, alarmes, conectividade e soluções tecnológicas para gestão de ambientes corporativos e residenciais, incluindo aplicações de automação.
+FONTES: F04.
+
+PERGUNTA: O que é reconhecimento facial?
+RESPOSTA: É uma tecnologia que analisa características de rostos em imagens para comparar ou verificar identidades em sistemas autorizados. A IPQ divulga esse recurso em soluções de segurança; resultados dependem de qualidade de imagem, configuração e uso legal adequado.
+FONTES: F06, F07.
+
+PERGUNTA: A IPQ pode identificar qualquer pessoa pelas câmeras?
+RESPOSTA: Não é correto prometer isso. Sistemas de reconhecimento dependem de imagem adequada, bases de referência autorizadas, configuração, regras de acesso e validação dos resultados por profissionais responsáveis.
+FONTES: F06, F07.
+
+======================================================================
+8. PROJETOS E CASES DIVULGADOS
+======================================================================
+
+PERGUNTA: Quais exemplos de projetos a IPQ já divulgou?
+RESPOSTA: O site da IPQ lista projetos de monitoramento portuário, escola segura, videomonitoramento no Ceará, infraestrutura para empreendimentos em Angola, fibra óptica em rodovias, conectividade corporativa e projetos em hotéis.
+FONTES: F25.
+
+PERGUNTA: O que é o projeto Escola Segura?
+RESPOSTA: É um modelo de segurança escolar integrada divulgado pela IPQ que utiliza câmeras, controle de acesso, leitura de placas e centrais de comando para apoiar a proteção das escolas e do entorno.
+FONTES: F23.
+
+PERGUNTA: O que é o Candeias Escola Segura 360?
+RESPOSTA: É um programa de segurança e gestão em escolas municipais de Candeias, Bahia, divulgado em 2026 com uso da plataforma Tático, videomonitoramento, alertas e recursos de identificação de acessos.
+FONTES: F21.
+
+PERGUNTA: Quantas escolas foram citadas no projeto de Candeias?
+RESPOSTA: Reportagem publicada em setembro de 2026 informou 51 escolas municipais, mais de 600 câmeras e uma rede com mais de 9 mil alunos. Esses são números atribuídos à época da reportagem, não necessariamente indicadores atuais.
+FONTES: F21.
+
+PERGUNTA: Como a IPQ atua na segurança do Ceará?
+RESPOSTA: O site relata um projeto de videomonitoramento integrado a uma plataforma chamada Agilis, com câmeras, sensores, infraestrutura de armazenamento e suporte às centrais de segurança em municípios cearenses.
+FONTES: F26.
+
+PERGUNTA: A IPQ desenvolveu o Agilis?
+RESPOSTA: O case oficial informa que o sistema de videomonitoramento foi integrado à plataforma Agilis, mas não esclarece de forma inequívoca a autoria integral do software. Não se deve atribuir toda a criação do Agilis à IPQ sem confirmação.
+FONTES: F26.
+
+PERGUNTA: O que a IPQ faz em monitoramento portuário?
+RESPOSTA: A empresa publicou um case de segurança de instalações portuárias envolvendo câmeras inteligentes, proteção do perímetro, alertas, monitoramento de áreas operacionais e centros de comando e controle.
+FONTES: F22.
+
+PERGUNTA: Que projeto a IPQ realizou em Angola?
+RESPOSTA: A IPQ relata implantação de infraestrutura tecnológica em quatro grandes empreendimentos de Angola — Belas Business Park, Arte Yetu, Noblesse e Morada dos Reis — totalizando 45 torres residenciais e comerciais, com redes, comunicação e sistemas de segurança.
+FONTES: F15.
+
+PERGUNTA: A IPQ fez projetos de rede em rodovias?
+RESPOSTA: Sim. O site inclui um case de implantação de rede óptica subterrânea para a Concessionária Bahia Norte, além de projetos de conectividade e backbone corporativo.
+FONTES: F25, F24.
+
+PERGUNTA: A IPQ já apresentou soluções ao Judiciário?
+RESPOSTA: Sim. Em outubro de 2026 a IPQ participou da ExpoJud, em Brasília, apresentando o robô Arcanjo, a plataforma Tático e tecnologias de monitoramento e segurança institucional.
+FONTES: F14.
+
+PERGUNTA: Como o Tático pode ajudar tribunais?
+RESPOSTA: Segundo divulgação na ExpoJud de 2026, a plataforma pode reunir controles de acesso, catracas, detectores de metais, reconhecimento facial e leitura de placas para apoiar segurança predial e institucional.
+FONTES: F14.
+
+PERGUNTA: A IPQ utiliza busca forense em vídeos?
+RESPOSTA: Em divulgação de outubro de 2026, a empresa apresentou busca em gravações por características visuais, como roupas, acessórios e objetos, para ajudar operadores a localizar eventos de interesse.
+FONTES: F14.
+
+PERGUNTA: O que a IPQ fez no Alphaville Salvador?
+RESPOSTA: Em setembro de 2026 foi noticiada a instalação de unidades da Estação Arcanjo no Alphaville 1 e Alphaville 2, associadas a monitoramento inteligente e ao programa Câmera Interativa da SSP-BA.
+FONTES: F20.
+
+======================================================================
+9. PERGUNTAS FREQUENTES, LIMITES E ESCLARECIMENTOS
+======================================================================
+
+PERGUNTA: A IPQ vende câmeras ou fornece soluções completas?
+RESPOSTA: A IPQ divulga projetos integrados que podem incluir equipamentos, software, implantação, conectividade e suporte. O fornecimento exato depende do contrato de cada projeto.
+FONTES: F01, F06, F10.
+
+PERGUNTA: A IPQ trabalha com inteligência artificial generativa?
+RESPOSTA: O site oficial comprova atuação com IA e analytics, sobretudo em análise de dados e imagens. As fontes consultadas não permitem afirmar que todo produto da empresa utilize modelos generativos de linguagem.
+FONTES: F01, F07.
+
+PERGUNTA: A IPQ tem um assistente virtual chamado Arka?
+RESPOSTA: Não foi encontrada documentação pública oficial suficiente para apresentar Arka como produto comercial consolidado da IPQ. Caso a pergunta se refira a um protótipo interno, essa informação deve ser cadastrada a partir de documentação validada pela empresa.
+FONTES: F01, F04.
+
+PERGUNTA: Posso consultar informações sigilosas da IPQ?
+RESPOSTA: Esta base contém somente dados públicos. Para informações internas, operacionais, contratuais ou pessoais, é necessário usar os canais e permissões oficiais da empresa.
+FONTES: F19.
+
+PERGUNTA: O sistema da IPQ garante 100% de segurança?
+RESPOSTA: Nenhuma tecnologia de segurança elimina todos os riscos. As soluções da IPQ são ferramentas para ampliar monitoramento, organização, análise e resposta, junto de procedimentos e profissionais especializados.
+FONTES: F01, F06.
+
+PERGUNTA: O reconhecimento facial tem margem de erro?
+RESPOSTA: Sim. Como outras técnicas de visão computacional, o reconhecimento facial pode apresentar erros e deve ser operado com validação, controles e observância à legislação aplicável. Não foi localizada taxa pública única de acerto válida para todos os projetos da IPQ.
+FONTES: F06, F07.
+
+PERGUNTA: Os sistemas da IPQ usam dados pessoais?
+RESPOSTA: Algumas soluções divulgadas utilizam imagens, reconhecimento facial e informações operacionais, que podem envolver dados pessoais. O tratamento deve observar a legislação aplicável e as políticas e contratos pertinentes; a IPQ publica uma política de privacidade.
+FONTES: F06, F19.
+
+PERGUNTA: Como obter uma proposta para contratar a IPQ?
+RESPOSTA: Entre em contato pelos canais oficiais da IPQ e informe o tipo de projeto desejado, como videomonitoramento, Tático, Arcanjo, redes ou infraestrutura. O site institucional é https://www.ipq.com.br/ e o telefone publicado é 0800 333 3200.
+FONTES: F02.
+
+PERGUNTA: Onde vejo vagas de emprego na IPQ?
+RESPOSTA: O site da IPQ inclui uma página Trabalhe Conosco, e a empresa também mantém perfil no LinkedIn. Para vagas atuais, é necessário verificar diretamente os canais oficiais, porque oportunidades mudam.
+FONTES: F02, F03.
+
+PERGUNTA: Como saber qual solução da IPQ atende meu problema?
+RESPOSTA: Para resposta a emergências e acionamento, conheça o Tático Emergência; para registro e despacho de ocorrências, o Tático Despacho; para monitoramento e cruzamento de dados, o Tático Inteligência; para infraestrutura, consulte as soluções de redes, armazenamento e câmeras. A escolha final exige avaliação do caso concreto.
+FONTES: F04, F07, F08, F09, F05, F06.
+
+PERGUNTA: Qual a diferença entre IA, analytics e big data na IPQ?
+RESPOSTA: IA é usada para apoiar reconhecimento e análise de padrões; analytics organiza e interpreta dados para decisões; big data corresponde à integração e ao processamento de grandes conjuntos de informações. Essas tecnologias aparecem no portfólio da IPQ.
+FONTES: F01, F07.
+
+PERGUNTA: Quais fontes a Arka usa para responder sobre a IPQ?
+RESPOSTA: Esta base foi construída com páginas públicas do site oficial da IPQ e publicações externas identificadas na seção FONTES. Informações internas só devem ser adicionadas depois de revisão e autorização.
+FONTES: F01, F02, F04.
+
+PERGUNTA: Quais são as informações ainda não confirmadas?
+RESPOSTA: Esta base não confirma preços, planos de licenciamento, lista completa de clientes, versões de software, autonomia real do robô, arquitetura interna, procedimentos técnicos, contratos, taxas de precisão ou andamento exato de projetos após as publicações citadas.
+FONTES: F01, F02, F04, F11.
+
+======================================================================
+FONTES PÚBLICAS — CATÁLOGO PARA AUDITORIA E ATUALIZAÇÃO
+======================================================================
+F01 | IPQ — Quem Somos | https://www.ipq.com.br/quem-somos/
+F02 | IPQ — Site institucional e endereços | https://www.ipq.com.br/
+F03 | IPQ — Perfil institucional no LinkedIn | https://br.linkedin.com/company/ipq-tecnologia-ltda
+F04 | IPQ — Áreas de atuação | https://www.ipq.com.br/atuacao/
+F05 | IPQ — Infraestrutura de redes pública e privada | https://www.ipq.com.br/solucoes/solucao-para-infraestrutura-de-rede-de-dados-publica-e-privada/
+F06 | IPQ — Videomonitoramento para segurança pública | https://www.ipq.com.br/solucoes/solucao-de-seguranca-publica/
+F07 | IPQ — Tático Inteligência | https://www.ipq.com.br/solucoes/tatico-inteligencia/
+F08 | IPQ — Tático Despacho | https://www.ipq.com.br/solucoes/tatico-despacho/
+F09 | IPQ — Tático Emergência | https://www.ipq.com.br/solucoes/tatico-emergencia/
+F10 | IPQ — Armazenamento, redes e data centers | https://www.ipq.com.br/solucoes/armazenamento-e-redes-de-dados-para-ambientes-diversificados/
+F11 | Conexão Ásia — Tecnologia chinesa e inteligência brasileira para proteger vidas (01/09/2026) | https://conexaoasia.com.br/tecnologia-chinesa-e-inteligencia-brasileira-para-proteger-vidas/
+F12 | BNews — Arcanjo na Corrida das Forças (18/08/2026) | https://www.bnews.com.br/noticias/geral/robo-humanoide-utilizado-para-auxiliar-forcas-de-seguranca-e-atracao-de-corrida-em-salvador.html
+F13 | R7 — Conheça o robô Arcanjo (08/10/2026) | https://noticias.r7.com/brasilia/balanco-geral-df/video/conheca-o-robo-arcanjo-criado-com-tecnologia-brasileira-para-auxiliar-forcas-de-seguranca-08102026/
+F14 | BNews — IPQ na ExpoJud (05/10/2026) | https://amdbdev.bnews.com.br/noticias/crime-e-justica-bahia/ipq-tecnologia-leva-robo-humanoide-e-solucoes-de-inteligencia-artificial-para-seguranca-do-judiciario-a-expojud.html
+F15 | IPQ — Case: 45 torres em Angola | https://www.ipq.com.br/cases/infraestrutura-de-rede-para-45-torres-residenciais-e-comerciais-em-angola/
+F16 | IPQ — Soluções de segurança em encontro empresarial (29/10/2026) | https://www.ipq.com.br/ipq-apresenta-solucoes-de-seguranca-em-encontro-empresarial/
+F17 | Let's Go Bahia — IPQ Tower (17/09/2026) | https://letsgobahia.com.br/noticia/tecnologia/ipq-tecnologia-compra-predio-da-porto-seguro-e-tera-nova-sede-em-salvador
+F18 | FIEB — Segurança pública e inteligência empresarial (30/10/2026) | https://www.fieb.org.br/noticias/seguranca-publica-e-inteligencia-empresarial-pautam-reuniao-do-conselho-de-novas-liderancas-industriais/
+F19 | IPQ — Compliance e políticas | https://www.ipq.com.br/compliance/
+F20 | Alô Alô Bahia — Estações Arcanjo no Alphaville Salvador (28/09/2026) | https://aloalobahia.com/noticias/2026/09/28/alphaville-implanta-videomonitoramento-inteligente-integrado-ao-programa-camera-interativa/
+F21 | Let's Go Bahia — Candeias Escola Segura 360 (01/09/2026) | https://letsgobahia.com.br/index.php/noticia/tecnologia/plataforma-usa-inteligencia-artificial-para-integrar-seguranca-e-gestao-em-escolas-de-candeias
+F22 | IPQ — Case: monitoramento portuário | https://www.ipq.com.br/cases/implantacao-de-projeto-de-monitoramento-portuario/
+F23 | IPQ — Case: escola segura | https://www.ipq.com.br/cases/implantacao-de-projeto-de-escola-segura/
+F24 | IPQ — Case: rede óptica subterrânea em rodovia | https://www.ipq.com.br/cases/implantacao-de-rede-optica-subterranea-em-sistema-rodoviario-estrategico/
+F25 | IPQ — Índice de cases | https://www.ipq.com.br/cases/
+F26 | IPQ — Case: videomonitoramento e Agilis no Ceará | https://www.ipq.com.br/cases/implantacao-e-operacionalizacao-de-solucao-de-seguranca-publica-no-estado-do-ceara/
+
+FIM DA BASE DE CONHECIMENTO

@@ -1,0 +1,18 @@
+Quem é você?
+Qual é a capital da Bahia?
+Como funciona Python?
+O que é inteligência artificial?
+O que é aprendizado de máquina?
+Qual é a principal vantagem da tecnologia da informação?
+Como a inteligência artificial é aplicada na indústria?
+O que é um robô humanoide?
+Como funciona o reconhecimento facial?
+O que é videomonitoramento?
+Como a IA pode ajudar na segurança pública?
+Qual é a diferença entre CPU e GPU?
+Como criar um ambiente virtual em Python?
+O que é uma API REST?
+Para que serve o protocolo MQTT?
+Como funciona um banco de dados SQL?
+Qual é a diferença entre IA generativa e aprendizado de máquina?
+Como posso organizar melhor meus estudos?

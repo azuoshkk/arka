@@ -1,0 +1,24 @@
+# Ambiente Python
+env/
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Modelos de IA
+modelos/
+models/
+*.onnx
+*.onnx.json
+
+# Arquivos gerados
+*.wav
+*.mp3
+*.jpg
+*.png
+*.log
+
+# Credenciais
+.env
+.env.*
+*.key
